@@ -24,6 +24,8 @@ const HERO_MOBILE = "https://raw.githubusercontent.com/Florinho34/Website-FL-Per
 const PORTRAIT_ROUND = "https://raw.githubusercontent.com/Florinho34/Website-FL-Personenmarke/main/public/images/portrait-round.png";
 const LOGO_SVG = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 533.93 60.95\"><g><g><path fill=\"currentColor\" d=\"M37.07.51v59.92h-9.33V24.48c0-2.31-1.8-4.11-4.11-4.11h-9.33v40.06H4.88V23.03c0-1.45-1.2-2.65-2.65-2.65H0v-4.88h4.88C4.88,8.3,9.16.51,20.12.51h16.95ZM27.74,15.49v-5.99c0-2.31-1.8-4.11-4.11-4.11h-2.48c-4.96,0-6.85,3.25-6.85,7.36,0,1.54,1.2,2.74,2.65,2.74h10.79Z\"/><path fill=\"currentColor\" d=\"M93.99,38.01c0,11.47-8.3,22.94-25.08,22.94s-25.08-11.47-25.08-22.94,8.39-23.03,25.08-23.03,25.08,11.47,25.08,23.03ZM84.32,37.92c0-9.07-5.14-18.15-15.41-18.15s-15.41,9.07-15.41,18.15,5.14,18.23,15.41,18.23,15.41-9.07,15.41-18.23Z\"/><path fill=\"currentColor\" d=\"M128.66,14.98v9.59c-11.47-4.88-18.58,1.28-18.58,13.35v22.51h-9.33V15.49h9.33v3.25c0,1.54,1.8,2.4,3,1.37,3.85-3.34,9.25-5.14,15.58-5.14Z\"/><path fill=\"currentColor\" d=\"M132.69,5.65c0-3.08,2.57-5.65,5.74-5.65s5.65,2.57,5.65,5.65-2.57,5.74-5.65,5.74-5.74-2.57-5.74-5.74ZM133.71,60.44V15.49h9.33v44.94h-9.33Z\"/><path fill=\"currentColor\" d=\"M189.78,30.48v29.96h-9.33v-2.65c0-1.63-1.97-2.57-3.17-1.46-3.6,3-8.13,4.62-13.01,4.62-9.25,0-14.55-5.05-14.55-12.07,0-9.25,8.82-18.58,29.45-18.92.68,0,1.28-.6,1.28-1.28,0-4.88-1.63-8.9-8.9-8.9-9.07,0-16.01,5.05-16.09,5.05l-3.08-3.68c.26-.26,7.1-6.16,19.18-6.16,13.18,0,18.23,5.39,18.23,15.49ZM180.45,38.01c0-1.8-1.46-3.25-3.25-3.08-12.84.77-18.06,6.59-18.06,12.84,0,4.2,3.08,7.28,8.13,7.28,7.19,0,13.18-6.42,13.18-17.04Z\"/><path fill=\"currentColor\" d=\"M239.52,29.45v30.99h-9.42v-31.07c0-5.74-3.85-8.47-9.07-8.47-7.28,0-13.27,6.42-13.27,17.04v22.51h-9.33V15.49h9.33v2.48c0,1.71,2.05,2.65,3.34,1.54,3.51-2.91,7.96-4.54,12.84-4.54,9.25,0,15.58,5.22,15.58,14.47Z\"/><path fill=\"currentColor\" d=\"M287.29,60.44V15.49h9.33v44.94h-9.33Z\"/><path fill=\"currentColor\" d=\"M346.69,29.45v30.99h-9.42v-31.07c0-5.74-3.85-8.47-9.07-8.47-7.28,0-13.27,6.42-13.27,17.04v22.51h-9.33V15.49h9.33v2.48c0,1.71,2.05,2.65,3.34,1.54,3.51-2.91,7.96-4.54,12.84-4.54,9.25,0,15.58,5.22,15.58,14.47Z\"/><path fill=\"currentColor\" d=\"M446.62,29.45v30.99h-9.42v-31.07c0-5.74-3.85-8.47-9.07-8.47-7.28,0-13.27,6.42-13.27,17.04v22.51h-9.33V15.49h9.33v2.48c0,1.71,2.05,2.65,3.34,1.54,3.51-2.91,7.96-4.54,12.84-4.54,9.25,0,15.58,5.22,15.58,14.47Z\"/><path fill=\"currentColor\" d=\"M495.07,49.99l3.08,3.77s-7.45,7.19-20.89,7.19c-16.27,0-24.31-11.47-24.31-23.03,0-15.32,11.64-22.94,23.28-22.94s23.29,7.62,23.29,22.94h-33.47c-1.97,0-3.42,1.71-3.17,3.6,1.11,7.62,5.99,14.04,14.98,14.04,10.53,0,17.21-5.56,17.21-5.56ZM462.97,33.13h23.03c2.14,0,3.68-2.14,3-4.2-2.31-6.68-7.45-9.16-12.5-9.16-5.99,0-12.07,3.42-13.52,13.35Z\"/><path fill=\"currentColor\" d=\"M533.93,14.98v9.59c-11.47-4.88-18.58,1.28-18.58,13.35v22.51h-9.33V15.49h9.33v3.25c0,1.54,1.8,2.4,3,1.37,3.85-3.34,9.25-5.14,15.58-5.14Z\"/><path fill=\"currentColor\" d=\"M287.29,51.97c-.25,2.05-1.92,3.59-4.06,3.59h-2.48c-4.96,0-6.85-3.25-6.85-7.36,0-.07.02-.14.02-.22h-.02V.51h-9.42v24.63h0v20.41c.04,7.17,4.32,14.89,15.24,14.89h7.57v-8.47Z\"/><path fill=\"currentColor\" d=\"M394.43,57.87c-.77-.59-1.73-.91-2.69-.91-.66,0-1.28.15-1.86.43-3.47,1.73-7.39,2.65-11.35,2.65-16.62,0-24.06-11.32-24.06-22.53s7.44-22.53,24.06-22.53c10.78,0,17.17,6.62,17.43,6.9l.48.51-3.38,3.56-.53-.53c-.23-.23-5.68-5.54-13.99-5.54-11.3,0-15.31,9.5-15.31,17.63s4.01,17.63,15.31,17.63c4.7,0,8.44-1.7,10.84-3.22v-9.21c0-1.52-1.21-2.75-2.69-2.75h-15.06v-5.46h26.14v24.57c0,.56-.64.87-1.08.53l-2.24-1.73Z\"/><circle fill=\"#FF4D00\" cx=\"291.95\" cy=\"5.69\" r=\"5.69\"/></g></g></svg>";
 const SAND_BG = "https://raw.githubusercontent.com/Florinho34/Website-FL-Personenmarke/main/public/images/endcta-sand.jpg";
+const CANDID_JUNGLE = "https://raw.githubusercontent.com/Florinho34/Website-FL-Personenmarke/main/public/images/candid-jungle.jpg";
+const BAND_LIFE = "https://raw.githubusercontent.com/Florinho34/Website-FL-Personenmarke/main/public/images/band-lifestyle.jpg";
 function LogoMark() {
   return <span className="fl-logo-svg" aria-hidden="true" dangerouslySetInnerHTML={{ __html: LOGO_SVG }} />;
 }
@@ -42,7 +44,9 @@ const GRAIN =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
 
 const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,800&display=swap');
+/* Vite-Defaults neutralisieren: Full-Width, dunkle Schrift, linksbündig. Font kommt aus index.html. */
+:root{color-scheme:light;}
+html,body,#root{margin:0; padding:0; max-width:none; width:auto; min-height:0; background:#F4F1EB; color:#1C1C1C; display:block; place-items:normal; text-align:left; font-family:'Inter Tight',system-ui,-apple-system,Segoe UI,sans-serif;}
 
 .fl-root {
   --creme:#F4F1EB; --sand:#D6CBBF; --warmgrau:#AFA79D;
@@ -97,10 +101,10 @@ const CSS = `
 .fl-hero-bg{position:absolute; inset:0; z-index:-2;}
 .fl-hero-bg img{width:100%; height:100%; object-fit:cover; object-position:72% center;}
 .fl-hero-overlay{position:absolute; inset:0; z-index:-1; background:linear-gradient(96deg, var(--creme) 6%, rgba(244,241,235,.74) 28%, rgba(244,241,235,.18) 50%, rgba(244,241,235,0) 66%);}
-.fl-hero-inner{width:100%; padding-top:120px; padding-bottom:64px;}
+.fl-hero-inner{width:100%; padding-top:120px; padding-bottom:110px;}
 .fl-hero-text{max-width:600px;}
 .fl-eyebrow{display:inline-block; font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--warmgrau); margin-bottom:26px;}
-.fl-h1{font-weight:800; letter-spacing:-.035em; line-height:.96; font-size:clamp(44px,6.4vw,82px);}
+.fl-h1{font-weight:800; letter-spacing:-.035em; line-height:.96; font-size:clamp(44px,6.4vw,82px); text-transform:uppercase;}
 .fl-h1 .fl-em{background:linear-gradient(100deg,#FF4D00 0%,#FF7A33 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
 .fl-sub{margin-top:28px; font-size:clamp(17px,1.5vw,20px); max-width:46ch; color:#3a3833;}
 .fl-cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:38px;}
@@ -138,13 +142,14 @@ const CSS = `
 .panel-dark > *{position:relative; z-index:1;}
 .panel-sand{background:var(--sand); box-shadow:0 32px 80px -55px rgba(28,28,28,.4);}
 .sec-eyebrow{font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--orange); margin-bottom:18px;}
-.h2{font-weight:800; letter-spacing:-.03em; line-height:1.02; font-size:clamp(30px,3.8vw,50px);}
+.h2{font-weight:800; letter-spacing:-.03em; line-height:1.02; font-size:clamp(30px,3.8vw,50px); text-transform:uppercase;}
 .lead{font-size:clamp(16px,1.4vw,19px); color:#3a3833; max-width:60ch; margin-top:22px;}
 .panel-dark .h2,.panel-dark .pullquote{color:var(--creme);}
 .panel-dark .lead{color:#cfc9bf;}
 
 /* philosophie */
 .philo .grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
+.sec.philo{margin-top:-64px; z-index:5;}
 .pullquote{font-size:clamp(22px,2.6vw,34px); font-weight:700; line-height:1.25; letter-spacing:-.02em; max-width:21ch; margin:0;}
 .qmark{color:var(--orange); font-size:64px; font-weight:800; line-height:.6; display:block; margin-bottom:18px;}
 
@@ -229,8 +234,10 @@ const CSS = `
 .endcta .fl-cta-row{justify-content:flex-start; margin-top:40px;}
 .about-sign{font-family:'Caveat',cursive; font-weight:600; font-size:clamp(36px,4.4vw,56px); color:var(--orange); line-height:1; margin-top:28px; transform:rotate(-3deg); transform-origin:left center;}
 .filter-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:54px; align-items:center;}
-.imgph.candid{aspect-ratio:4/5; border-radius:18px;}
-.imgph.band{aspect-ratio:21/9; border-radius:clamp(20px,3vw,36px);}
+.candid-img{width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:18px; display:block;}
+.band-img{width:100%; aspect-ratio:21/9; object-fit:cover; display:block; -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 24%); mask-image:linear-gradient(to bottom, transparent 0, #000 24%);}
+.sec.band{padding-bottom:0;}
+.sec.offer{margin-top:-30px; z-index:4;}
 
 /* footer */
 .fl-foot{background:var(--ink); color:#cfc9bf; padding:64px 0 34px; position:relative; z-index:2; border-radius:clamp(26px,3.5vw,46px) clamp(26px,3.5vw,46px) 0 0; margin-top:30px;}
@@ -253,22 +260,25 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-of
   .fl-menu a{font-size:20px;}
   .fl-burger{display:block; z-index:60;}
   .fl-hero .grid,.philo .grid,.about .grid,.filter-grid{grid-template-columns:1fr; gap:32px;}
-  .fl-hero{min-height:108vh; min-height:108svh; align-items:flex-start;}
-  .fl-hero-inner{padding-top:10px; padding-bottom:36px;}
-  .fl-hero-text{max-width:none;}
-  .fl-hero-overlay{display:block; background:linear-gradient(to bottom, var(--creme) 4%, rgba(244,241,235,.92) 28%, rgba(244,241,235,.42) 46%, rgba(244,241,235,0) 60%);}
+  .fl-hero{min-height:128vw; max-height:740px; align-items:flex-start;}
+  .fl-hero-inner{padding-top:90px; padding-bottom:30px;}
+  .fl-hero-text{max-width:none; text-align:center;}
+  .fl-hero-overlay{display:block; background:linear-gradient(to bottom, var(--creme) 4%, rgba(244,241,235,.9) 30%, rgba(244,241,235,.4) 48%, rgba(244,241,235,0) 64%);}
   .fl-hero-bg{position:absolute; inset:0;}
-  .fl-hero-bg img{height:100%; object-position:center bottom; transform-origin:50% 0%; transform:scale(1.55);}
+  .fl-hero-bg img{height:100%; object-fit:cover; object-position:center 28%; transform:none;}
   .fl-h1{font-size:clamp(36px,10.5vw,52px);}
-  .fl-sub{font-size:16px; margin-top:20px;}
+  .fl-sub{font-size:16px; margin:20px auto 0;}
   .fl-cta-row{margin-top:26px;}
+  .fl-hero .fl-cta-row{justify-content:center;}
   .imgph.hero{max-width:420px;}
   .cards{grid-template-columns:1fr;}
   .card{border-color:rgba(255,77,0,.55); box-shadow:0 0 0 1px rgba(255,77,0,.16), 0 16px 38px -22px rgba(255,77,0,.55);}
   .card.feat{border-color:rgba(255,77,0,.7);}
-  .fl-hero{padding:96px 0 44px;}
+  .fl-hero{padding:0;}
   .sec{padding:34px 0;}
-  .endcta{padding:88px 0; min-height:96svh; align-items:flex-start; text-align:left;}
+  .endcta{padding:88px 0; min-height:96svh; align-items:flex-start; text-align:center;}
+  .endcta .fl-cta-row{justify-content:center;}
+  .endcta .lead{margin-left:auto; margin-right:auto;}
   .endcta-overlay{background:linear-gradient(to bottom, var(--creme) 5%, rgba(244,241,235,.94) 30%, rgba(244,241,235,.48) 46%, rgba(244,241,235,0) 60%);}
   .endcta-bg img{object-position:center 55%;}
   .endcta .lead{font-size:15.5px;}
@@ -379,14 +389,14 @@ const Rot = ({ cls }) => (
 );
 
 const FAQS = [
-  { q: "Ist mein Ansatz für jeden geeignet?", a: "Nein, absolut nicht. Mein Ansatz ist nur für die, die NICHT von jemandem oder etwas gerettet werden wollen. Du musst bereit sein, Kraft aufzubringen, Emotionen zuzulassen und zu verstehen: Retten kann dich niemand außer dir selbst – dann funktioniert meine Methode für dich." },
-  { q: "Wieso sollte genau dieser Weg bei dir funktionieren?", a: "Weil es nicht darum geht, jemand anderes zu werden oder dein Leben komplett umzukrempeln. Mein Ansatz beginnt viel früher: bei der Art, wie du denkst, bewertest und mit dem umgehst, was dir im Alltag begegnet. Veränderung entsteht nicht durch Motivation, sondern durch Klarheit – und genau dort beginnt dieser Weg." },
-  { q: "Wann kann ich erste Veränderungen spüren?", a: "Oft früher als erwartet – nicht als plötzliches Glück, sondern als das Gefühl, endlich klar zu sehen. Viele spüren schon nach kurzer Zeit, warum sich ihr Leben so anfühlt, wie es sich anfühlt. Das ist kein Sprint und keine Diät, sondern nachhaltige Veränderung ohne Jojo-Effekt." },
+  { q: "Ist mein Ansatz für jeden geeignet?", a: "Nein, absolut nicht. Mein Ansatz ist nur für die, die NICHT von jemandem oder etwas gerettet werden wollen. Du musst bereit sein, Kraft aufzubringen, Emotionen zuzulassen und zu verstehen: Retten kann dich niemand außer dir selbst, dann funktioniert meine Methode für dich." },
+  { q: "Wieso sollte genau dieser Weg bei dir funktionieren?", a: "Weil es nicht darum geht, jemand anderes zu werden oder dein Leben komplett umzukrempeln. Mein Ansatz beginnt viel früher: bei der Art, wie du denkst, bewertest und mit dem umgehst, was dir im Alltag begegnet. Veränderung entsteht nicht durch Motivation, sondern durch Klarheit, und genau dort beginnt dieser Weg." },
+  { q: "Wann kann ich erste Veränderungen spüren?", a: "Oft früher als erwartet, nicht als plötzliches Glück, sondern als das Gefühl, endlich klar zu sehen. Viele spüren schon nach kurzer Zeit, warum sich ihr Leben so anfühlt, wie es sich anfühlt. Das ist kein Sprint und keine Diät, sondern nachhaltige Veränderung ohne Jojo-Effekt." },
 ];
 
 const STEPS = [
-  { n: "01", t: "Den Überlebensmodus wahrnehmen", d: "Du lernst zu erkennen, wann du funktionierst statt bewusst zu handeln – und was das in dir auslöst." },
-  { n: "02", t: "Die inneren Mechanismen verstehen", d: "Du verstehst, wie automatische Gedanken und Bewertungen entstehen – und warum sie dein Erleben bestimmen." },
+  { n: "01", t: "Den Überlebensmodus wahrnehmen", d: "Du lernst zu erkennen, wann du funktionierst statt bewusst zu handeln, und was das in dir auslöst." },
+  { n: "02", t: "Die inneren Mechanismen verstehen", d: "Du verstehst, wie automatische Gedanken und Bewertungen entstehen, und warum sie dein Erleben bestimmen." },
   { n: "03", t: "Deine Gedanken-Leitplanken erkennen", d: "Du lernst, den mentalen Autopiloten rechtzeitig zu stoppen, bevor er Druck, Sorgen oder Angst verursacht." },
   { n: "04", t: "Zurück ins echte Leben", d: "Indem du die versteckten Glücksräuber im Alltag erkennst und anders mit ihnen umgehst, erschaffst du dir nachhaltig ein glückliches Leben." },
 ];
@@ -456,11 +466,11 @@ export default function Startseite() {
         <div className="fl-hero-overlay" aria-hidden="true" />
         <div className="fl-wrap fl-hero-inner">
           <div className="fl-hero-text">
-            <span className="fl-eyebrow reveal">Du hast dein Leben im Griff – aber lebst du es wirklich?</span>
+            <span className="fl-eyebrow reveal">Du hast dein Leben im Griff, aber lebst du es wirklich?</span>
             <h1 className="fl-h1 reveal d1">
               Aufhören zu überleben.<br />Anfangen zu <span className="fl-em">leben</span>.
             </h1>
-            <p className="fl-sub reveal d2">Ein erfülltes Leben scheitert selten an den Umständen – sondern daran, dass wir nie gelernt haben, ehrlich mit uns selbst umzugehen.</p>
+            <p className="fl-sub reveal d2">Ein erfülltes Leben scheitert selten an den Umständen, sondern daran, dass wir nie gelernt haben, ehrlich mit uns selbst umzugehen.</p>
             <div className="fl-cta-row reveal d3">
               <CtaButton href={TEST_URL} external>Mach den Persönlichkeitstest <Arrow /></CtaButton>
               <a className="btn btn-ghost" href="#philosophie">Meine Philosophie</a>
@@ -480,8 +490,8 @@ export default function Startseite() {
               </div>
               <div>
                 <div className="sec-eyebrow">Meine Philosophie</div>
-                <h2 className="h2">Ein ehrlicher Blick – auf dich, die Welt und das <span className="fl-em">Leben</span> selbst.</h2>
-                <p className="lead">Irgendwann kommt bei den meisten der Punkt, an dem sie merken: Da muss noch mehr sein. Dann hast du die Wahl – auf die Suche gehen oder dich ins Durchschnittsleben fügen. Meine Arbeit ist für alle, die wirklich etwas ändern wollen.</p>
+                <h2 className="h2">Ein ehrlicher Blick auf dich, die Welt und das <span className="fl-em">Leben</span> selbst.</h2>
+                <p className="lead">Irgendwann kommt bei den meisten der Punkt, an dem sie merken: Da muss noch mehr sein. Dann hast du die Wahl, auf die Suche gehen oder dich ins Durchschnittsleben fügen. Meine Arbeit ist für alle, die wirklich etwas ändern wollen.</p>
                 <div className="fl-cta-row" style={{ marginTop: 30 }}>
                   <CtaButton href="#philosophie">Das ist meine Philosophie <Arrow /></CtaButton>
                 </div>
@@ -496,12 +506,12 @@ export default function Startseite() {
         <div className="fl-wrap filter-grid">
           <div className="reveal">
             <div className="sec-eyebrow">Ehrlich gesagt</div>
-            <h2 className="h2">Nicht für jeden gut – aber für die <span className="fl-em">Richtigen</span> perfekt.</h2>
-            <p className="lead">Ich biete keine Universallösung. Mein Ansatz ist für Menschen, die spüren, dass da mehr möglich ist – und bereit sind, ihr Denken und ihre Haltung ehrlich zu hinterfragen.</p>
+            <h2 className="h2">Nicht für jeden gut, aber für die <span className="fl-em">Richtigen</span> perfekt.</h2>
+            <p className="lead">Ich biete keine Universallösung. Mein Ansatz ist für Menschen, die spüren, dass da mehr möglich ist, und bereit sind, ihr Denken und ihre Haltung ehrlich zu hinterfragen.</p>
             <p className="filter-no">Du willst an alten Mustern festhalten und nur „ein bisschen" verändern? Dann kann ich dir leider nicht weiterhelfen.</p>
           </div>
           <div className="reveal d1">
-            <div className="imgph candid" data-img="IMG-CANDID" data-size="Hochformat 4:5">Foto-Platzhalter<small>Candid / Lifestyle · Hochformat (4:5)</small></div>
+            <img className="candid-img" src={CANDID_JUNGLE} alt="Florian Lingner" loading="lazy" />
           </div>
         </div>
       </section>
@@ -525,7 +535,7 @@ export default function Startseite() {
                 </div>
                 <div className="face face-back" aria-hidden={!flipped}>
                   <h3>Worum es hier wirklich geht</h3>
-                  <p className="truth">Glück scheitert selten an der Welt – sondern daran, dass wir nie gelernt haben, wie wir innerlich mit ihr umgehen.</p>
+                  <p className="truth">Glück scheitert selten an der Welt, sondern daran, dass wir nie gelernt haben, wie wir innerlich mit ihr umgehen.</p>
                   <button className="flipbtn" onClick={() => setFlipped(false)}>
                     Zurück <Rot cls="ic" />
                   </button>
@@ -560,7 +570,7 @@ export default function Startseite() {
       {/* LIFESTYLE-BAND */}
       <section className="sec band">
         <div className="fl-wrap reveal">
-          <div className="imgph band" data-img="IMG-BAND" data-size="Querformat ~21:9">Foto-Platzhalter — breites Lifestyle-Bild<small>Querformat (~21:9), z. B. Strandlauf / Sand</small></div>
+          <img className="band-img" src={BAND_LIFE} alt="Florian Lingner am Strand" loading="lazy" />
         </div>
       </section>
 
@@ -580,13 +590,13 @@ export default function Startseite() {
               <div className="card" id="kostenloses">
                 <span className="tag">Kostenlos</span>
                 <h3>Masterclass</h3>
-                <p>Ein kostenloses Video, in dem ich so einfach wie möglich erkläre, was bei den meisten der Kern der Unzufriedenheit ist. Dein erster Schritt – einfach anmelden.</p>
+                <p>Ein kostenloses Video, in dem ich so einfach wie möglich erkläre, was bei den meisten der Kern der Unzufriedenheit ist. Dein erster Schritt, einfach anmelden.</p>
                 <a href="#kostenloses">Zur Masterclass <span className="arr">→</span></a>
               </div>
               <div className="card">
                 <span className="tag">1:1</span>
                 <h3>Mentoring</h3>
-                <p>Und nein, ich coache nicht. Ich sage dir nicht, was du tun sollst – ich begleite dich, rege neue Perspektiven an, und du wächst organisch.</p>
+                <p>Und nein, ich coache nicht. Ich sage dir nicht, was du tun sollst, ich begleite dich, rege neue Perspektiven an, und du wächst organisch.</p>
                 <a href="#mentoring">Das 1:1 Mentoring <span className="arr">→</span></a>
               </div>
             </div>
@@ -603,8 +613,8 @@ export default function Startseite() {
           <div className="reveal d1">
             <div className="sec-eyebrow">Über mich</div>
             <h2 className="h2">Hi, ich bin <span className="fl-em">Florian</span>.</h2>
-            <p>Einen großen Teil meines Lebens habe ich ziemlich konsequent gegen mich selbst gelebt – Scheitern, Zweifel und innere Leere waren keine kurzen Phasen, sondern ein Dauerzustand. Nicht, weil mein Leben objektiv am Boden war, sondern weil ich nie gelernt hatte, ehrlich mit mir umzugehen.</p>
-            <p>Der Wendepunkt kam nicht durch Bücher, Gurus oder neue Konzepte – sondern durch die Bereitschaft, meine eigenen Gedanken und Reaktionen wirklich wahrzunehmen. Ohne Ausreden, ohne Selbstbetrug.</p>
+            <p>Einen großen Teil meines Lebens habe ich ziemlich konsequent gegen mich selbst gelebt, Scheitern, Zweifel und innere Leere waren keine kurzen Phasen, sondern ein Dauerzustand. Nicht, weil mein Leben objektiv am Boden war, sondern weil ich nie gelernt hatte, ehrlich mit mir umzugehen.</p>
+            <p>Der Wendepunkt kam nicht durch Bücher, Gurus oder neue Konzepte, sondern durch die Bereitschaft, meine eigenen Gedanken und Reaktionen wirklich wahrzunehmen. Ohne Ausreden, ohne Selbstbetrug.</p>
             <p>Heute begleite ich Menschen, die spüren, dass ihr Leben mehr Tiefe haben könnte, aber nicht wissen, wo sie ansetzen sollen.</p>
             <p className="about-sign" aria-hidden="true">Florian</p>
           </div>
