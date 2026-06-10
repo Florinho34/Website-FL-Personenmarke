@@ -47,6 +47,7 @@ const CSS = `
 /* Vite-Defaults neutralisieren: Full-Width, dunkle Schrift, linksbündig. Font kommt aus index.html. */
 :root{color-scheme:light;}
 html,body,#root{margin:0; padding:0; max-width:none; width:auto; min-height:0; background:#F4F1EB; color:#1C1C1C; display:block; place-items:normal; text-align:left; font-family:'Inter Tight',system-ui,-apple-system,Segoe UI,sans-serif;}
+html{scroll-behavior:smooth; scroll-padding-top:90px;}
 
 .fl-root {
   --creme:#F4F1EB; --sand:#D6CBBF; --warmgrau:#AFA79D;
@@ -107,8 +108,9 @@ html,body,#root{margin:0; padding:0; max-width:none; width:auto; min-height:0; b
 .fl-h1{font-weight:800; letter-spacing:-.035em; line-height:.96; font-size:clamp(44px,6.4vw,82px); text-transform:uppercase; color:var(--ink);}
 .fl-h1 .fl-em{background:linear-gradient(100deg,#FF4D00 0%,#FF7A33 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; padding-right:.14em; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
 .fl-rotator{display:inline-block; color:var(--orange); font-style:italic; padding-right:.12em; animation:rotIn .5s ease;}
+.fl-h1-q{font-size:67px;}
 @keyframes rotIn{from{opacity:0; transform:translateY(.22em);}to{opacity:1; transform:none;}}
-.fl-sub{margin-top:28px; font-size:clamp(17px,1.5vw,20px); max-width:46ch; color:#3a3833;}
+.fl-sub{margin-top:28px; font-size:18px; max-width:46ch; color:#595854;}
 .fl-cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:38px;}
 .btn{display:inline-flex; align-items:center; gap:9px; text-decoration:none; font-weight:600; font-size:16px; border-radius:100px; padding:15px 26px; cursor:pointer; border:0; transition:transform .2s ease, background .25s ease, color .25s ease;}
 .btn-primary{background:var(--orange); color:var(--creme);}
@@ -187,6 +189,7 @@ html,body,#root{margin:0; padding:0; max-width:none; width:auto; min-height:0; b
 /* schritte */
 .steps-grid{display:grid; grid-template-columns:auto 1fr; gap:0 40px; margin-top:50px;}
 .steps-line{position:relative; width:2px; background:var(--sand); border-radius:2px;}
+.fl-sub--m{display:none;}
 .steps-line span{position:absolute; top:0; left:0; width:100%; background:var(--orange); height:0; transition:height 1.4s ease;}
 .steps-line.in span{height:100%;}
 .steps-list{display:flex; flex-direction:column; gap:46px;}
@@ -257,15 +260,20 @@ html,body,#root{margin:0; padding:0; max-width:none; width:auto; min-height:0; b
 a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-offset:3px; border-radius:4px;}
 
 @media (max-width:880px){
-  .fl-menu{position:fixed; inset:0 0 0 auto; width:min(80vw,320px); background:var(--creme); flex-direction:column; align-items:flex-start; justify-content:center; gap:26px; padding:0 36px; transform:translateX(100%); transition:transform .35s ease; box-shadow:-20px 0 60px rgba(0,0,0,.12);}
-  .fl-menu.open{transform:none;}
-  .fl-menu a{font-size:20px;}
-  .fl-burger{display:block; z-index:60;}
+  .fl-nav.menu-open{background:transparent!important; backdrop-filter:none!important; -webkit-backdrop-filter:none!important; box-shadow:none!important;}
+  .fl-menu{position:fixed; inset:0; width:100%; height:100%; background:var(--creme); flex-direction:column; align-items:center; justify-content:center; gap:30px; padding:0 36px; opacity:0; visibility:hidden; transform:translateY(-6px); transition:opacity .3s ease, transform .3s ease, visibility .3s; z-index:45; box-shadow:none;}
+  .fl-menu.open{opacity:1; visibility:visible; transform:none;}
+  .fl-menu a{font-size:24px;}
+  .fl-burger{display:block; z-index:60; position:relative;}
   .fl-hero .grid,.philo .grid,.about .grid,.filter-grid{grid-template-columns:1fr; gap:32px;}
-  .fl-hero{min-height:180vw; max-height:900px; align-items:flex-start;}
+  .fl-hero{min-height:192vw; max-height:920px; align-items:flex-start;}
   .fl-eyebrow{display:none;}
-  .fl-hero-inner{padding-top:64px; padding-bottom:64px;}
+  .fl-hero-inner{padding-top:94px; padding-bottom:84px;}
   .fl-hero-text{max-width:none; text-align:center;}
+  .fl-h1-q{font-size:inherit;}
+  .fl-sub--d{display:none;}
+  .fl-sub--m{display:block;}
+  .pullquote{font-style:italic; font-size:clamp(19px,5.3vw,23px);}
   .fl-hero-overlay{display:block; background:linear-gradient(to bottom, var(--creme) 4%, rgba(244,241,235,.9) 26%, rgba(244,241,235,.36) 42%, rgba(244,241,235,0) 56%);}
   .fl-hero-bg{position:absolute; inset:0;}
   .fl-hero-bg img{height:100%; object-fit:cover; object-position:center top; transform:none;}
@@ -288,7 +296,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-of
   .imgph.band{aspect-ratio:4/3;}
   .panel{padding:34px 22px;}
   .philo .panel{padding-top:5px;}
-  .sec.offer{margin-top:-44px;}
+  .sec.offer{margin-top:-54px;}
+  .steps-line span{height:var(--steps-fill,0%)!important; transition:height .12s linear;}
   .flipwrap{margin-top:26px;}
   /* Flip ohne 3D auf schmalen Screens: saubere Überblendung, kein Durchbluten */
   .flipcard{transform:none!important; transition:none;}
@@ -416,7 +425,7 @@ function Rotator() {
     const t = setInterval(() => setI((v) => (v + 1) % ROTATOR.length), 2100);
     return () => clearInterval(t);
   }, []);
-  return <span className="fl-rotator" key={i}>{ROTATOR[i]}</span>;
+  return <span className="fl-rotator" key={i}>{ROTATOR[i]},</span>;
 }
 
 export default function Startseite() {
@@ -448,6 +457,27 @@ export default function Startseite() {
     return () => io.disconnect();
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menu ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menu]);
+
+  useEffect(() => {
+    const rail = document.querySelector(".fl-root .steps-line");
+    if (!rail) return;
+    const onScroll = () => {
+      const r = rail.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      let p = (vh * 0.78 - r.top) / (r.height || 1);
+      p = Math.max(0, Math.min(1, p));
+      rail.style.setProperty("--steps-fill", (p * 100).toFixed(1) + "%");
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
+  }, []);
+
   const nav = [
     { label: "Philosophie", href: "#philosophie" },
     { label: "Mentoring", href: "#mentoring" },
@@ -460,7 +490,7 @@ export default function Startseite() {
       <style>{CSS}</style>
 
       {/* NAV */}
-      <nav className={"fl-nav" + (scrolled ? " scrolled" : "")}>
+      <nav className={"fl-nav" + (scrolled ? " scrolled" : "") + (menu ? " menu-open" : "")}>
         <div className="fl-wrap">
           <a className="fl-logo" href="#top" aria-label="florian lingner"><LogoMark /></a>
           <div className={"fl-menu" + (menu ? " open" : "")}>
@@ -484,12 +514,13 @@ export default function Startseite() {
           <div className="fl-hero-text">
             <span className="fl-eyebrow reveal">Du hast dein Leben im Griff, aber lebst du es wirklich?</span>
             <h1 className="fl-h1 reveal d1">
-              <Rotator /><br />Aber wer bist du wirklich?
+              <Rotator /><br /><span className="fl-h1-q">Aber wer bist du wirklich?</span>
             </h1>
-            <p className="fl-sub reveal d2">Niemand hat uns beigebracht, eine Denkweise anzunehmen, die uns glücklich macht. Und auf einmal hängen wir jahrelang wie gelähmt im Alltag fest, ohne an der Entfaltung unseres wahrhaftigen Selbst zu arbeiten. Doch wenn du willst, kann sich das von jetzt auf gleich ändern. Meine Aufgabe ist es, dich bei dieser Reise zu unterstützen.</p>
+            <p className="fl-sub fl-sub--d reveal d2">Niemand hat uns beigebracht, eine Denkweise anzunehmen, die uns glücklich macht. Und auf einmal hängen wir jahrelang wie gelähmt im Alltag fest, ohne an der Entfaltung unseres wahrhaftigen Selbst zu arbeiten. Doch wenn du willst, kann sich das von jetzt auf gleich ändern. Meine Aufgabe ist es, dich bei dieser Reise zu unterstützen.</p>
+            <p className="fl-sub fl-sub--m reveal d2">Niemand hat uns beigebracht, eine Denkweise anzunehmen, die uns glücklich macht. Wir hängen im Alltag fest, ohne an der Entfaltung unseres wahrhaftigen Selbst zu arbeiten. Lass uns das ändern: Meine Aufgabe ist es, dich bei dieser transformativen Reise zu unterstützen.</p>
             <div className="fl-cta-row reveal d3">
               <CtaButton href={TEST_URL} external>Mach den Persönlichkeitstest <Arrow /></CtaButton>
-              <a className="btn btn-ghost" href="#philosophie">Meine Philosophie</a>
+              <a className="btn btn-ghost" href="#mentoring">Mein Angebot</a>
             </div>
           </div>
         </div>
@@ -552,7 +583,7 @@ export default function Startseite() {
                 </div>
                 <div className="face face-back" aria-hidden={!flipped}>
                   <h3>Worum es hier wirklich geht</h3>
-                  <p className="truth">Glück scheitert selten an der Welt, sondern daran, dass wir nie gelernt haben, wie wir innerlich mit ihr umgehen.</p>
+                  <p className="truth">Glück scheitert selten an der Welt, sondern daran, dass wir nie gelernt haben, wie wir innerlich richtig mit ihr umgehen.</p>
                   <button className="flipbtn" onClick={() => setFlipped(false)}>
                     Zurück <Rot cls="ic" />
                   </button>
