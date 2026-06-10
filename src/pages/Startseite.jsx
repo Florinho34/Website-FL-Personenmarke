@@ -242,7 +242,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .candid-img{width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:18px; display:block;}
 .band-img{width:100%; aspect-ratio:21/9; object-fit:cover; display:block; -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 24%); mask-image:linear-gradient(to bottom, transparent 0, #000 24%);}
 .sec.band{padding-bottom:0;}
-.sec.offer{margin-top:-80px; z-index:4;}
+.sec.offer{margin-top:-90px; z-index:4;}
 
 a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-offset:3px; border-radius:4px;}
 
@@ -265,7 +265,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-of
   .fl-hero-bg{position:absolute; inset:0;}
   .fl-hero-bg img{height:100%; object-fit:cover; object-position:center top; transform:none;}
   .fl-h1{font-size:clamp(34px,9vw,48px);}
-  .fl-sub{font-size:15px; margin:16px auto 0; max-width:34ch;}
+  .fl-sub{font-size:15px; margin:16px auto 0; max-width:40ch;}
   .fl-cta-row{margin-top:24px;}
   .fl-hero .fl-cta-row{justify-content:center;}
   .imgph.hero{max-width:420px;}
@@ -504,7 +504,7 @@ export default function Startseite() {
               <Rotator /><br /><span className="fl-h1-q">Aber wer bist du wirklich?</span>
             </h1>
             <p className="fl-sub fl-sub--d reveal d2">Niemand hat uns beigebracht, eine Denkweise anzunehmen, die uns glücklich macht. Und auf einmal hängen wir jahrelang wie gelähmt im Alltag fest, ohne an der Entfaltung unseres wahrhaftigen Selbst zu arbeiten. Doch wenn du willst, kann sich das von jetzt auf gleich ändern. Meine Aufgabe ist es, dich bei dieser Reise zu unterstützen.</p>
-            <p className="fl-sub fl-sub--m reveal d2">Niemand hat uns beigebracht, eine Denkweise anzunehmen, die uns glücklich macht. Wir hängen im Alltag fest, ohne an der Entfaltung unseres wahrhaftigen Selbst zu arbeiten. Lass uns das ändern: Meine Aufgabe ist es, dich bei dieser transformativen Reise zu unterstützen.</p>
+            <p className="fl-sub fl-sub--m reveal d2">Niemand hat uns beigebracht, eine Denkweise anzunehmen, die uns glücklich macht. Meine Aufgabe ist es, dich bei dieser transformativen Reise zu unterstützen.</p>
             <div className="fl-cta-row reveal d3">
               <CtaButton href={TEST_URL} external>Mach den Persönlichkeitstest <Arrow /></CtaButton>
               <a className="btn btn-ghost" href="#mentoring">Mein Angebot</a>

@@ -49,13 +49,13 @@ export default function Footer() {
             <div>
               <h4>Folgen</h4>
               <ul>
-                <li><a className="soc" href="#" aria-label="Instagram">
+                <li><a className="soc" href="https://www.instagram.com/florian.lingner" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none" /></svg>
                   Instagram</a></li>
-                <li><a className="soc" href="#" aria-label="TikTok">
+                <li><a className="soc" href="https://www.tiktok.com/@flo.lingner" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
                   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2 1.6 3.5 3.5 3.8v2.5c-1.3 0-2.5-.4-3.5-1.1v6.3c0 3-2.4 5.5-5.4 5.5S5.7 17.5 5.7 14.5 8.1 9 11.1 9c.3 0 .6 0 .9.1v2.6c-.3-.1-.6-.2-.9-.2-1.6 0-2.8 1.3-2.8 2.9s1.2 2.9 2.8 2.9 2.8-1.3 2.8-2.9V3h2.6z" /></svg>
                   TikTok</a></li>
-                <li><a className="soc" href="#" aria-label="Facebook">
+                <li><a className="soc" href="https://www.facebook.com/Florinho34" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.7-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z" /></svg>
                   Facebook</a></li>
               </ul>

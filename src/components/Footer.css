@@ -3,7 +3,10 @@
    CI-Variablen lokal auf .fl-foot definiert → funktioniert auch außerhalb von .fl-root
    (wichtig für den späteren Multipage-Port, wenn der Footer in App.jsx wandert). */
 
-.fl-foot {
+/* Selektor bewusst als `footer.fl-foot` (höhere Spezifität als der globale
+   Reset `.fl-root *{margin:0;padding:0}`), damit padding + margin-top sicher
+   greifen – egal in welcher Reihenfolge die Stylesheets geladen werden. */
+footer.fl-foot {
   --creme: #f4f1eb;
   --sand: #d6cbbf;
   --warmgrau: #afa79d;
