@@ -106,6 +106,8 @@ html,body,#root{margin:0; padding:0; max-width:none; width:auto; min-height:0; b
 .fl-eyebrow{display:inline-block; font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--warmgrau); margin-bottom:26px;}
 .fl-h1{font-weight:800; letter-spacing:-.035em; line-height:.96; font-size:clamp(44px,6.4vw,82px); text-transform:uppercase; color:var(--ink);}
 .fl-h1 .fl-em{background:linear-gradient(100deg,#FF4D00 0%,#FF7A33 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; padding-right:.14em; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
+.fl-rotator{display:inline-block; color:var(--orange); font-style:italic; padding-right:.12em; animation:rotIn .5s ease;}
+@keyframes rotIn{from{opacity:0; transform:translateY(.22em);}to{opacity:1; transform:none;}}
 .fl-sub{margin-top:28px; font-size:clamp(17px,1.5vw,20px); max-width:46ch; color:#3a3833;}
 .fl-cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:38px;}
 .btn{display:inline-flex; align-items:center; gap:9px; text-decoration:none; font-weight:600; font-size:16px; border-radius:100px; padding:15px 26px; cursor:pointer; border:0; transition:transform .2s ease, background .25s ease, color .25s ease;}
@@ -169,8 +171,8 @@ html,body,#root{margin:0; padding:0; max-width:none; width:auto; min-height:0; b
 .face h3{font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--warmgrau); margin-bottom:24px;}
 .face-back h3{color:var(--orange);}
 .myth-list{display:flex; flex-direction:column; gap:14px;}
-.myth-list li{list-style:none; font-size:clamp(17px,1.8vw,22px); font-weight:600; position:relative; padding-left:30px; transition:opacity .4s;}
-.myth-list li::before{content:""; position:absolute; left:0; top:.62em; width:14px; height:2px; background:var(--warmgrau);}
+.myth-head{font-size:clamp(20px,2.4vw,28px); font-weight:800; letter-spacing:-.02em; color:var(--ink); margin-bottom:16px;}
+.myth-list li{list-style:none; font-size:clamp(17px,1.8vw,22px); font-weight:600; transition:opacity .4s;}
 .flipcard.flipped .myth-list li{opacity:.5; text-decoration:line-through; text-decoration-color:var(--orange);}
 .truth{font-size:clamp(22px,2.6vw,32px); font-weight:700; line-height:1.3; letter-spacing:-.01em; max-width:24ch;}
 .flipbtn{align-self:flex-start; margin-top:30px; background:none; border:1.5px solid currentColor; color:inherit; border-radius:100px; padding:11px 22px; font-family:inherit; font-weight:600; font-size:15px; cursor:pointer; display:inline-flex; align-items:center; gap:9px; transition:.25s;}
@@ -225,9 +227,9 @@ html,body,#root{margin:0; padding:0; max-width:none; width:auto; min-height:0; b
 .faq-a-inner{padding:0 60px 28px 0; color:#3a3833; max-width:70ch;}
 
 /* endcta */
-.endcta{position:relative; overflow:hidden; isolation:isolate; text-align:left; padding:128px 0; min-height:clamp(440px,68vh,620px); display:flex; align-items:center;}
+.endcta{position:relative; overflow:hidden; isolation:isolate; text-align:left; padding:96px 0 200px; min-height:clamp(600px,84vh,800px); display:flex; align-items:center;}
 .endcta-bg{position:absolute; inset:0; z-index:-2;}
-.endcta-bg img{width:100%; height:100%; object-fit:cover; object-position:center 32%;}
+.endcta-bg img{width:100%; height:100%; object-fit:cover; object-position:center 50%;}
 .endcta-overlay{position:absolute; inset:0; z-index:-1; background:linear-gradient(96deg, var(--creme) 8%, rgba(244,241,235,.72) 32%, rgba(244,241,235,.12) 56%, rgba(244,241,235,0) 72%);}
 .endcta .h2{font-size:clamp(34px,5vw,62px);}
 .endcta .lead{margin-top:22px; max-width:42ch;}
@@ -237,7 +239,7 @@ html,body,#root{margin:0; padding:0; max-width:none; width:auto; min-height:0; b
 .candid-img{width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:18px; display:block;}
 .band-img{width:100%; aspect-ratio:21/9; object-fit:cover; display:block; -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 24%); mask-image:linear-gradient(to bottom, transparent 0, #000 24%);}
 .sec.band{padding-bottom:0;}
-.sec.offer{margin-top:-60px; z-index:4;}
+.sec.offer{margin-top:-80px; z-index:4;}
 
 /* footer */
 .fl-foot{background:var(--ink); color:#cfc9bf; padding:64px 0 34px; position:relative; z-index:6; border-radius:clamp(26px,3.5vw,46px) clamp(26px,3.5vw,46px) 0 0; margin-top:-44px;}
@@ -261,7 +263,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-of
   .fl-burger{display:block; z-index:60;}
   .fl-hero .grid,.philo .grid,.about .grid,.filter-grid{grid-template-columns:1fr; gap:32px;}
   .fl-hero{min-height:180vw; max-height:900px; align-items:flex-start;}
-  .fl-hero-inner{padding-top:74px; padding-bottom:40px;}
+  .fl-eyebrow{display:none;}
+  .fl-hero-inner{padding-top:64px; padding-bottom:64px;}
   .fl-hero-text{max-width:none; text-align:center;}
   .fl-hero-overlay{display:block; background:linear-gradient(to bottom, var(--creme) 4%, rgba(244,241,235,.9) 26%, rgba(244,241,235,.36) 42%, rgba(244,241,235,0) 56%);}
   .fl-hero-bg{position:absolute; inset:0;}
@@ -285,6 +288,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-of
   .imgph.band{aspect-ratio:4/3;}
   .panel{padding:34px 22px;}
   .philo .panel{padding-top:5px;}
+  .sec.offer{margin-top:-44px;}
   .flipwrap{margin-top:26px;}
   /* Flip ohne 3D auf schmalen Screens: saubere Überblendung, kein Durchbluten */
   .flipcard{transform:none!important; transition:none;}
@@ -402,7 +406,18 @@ const STEPS = [
   { n: "04", t: "Zurück ins echte Leben", d: "Indem du die versteckten Glücksräuber im Alltag erkennst und anders mit ihnen umgehst, erschaffst du dir nachhaltig ein glückliches Leben." },
 ];
 
-const MYTHS = ["Glück entsteht, wenn sich die Umstände ändern", "… wenn man endlich angekommen ist", "… wenn man noch etwas optimiert", "… wenn man weniger Probleme hat"];
+const MYTHS = ["…sich die Umstände ändern.", "…man endlich angekommen ist.", "…man noch etwas optimiert.", "…man weniger Probleme hat."];
+
+const ROTATOR = ["Mutter", "Banker", "Erzieherin", "Arzt", "Ehefrau", "Lehrerin"];
+function Rotator() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const t = setInterval(() => setI((v) => (v + 1) % ROTATOR.length), 2100);
+    return () => clearInterval(t);
+  }, []);
+  return <span className="fl-rotator" key={i}>{ROTATOR[i]}</span>;
+}
 
 export default function Startseite() {
   const scrolled = useScrolled();
@@ -469,9 +484,9 @@ export default function Startseite() {
           <div className="fl-hero-text">
             <span className="fl-eyebrow reveal">Du hast dein Leben im Griff, aber lebst du es wirklich?</span>
             <h1 className="fl-h1 reveal d1">
-              Aufhören zu überleben.<br />Anfangen zu <span className="fl-em">leben</span>.
+              <Rotator /><br />Aber wer bist du wirklich?
             </h1>
-            <p className="fl-sub reveal d2">Ein erfülltes Leben scheitert selten an den Umständen, sondern daran, dass wir nie gelernt haben, ehrlich mit uns selbst umzugehen.</p>
+            <p className="fl-sub reveal d2">Niemand hat uns beigebracht, eine Denkweise anzunehmen, die uns glücklich macht. Und auf einmal hängen wir jahrelang wie gelähmt im Alltag fest, ohne an der Entfaltung unseres wahrhaftigen Selbst zu arbeiten. Doch wenn du willst, kann sich das von jetzt auf gleich ändern. Meine Aufgabe ist es, dich bei dieser Reise zu unterstützen.</p>
             <div className="fl-cta-row reveal d3">
               <CtaButton href={TEST_URL} external>Mach den Persönlichkeitstest <Arrow /></CtaButton>
               <a className="btn btn-ghost" href="#philosophie">Meine Philosophie</a>
@@ -487,12 +502,12 @@ export default function Startseite() {
             <div className="grid">
               <div>
                 <span className="qmark" aria-hidden="true">„</span>
-                <p className="pullquote">Ich bin nicht hier, um dir zu sagen, was du glauben sollst. Ich frage dich, ob das, was du glaubst, überhaupt von dir kommt.</p>
+                <p className="pullquote">Wir sind überzeugt, viel zu wissen. Über die Welt und uns selbst. Und vielleicht ist es genau das, was dir im Weg steht.</p>
               </div>
               <div>
                 <div className="sec-eyebrow">Meine Philosophie</div>
                 <h2 className="h2">Ein ehrlicher Blick auf dich, die Welt und das <span className="fl-em">Leben</span> selbst.</h2>
-                <p className="lead">Irgendwann kommt bei den meisten der Punkt, an dem sie merken: Da muss noch mehr sein. Dann hast du die Wahl, auf die Suche gehen oder dich ins Durchschnittsleben fügen. Meine Arbeit ist für alle, die wirklich etwas ändern wollen.</p>
+                <p className="lead">Irgendwann kommt bei den meisten der Punkt, an dem sie merken: Da muss noch mehr sein. Dann hast du die Wahl, auf die Suche zu gehen oder dich ins Durchschnittsleben zu fügen.</p>
                 <div className="fl-cta-row" style={{ marginTop: 30 }}>
                   <CtaButton href="#philosophie">Das ist meine Philosophie <Arrow /></CtaButton>
                 </div>
@@ -506,10 +521,10 @@ export default function Startseite() {
       <section className="sec filter">
         <div className="fl-wrap filter-grid">
           <div className="reveal">
-            <div className="sec-eyebrow">Ehrlich gesagt</div>
+            <div className="sec-eyebrow">Für wen?</div>
             <h2 className="h2">Nicht für jeden gut, aber für die <span className="fl-em">Richtigen</span> perfekt.</h2>
             <p className="lead">Ich biete keine Universallösung. Mein Ansatz ist für Menschen, die spüren, dass da mehr möglich ist, und bereit sind, ihr Denken und ihre Haltung ehrlich zu hinterfragen.</p>
-            <p className="filter-no">Du willst an alten Mustern festhalten und nur „ein bisschen" verändern? Dann kann ich dir leider nicht weiterhelfen.</p>
+            <p className="filter-no">Du willst an deinem jetzigen Leben festhalten und nur „ein bisschen" verändern? Dann kann ich dir leider nicht weiterhelfen.</p>
           </div>
           <div className="reveal d1">
             <img className="candid-img" src={CANDID_JUNGLE} alt="Florian Lingner" loading="lazy" />
@@ -529,9 +544,10 @@ export default function Startseite() {
                 <div className="face face-front" aria-hidden={flipped}>
                   <span className="flipcue"><Rot cls="" /> umdrehen</span>
                   <h3>Was viele glauben</h3>
+                  <p className="myth-head">Glück entsteht, wenn…</p>
                   <ul className="myth-list">{MYTHS.map((m) => <li key={m}>{m}</li>)}</ul>
                   <button className="flipbtn" onClick={() => setFlipped(true)}>
-                    Worum es stattdessen geht <Rot cls="ic" />
+                    Die Wahrheit ist <Rot cls="ic" />
                   </button>
                 </div>
                 <div className="face face-back" aria-hidden={!flipped}>
@@ -616,7 +632,7 @@ export default function Startseite() {
             <h2 className="h2">Hi, ich bin <span className="fl-em">Florian</span>.</h2>
             <p>Einen großen Teil meines Lebens habe ich ziemlich konsequent gegen mich selbst gelebt, Scheitern, Zweifel und innere Leere waren keine kurzen Phasen, sondern ein Dauerzustand. Nicht, weil mein Leben objektiv am Boden war, sondern weil ich nie gelernt hatte, ehrlich mit mir umzugehen.</p>
             <p>Der Wendepunkt kam nicht durch Bücher, Gurus oder neue Konzepte, sondern durch die Bereitschaft, meine eigenen Gedanken und Reaktionen wirklich wahrzunehmen. Ohne Ausreden, ohne Selbstbetrug.</p>
-            <p>Heute begleite ich Menschen, die spüren, dass ihr Leben mehr Tiefe haben könnte, aber nicht wissen, wo sie ansetzen sollen.</p>
+            <p>Heute begleite ich Menschen, die spüren, dass ihr Leben mehr Tiefe und Freude vertragen könnte, aber nicht wissen, wo sie ansetzen sollen.</p>
             <p className="about-sign" aria-hidden="true">Florian</p>
           </div>
         </div>
@@ -650,7 +666,7 @@ export default function Startseite() {
         <div className="endcta-overlay" aria-hidden="true" />
         <div className="fl-wrap reveal">
           <h2 className="h2">Bereit, ehrlich <span className="fl-em">hinzuschauen</span>?</h2>
-          <p className="lead">Keine Formeln. Keine Gurus. Nur ehrliche Impulse für ein Leben, das wirklich zu dir passt.</p>
+          <p className="lead">Keine Formeln. Kein dogmatischer Bullshit. Nur ehrliche Impulse für ein Leben, das wirklich zu dir passt.</p>
           <div className="fl-cta-row">
             <CtaButton href={TEST_URL} external>Mach den Persönlichkeitstest <Arrow /></CtaButton>
             <a className="btn btn-ghost" href="#kostenloses">Kostenlose Masterclass</a>
