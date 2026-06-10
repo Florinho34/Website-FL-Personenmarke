@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import Footer from "../components/Footer";
 
 /**
  * STARTSEITE — Florian Lingner (Design-Prototyp · V2)
@@ -86,7 +87,6 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-logo .dot{color:var(--orange);}
 .fl-logo-svg{display:inline-flex;}
 .fl-logo-svg svg{height:19px; width:auto; display:block;}
-.fl-foot .fl-logo-svg svg{height:26px;}
 .fl-menu{display:flex; gap:30px; align-items:center;}
 .fl-menu a{position:relative; text-decoration:none; color:var(--ink); font-weight:500; font-size:15px; padding:4px 0;}
 .fl-menu a::after{content:""; position:absolute; left:0; bottom:-2px; height:2px; width:0; background:var(--orange); transition:width .28s ease;}
@@ -243,19 +243,6 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .band-img{width:100%; aspect-ratio:21/9; object-fit:cover; display:block; -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 24%); mask-image:linear-gradient(to bottom, transparent 0, #000 24%);}
 .sec.band{padding-bottom:0;}
 .sec.offer{margin-top:-80px; z-index:4;}
-
-/* footer */
-.fl-foot{background:var(--ink); color:#cfc9bf; padding:64px 0 34px; position:relative; z-index:6; border-radius:clamp(26px,3.5vw,46px) clamp(26px,3.5vw,46px) 0 0; margin-top:-44px;}
-.fl-foot .top{display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; padding-bottom:42px; border-bottom:1px solid rgba(255,255,255,.10);}
-.fl-foot .fl-logo{color:var(--creme); font-size:24px;}
-.fl-foot .cols{display:flex; gap:64px; flex-wrap:wrap;}
-.fl-foot h4{color:var(--warmgrau); font-size:12px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:16px; font-weight:600;}
-.fl-foot ul{list-style:none;} .fl-foot li{margin-bottom:10px;}
-.fl-foot a{color:#cfc9bf; text-decoration:none; font-size:15px; transition:color .2s;}
-.fl-foot a:hover{color:var(--orange);}
-.fl-foot .soc{display:inline-flex; align-items:center; gap:11px;}
-.fl-foot .soc svg{width:18px; height:18px; flex:none;}
-.fl-foot .bottom{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; padding-top:24px; font-size:13px; color:var(--warmgrau);}
 
 a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-offset:3px; border-radius:4px;}
 
@@ -705,53 +692,7 @@ export default function Startseite() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="fl-foot">
-        <div className="fl-wrap">
-          <div className="top">
-            <div>
-              <a className="fl-logo" href="#top" aria-label="florian lingner"><LogoMark /></a>
-              <p style={{ marginTop: 14, maxWidth: "32ch", fontSize: 15 }}>Ehrliche Impulse für ein Leben, das wirklich zu dir passt.</p>
-            </div>
-            <div className="cols">
-              <div>
-                <h4>Seiten</h4>
-                <ul>
-                  <li><a href="#philosophie">Meine Philosophie</a></li>
-                  <li><a href="#mentoring">Mentoring</a></li>
-                  <li><a href="#kostenloses">Kostenloses</a></li>
-                  <li><a href={TEST_URL} target="_blank" rel="noopener noreferrer">Persönlichkeitstest</a></li>
-                </ul>
-              </div>
-              <div>
-                <h4>Rechtliches</h4>
-                <ul>
-                  <li><a href="#impressum">Impressum</a></li>
-                  <li><a href="#datenschutz">Datenschutz</a></li>
-                </ul>
-              </div>
-              <div>
-                <h4>Folgen</h4>
-                <ul>
-                  <li><a className="soc" href="#" aria-label="Instagram">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none" /></svg>
-                    Instagram</a></li>
-                  <li><a className="soc" href="#" aria-label="TikTok">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2 1.6 3.5 3.5 3.8v2.5c-1.3 0-2.5-.4-3.5-1.1v6.3c0 3-2.4 5.5-5.4 5.5S5.7 17.5 5.7 14.5 8.1 9 11.1 9c.3 0 .6 0 .9.1v2.6c-.3-.1-.6-.2-.9-.2-1.6 0-2.8 1.3-2.8 2.9s1.2 2.9 2.8 2.9 2.8-1.3 2.8-2.9V3h2.6z" /></svg>
-                    TikTok</a></li>
-                  <li><a className="soc" href="#" aria-label="Facebook">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.7-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z" /></svg>
-                    Facebook</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="bottom">
-            <span>© {new Date().getFullYear()} Florian Lingner</span>
-            <span>Pratteln, Schweiz</span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       <div className="fl-grain" aria-hidden="true" />
     </div>

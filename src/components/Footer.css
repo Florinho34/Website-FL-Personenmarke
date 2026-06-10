@@ -1,0 +1,104 @@
+/* src/components/Footer.css
+   Footer-Styles, herausgelöst aus dem Startseiten-CSS.
+   CI-Variablen lokal auf .fl-foot definiert → funktioniert auch außerhalb von .fl-root
+   (wichtig für den späteren Multipage-Port, wenn der Footer in App.jsx wandert). */
+
+.fl-foot {
+  --creme: #f4f1eb;
+  --sand: #d6cbbf;
+  --warmgrau: #afa79d;
+  --ink: #1c1c1c;
+  --orange: #ff4d00;
+  --maxw: 1180px;
+
+  background: var(--ink);
+  color: #cfc9bf;
+  padding: 64px 0 34px;
+  position: relative;
+  z-index: 6;
+  border-radius: clamp(26px, 3.5vw, 46px) clamp(26px, 3.5vw, 46px) 0 0;
+  margin-top: -44px;
+  font-family: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Minimal-Resets, falls der globale .fl-root-Reset nicht greift (z.B. eigene Seite) */
+.fl-foot * { box-sizing: border-box; }
+.fl-foot p { margin: 0; }
+.fl-foot h4 { margin-top: 0; }
+
+.fl-foot .fl-wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+  z-index: 2;
+}
+
+.fl-foot .top {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding-bottom: 42px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.fl-foot .fl-logo {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  color: var(--creme);
+  font-size: 24px;
+}
+.fl-foot .fl-logo-svg { display: inline-flex; }
+.fl-foot .fl-logo-svg svg { height: 26px; width: auto; display: block; }
+
+.fl-foot-tagline { margin-top: 14px; max-width: 32ch; font-size: 15px; }
+
+.fl-foot .cols { display: flex; gap: 64px; flex-wrap: wrap; }
+.fl-foot h4 {
+  color: var(--warmgrau);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.fl-foot ul { list-style: none; margin: 0; padding: 0; }
+.fl-foot li { margin-bottom: 10px; }
+.fl-foot a { color: #cfc9bf; text-decoration: none; font-size: 15px; transition: color 0.2s; }
+.fl-foot a:hover { color: var(--orange); }
+.fl-foot .soc { display: inline-flex; align-items: center; gap: 11px; }
+.fl-foot .soc svg { width: 18px; height: 18px; flex: none; }
+.fl-foot .bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 24px;
+  font-size: 13px;
+  color: var(--warmgrau);
+}
+
+/* "Cookie-Einstellungen" als Button – sieht aus wie die übrigen Footer-Links */
+.fl-foot-consent {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  color: #cfc9bf;
+  font-size: 15px;
+  transition: color 0.2s;
+}
+.fl-foot-consent:hover { color: var(--orange); }
+
+.fl-foot a:focus-visible,
+.fl-foot-consent:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
