@@ -6,6 +6,7 @@
 
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import Logo from "../components/Logo";
 
 export default function Impressum() {
   useEffect(() => {
@@ -18,7 +19,7 @@ export default function Impressum() {
       <style>{css}</style>
 
       <div className="legal__bar">
-        <Link className="legal__logo" to="/">florian lingner</Link>
+        <Link className="legal__logo" to="/" aria-label="florian lingner – zur Startseite"><Logo /></Link>
         <Link className="legal__back" to="/">← Zurück zur Startseite</Link>
       </div>
 
@@ -135,9 +136,13 @@ export default function Impressum() {
 }
 
 const css = `
-/* Reset gegen evtl. Vite-Default in index.css (zentrierter Text, #root-Padding).
-   Gilt nur, solange diese Seite gemountet ist. */
-#root { max-width: none; margin: 0; padding: 0; text-align: left; }
+/* Vite-Standard-Defaults aus index.css neutralisieren, solange diese Seite
+   gemountet ist: Flex-Zentrierung von body, max-width/Padding von #root und
+   dunkles color-scheme. Genau das verursachte den dunklen Streifen rechts,
+   die Linksbündigkeit und die fehlende Mobile-Passung. */
+html { background: #F4F1EB; color-scheme: light; }
+body { margin: 0; display: block; min-width: 0; background: #F4F1EB; }
+#root { max-width: none; width: auto; margin: 0; padding: 0; text-align: left; }
 
 .legal {
   --creme:   #F4F1EB;
@@ -151,10 +156,11 @@ const css = `
   font-family: "Inter Tight", system-ui, sans-serif;
   min-height: 100vh;
   text-align: left;
+  overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
 }
 
-.legal a { color: var(--orange); text-decoration: none; }
+.legal a { color: var(--orange); text-decoration: none; overflow-wrap: break-word; }
 .legal a:hover { text-decoration: underline; }
 .legal a:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; border-radius: 2px; }
 
@@ -164,9 +170,10 @@ const css = `
   max-width: 820px; margin: 0 auto;
   padding: 1.5rem clamp(1.25rem, 5vw, 2rem) 0;
 }
-.legal__logo { font-weight: 800; letter-spacing: -0.02em; color: var(--ink); font-size: 1.05rem; }
-.legal__logo:hover { text-decoration: none; color: var(--orange); }
-.legal__back { color: var(--warmgrau); font-size: .9rem; }
+.legal__logo { display: inline-flex; align-items: center; color: var(--ink); }
+.legal__logo:hover { color: var(--orange); }
+.legal__logo svg { height: 22px; width: auto; display: block; }
+.legal__back { color: var(--warmgrau); font-size: .9rem; white-space: nowrap; }
 .legal__back:hover { color: var(--orange); }
 
 .legal__main {
@@ -182,7 +189,7 @@ const css = `
 }
 .legal__h1 {
   font-weight: 800; letter-spacing: -0.03em; line-height: 1.02;
-  font-size: clamp(2.5rem, 7vw, 4rem); margin: 0;
+  font-size: clamp(2.3rem, 7vw, 4rem); margin: 0; color: var(--ink);
 }
 .legal__lead {
   margin: 1rem 0 0; max-width: 58ch;
@@ -191,7 +198,7 @@ const css = `
 
 .legal__sec { margin-bottom: clamp(1.75rem, 4vw, 2.5rem); }
 .legal__sec h2 {
-  font-weight: 800; letter-spacing: -0.02em;
+  font-weight: 800; letter-spacing: -0.02em; color: var(--ink);
   font-size: clamp(1.15rem, 2.6vw, 1.4rem); margin: 0 0 .6rem;
 }
 .legal__sec p {
