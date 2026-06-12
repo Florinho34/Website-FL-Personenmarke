@@ -37,8 +37,8 @@ export default function Footer() {
             <div>
               <h4>Rechtliches</h4>
               <ul>
-                <li><a href="#impressum">Impressum</a></li>
-                <li><a href="#datenschutz">Datenschutz</a></li>
+                <li><a href="impressum">Impressum</a></li>
+                <li><a href="datenschutz">Datenschutz</a></li>
                 <li>
                   <button type="button" className="fl-foot-consent" onClick={openConsentSettings}>
                     Cookie-Einstellungen
