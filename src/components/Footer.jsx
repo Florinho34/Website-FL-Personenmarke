@@ -4,6 +4,7 @@
 // Dadurch kann er beim Multipage-Port direkt nach App.jsx wandern und
 // funktioniert auf jeder Seite, auch ausserhalb von .fl-root.
 
+import { Link } from "react-router-dom";
 import { openConsentSettings } from "../lib/consent";
 import "./Footer.css";
 
@@ -37,8 +38,8 @@ export default function Footer() {
             <div>
               <h4>Rechtliches</h4>
               <ul>
-                <li><a href="impressum">Impressum</a></li>
-                <li><a href="datenschutz">Datenschutz</a></li>
+                <li><Link to="/impressum">Impressum</Link></li>
+                <li><Link to="/datenschutz">Datenschutz</Link></li>
                 <li>
                   <button type="button" className="fl-foot-consent" onClick={openConsentSettings}>
                     Cookie-Einstellungen
