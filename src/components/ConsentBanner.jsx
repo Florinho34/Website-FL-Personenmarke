@@ -51,6 +51,7 @@ export default function ConsentBanner({ privacyUrl = "/datenschutz" }) {
 
   return (
     <div className="fl-consent" role="dialog" aria-modal="false" aria-label="Cookie-Einstellungen">
+      <div className="fl-consent__scrim" aria-hidden="true" />
       <div className="fl-consent__box">
         <h2 className="fl-consent__title">Cookies &amp; Datenschutz</h2>
         <p className="fl-consent__text">

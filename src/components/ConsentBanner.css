@@ -20,6 +20,21 @@
   font-family: 'Inter Tight', system-ui, -apple-system, sans-serif;
 }
 
+/* Scrim: dezenter Dimm-Overlay über der Seite, solange das Banner offen ist.
+   Bewusst pointer-events:none → blockiert nichts (Banner ist nicht-modal),
+   lenkt nur visuell den Fokus auf die Box. */
+.fl-consent__scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 28, 28, 0.18);
+  pointer-events: none;
+  animation: fl-consent-scrim-in 0.3s ease;
+}
+@keyframes fl-consent-scrim-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 .fl-consent__box {
   pointer-events: auto;
   width: 100%;
@@ -34,6 +49,9 @@
 
 .fl-consent__title {
   margin: 0 0 10px;
+  /* Explizit auf Ink – sonst überschreibt eine globale h2-Farbe die geerbte
+     Box-Farbe und der Titel rendert fast unsichtbar (hellgrau auf Creme). */
+  color: var(--ink, #1c1c1c);
   font-size: clamp(1.25rem, 3.6vw, 1.5rem);
   font-weight: 800; /* Extrabold */
   line-height: 1.1;

@@ -91,16 +91,16 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-menu a{position:relative; text-decoration:none; color:var(--ink); font-weight:500; font-size:15px; padding:4px 0;}
 .fl-menu a::after{content:""; position:absolute; left:0; bottom:-2px; height:2px; width:0; background:var(--orange); transition:width .28s ease;}
 .fl-menu a:hover::after, .fl-menu a:focus-visible::after{width:100%;}
-.fl-navcta{background:var(--ink); color:var(--creme)!important; padding:10px 18px!important; border-radius:100px; font-weight:600;}
+.fl-navcta{background:var(--orange); color:var(--creme)!important; padding:10px 18px!important; border-radius:100px; font-weight:600;}
 .fl-navcta::after{display:none;}
-.fl-navcta:hover{background:var(--orange);}
+.fl-navcta:hover{background:var(--ink);}
 .fl-burger{display:none; background:none; border:0; cursor:pointer; width:38px; height:38px;}
 .fl-burger span{display:block; width:24px; height:2px; background:var(--ink); margin:5px auto; transition:.3s;}
 
 /* hero */
 .fl-hero{position:relative; min-height:clamp(560px,90vh,840px); display:flex; align-items:center; overflow:hidden; isolation:isolate;}
 .fl-hero-bg{position:absolute; inset:0; z-index:-2;}
-.fl-hero-bg img{width:100%; height:100%; object-fit:cover; object-position:72% center;}
+.fl-hero-bg img{width:100%; height:100%; object-fit:cover; object-position:72% 44%;}
 .fl-hero-overlay{position:absolute; inset:0; z-index:-1; background:linear-gradient(96deg, var(--creme) 6%, rgba(244,241,235,.74) 28%, rgba(244,241,235,.18) 50%, rgba(244,241,235,0) 66%);}
 .fl-hero-inner{width:100%; padding-top:120px; padding-bottom:110px;}
 .fl-hero-text{max-width:600px;}
@@ -242,7 +242,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .candid-img{width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:18px; display:block;}
 .band-img{width:100%; aspect-ratio:21/9; object-fit:cover; display:block; -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 24%); mask-image:linear-gradient(to bottom, transparent 0, #000 24%);}
 .sec.band{padding-bottom:0;}
-.sec.offer{margin-top:-90px; z-index:4;}
+.sec.offer{margin-top:-95px; z-index:4;}
 
 a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-offset:3px; border-radius:4px;}
 
@@ -257,7 +257,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-of
   .fl-eyebrow{display:none;}
   .fl-hero-inner{padding-top:94px; padding-bottom:84px;}
   .fl-hero-text{max-width:none; text-align:center;}
-  .fl-h1-q{font-size:inherit;}
+  .fl-h1-q{font-size:clamp(26px,7vw,38px);}
   .fl-sub--d{display:none;}
   .fl-sub--m{display:block;}
   .pullquote{font-style:italic; font-size:clamp(19px,5.3vw,23px);}
@@ -469,7 +469,6 @@ export default function Startseite() {
     { label: "Philosophie", href: "#philosophie" },
     { label: "Mentoring", href: "#mentoring" },
     { label: "Kostenloses", href: "#kostenloses" },
-    { label: "Persönlichkeitstest", href: TEST_URL, ext: true },
   ];
 
   return (
@@ -484,7 +483,7 @@ export default function Startseite() {
             {nav.map((n) => (
               <a key={n.label} href={n.href} target={n.ext ? "_blank" : undefined} rel={n.ext ? "noopener noreferrer" : undefined} onClick={() => setMenu(false)}>{n.label}</a>
             ))}
-            <a className="fl-navcta" href={TEST_URL} target="_blank" rel="noopener noreferrer">Test starten</a>
+            <a className="fl-navcta" href={TEST_URL} target="_blank" rel="noopener noreferrer">Persönlichkeitstest starten</a>
           </div>
           <button className="fl-burger" aria-label="Menü" onClick={() => setMenu(!menu)}><span /><span /><span /></button>
         </div>
