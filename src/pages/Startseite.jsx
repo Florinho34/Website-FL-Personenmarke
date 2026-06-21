@@ -255,7 +255,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-of
   .fl-hero .grid,.philo .grid,.about .grid,.filter-grid{grid-template-columns:1fr; gap:32px;}
   .fl-hero{min-height:192vw; max-height:920px; align-items:flex-start;}
   .fl-eyebrow{display:none;}
-  .fl-hero-inner{padding-top:94px; padding-bottom:84px;}
+  .fl-hero-inner{padding-top:78px; padding-bottom:84px;}
   .fl-hero-text{max-width:none; text-align:center;}
   .fl-h1-q{font-size:clamp(26px,7vw,38px);}
   .fl-sub--d{display:none;}
@@ -265,9 +265,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-of
   .fl-hero-bg{position:absolute; inset:0;}
   .fl-hero-bg img{height:100%; object-fit:cover; object-position:center top; transform:none;}
   .fl-h1{font-size:clamp(34px,9vw,48px);}
-  .fl-sub{font-size:15px; margin:16px auto 0; max-width:40ch;}
-  .fl-cta-row{margin-top:24px;}
-  .fl-hero .fl-cta-row{justify-content:center;}
+  .fl-sub{font-size:15px; margin:12px auto 0; max-width:40ch;}
+  .fl-cta-row{margin-top:18px;}
+  .fl-hero .fl-cta-row{justify-content:center; gap:9px;}
   .imgph.hero{max-width:420px;}
   .cards{grid-template-columns:1fr;}
   .card{border-color:rgba(255,77,0,.55); box-shadow:0 0 0 1px rgba(255,77,0,.16), 0 16px 38px -22px rgba(255,77,0,.55);}
@@ -396,10 +396,11 @@ const FAQS = [
 ];
 
 const STEPS = [
-  { n: "01", t: "Den Überlebensmodus wahrnehmen", d: "Du lernst zu erkennen, wann du funktionierst statt bewusst zu handeln, und was das in dir auslöst." },
-  { n: "02", t: "Die inneren Mechanismen verstehen", d: "Du verstehst, wie automatische Gedanken und Bewertungen entstehen, und warum sie dein Erleben bestimmen." },
-  { n: "03", t: "Deine Gedanken-Leitplanken erkennen", d: "Du lernst, den mentalen Autopiloten rechtzeitig zu stoppen, bevor er Druck, Sorgen oder Angst verursacht." },
-  { n: "04", t: "Zurück ins echte Leben", d: "Indem du die versteckten Glücksräuber im Alltag erkennst und anders mit ihnen umgehst, erschaffst du dir nachhaltig ein glückliches Leben." },
+  { n: "01", t: "Den Blick schärfen", d: "Unser Alltag fordert uns und häufig fehlt uns die Energie, um bewusst mit all dem umzugehen. Deshalb ist es umso wichtiger, zu beginnen, zu erkennen, wann wir nur im Autopilot-Modus am Funktionieren sind und was dies auslöst." },
+  { n: "02", t: "Die Brille absetzen", d: "Wir sind von klein auf darauf getrimmt, auf das zu hören, was uns irgendwelche Autoritäten vorschreiben. Nicht nur unser Weg wird fremdbestimmt orchestriert, sondern auch, was wir zu lernen haben. Was kein Teil unseres Lehrplans war: Wie wir richtig mit unserem Verstand umgehen, damit wir glücklich statt depressiv werden." },
+  { n: "03", t: "Irgendwann ist es zu viel", d: "Wir haben im Laufe unseres Lebens hunderte Überzeugungen und tausende Informationen über die Welt fest in uns verankert. Warum hilft dir das nächste Buch über persönliche Entwicklung schon wieder nicht wirklich? Unser Glas ist voll. Bevor du Neues WIRKLICH verinnerlichen kannst, musst du dein Glas leeren. Es geht erstmal darum, zu vergessen, statt zu lernen." },
+  { n: "04", t: "Verantwortung übernehmen", d: "Viele warten darauf, dass das nächste Seminar oder die nächste Erkenntnis sie endlich rettet. Doch leider muss ich dir eine unangenehme Wahrheit überbringen: Für unser Glück sind wir selbst verantwortlich. Nur WIR können uns entwickeln – niemand von außen. Und diese Verantwortung müssen wir zuerst anerkennen. Und anschließend kannst du mit Entschlossenheit und Mut wahre Transformation in deinem Leben erzeugen." },
+  { n: "05", t: "Ein neues Selbstverständnis", d: "Der wichtigste Punkt meiner persönlichen Reise war es, zu verstehen, dass mich eine Wissensarroganz befallen hatte. Ich stellte meinen rationalen Verstand auf ein unantastbares Podest. Denken, Informationen und Logik waren mein Anker – und Untergang. Wenn wir es schaffen, aus dieser toxischen Beziehung zu entfliehen, öffnen sich Türen in deinem Leben, von denen du bisher nicht mal zu träumen gewagt hast. Und ja, ich weiß, das klingt etwas mysteriös, aber ich garantiere dir, wenn wir zusammen an deiner persönlichen Entfaltung arbeiten, wirst du irgendwann verstehen und dir wünschen, dies schon vor Jahren erkannt zu haben." },
 ];
 
 const MYTHS = ["…sich die Umstände ändern.", "…man endlich angekommen ist.", "…man noch etwas optimiert.", "…man weniger Probleme hat."];
@@ -466,7 +467,7 @@ export default function Startseite() {
   }, []);
 
   const nav = [
-    { label: "Philosophie", href: "#philosophie" },
+    { label: "Philosophie", href: "/philosophie" },
     { label: "Mentoring", href: "#mentoring" },
     { label: "Kostenloses", href: "#kostenloses" },
   ];
@@ -502,8 +503,8 @@ export default function Startseite() {
             <h1 className="fl-h1 reveal d1">
               <Rotator /><br /><span className="fl-h1-q">Aber wer bist du wirklich?</span>
             </h1>
-            <p className="fl-sub fl-sub--d reveal d2">Niemand hat uns beigebracht, eine Denkweise anzunehmen, die uns glücklich macht. Und auf einmal hängen wir jahrelang wie gelähmt im Alltag fest, ohne an der Entfaltung unseres wahrhaftigen Selbst zu arbeiten. Doch wenn du willst, kann sich das von jetzt auf gleich ändern. Meine Aufgabe ist es, dich bei dieser Reise zu unterstützen.</p>
-            <p className="fl-sub fl-sub--m reveal d2">Niemand hat uns beigebracht, eine Denkweise anzunehmen, die uns glücklich macht. Meine Aufgabe ist es, dich bei dieser transformativen Reise zu unterstützen.</p>
+            <p className="fl-sub fl-sub--d reveal d2">Noch mal so frei, lebensfroh und unbekümmert sein wie damals als Kind… Klingt weit weg, doch all das ist noch in dir und will gelebt werden! Leider hat uns niemand beigebracht, wie wir uns diese pure Lebensfreude bewahren können, und ehe man sich versieht, fristet man jahrelang denselben unbefriedigenden Alltag. Wenn du Lust auf mehr als Durchschnitt hast und spürst, dass da noch ein wahrhaftigeres Leben auf dich wartet, begleite ich dich gern auf dieser transformativen Reise.</p>
+            <p className="fl-sub fl-sub--m reveal d2">Noch mal so frei, lebensfroh und unbekümmert sein wie damals als Kind… Klingt weit weg, doch all das ist noch in dir und will gelebt werden! Ich begleite dich auf dieser Reise.</p>
             <div className="fl-cta-row reveal d3">
               <CtaButton href={TEST_URL} external>Mach den Persönlichkeitstest <Arrow /></CtaButton>
               <a className="btn btn-ghost" href="#mentoring">Mein Angebot</a>
@@ -519,14 +520,14 @@ export default function Startseite() {
             <div className="grid">
               <div>
                 <span className="qmark" aria-hidden="true">„</span>
-                <p className="pullquote">Wir sind überzeugt, viel zu wissen. Über die Welt und uns selbst. Und vielleicht ist es genau das, was dir im Weg steht.</p>
+                <p className="pullquote">Du solltest nicht noch mehr lernen, sondern mehr vergessen. Deine alten Überzeugungen halten dich in einem Leben, das schon lang nicht mehr zu dir passt.</p>
               </div>
               <div>
                 <div className="sec-eyebrow">Meine Philosophie</div>
                 <h2 className="h2">Ein ehrlicher Blick auf dich, die Welt und das <span className="fl-em">Leben</span> selbst.</h2>
                 <p className="lead">Irgendwann kommt bei den meisten der Punkt, an dem sie merken: Da muss noch mehr sein. Dann hast du die Wahl, auf die Suche zu gehen oder dich ins Durchschnittsleben zu fügen.</p>
                 <div className="fl-cta-row" style={{ marginTop: 30 }}>
-                  <CtaButton href="#philosophie">Das ist meine Philosophie <Arrow /></CtaButton>
+                  <CtaButton href="/philosophie">Das ist meine Philosophie <Arrow /></CtaButton>
                 </div>
               </div>
             </div>

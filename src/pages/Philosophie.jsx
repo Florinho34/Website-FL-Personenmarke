@@ -172,12 +172,14 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-philo .core--peak p strong{color:var(--creme);}
 .fl-philo .core--peak::after{opacity:.16; mix-blend-mode:overlay;}
 
-/* ---- End-CTA ---- */
-.fl-philo .cta{padding:70px 0 44px;}
-.fl-philo .cta .wrap{max-width:720px;}
-.fl-philo .cta h2{font-weight:800; letter-spacing:-.025em; line-height:1.08; font-size:clamp(26px,3.4vw,40px); color:var(--ink);}
-.fl-philo .cta p{font-size:clamp(16px,1.4vw,18px); color:#3a3833; margin-top:18px; max-width:60ch;}
-.fl-philo .cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:32px;}
+/* ---- End-CTA mit Sand-Bild (wie Startseite) ---- */
+.fl-philo .endcta{position:relative; overflow:hidden; isolation:isolate; text-align:left; padding:96px 0 200px; min-height:clamp(600px,84vh,800px); display:flex; align-items:center;}
+.fl-philo .endcta-bg{position:absolute; inset:0; z-index:-2;}
+.fl-philo .endcta-bg img{width:100%; height:100%; object-fit:cover; object-position:center 50%;}
+.fl-philo .endcta-overlay{position:absolute; inset:0; z-index:-1; background:linear-gradient(96deg, var(--creme) 8%, rgba(244,241,235,.72) 32%, rgba(244,241,235,.12) 56%, rgba(244,241,235,0) 72%);}
+.fl-philo .endcta h2{font-weight:800; letter-spacing:-.025em; line-height:1.06; font-size:clamp(34px,5vw,62px); color:var(--ink);}
+.fl-philo .endcta p{font-size:clamp(16px,1.4vw,18px); color:#3a3833; margin-top:22px; max-width:46ch;}
+.fl-philo .cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:40px;}
 .fl-philo .btn{display:inline-flex; align-items:center; gap:9px; text-decoration:none; font-weight:600; font-size:16px; border-radius:100px; padding:15px 26px; cursor:pointer; border:0; transition:transform .2s ease, background .25s ease, color .25s ease;}
 .fl-philo .btn-primary{background:var(--orange); color:var(--creme);}
 .fl-philo .btn-primary:hover{transform:translateY(-2px); background:var(--ink);}
@@ -187,10 +189,6 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-philo .btn:hover .arr{transform:translateX(4px);}
 
 .fl-philo a:focus-visible,.fl-philo button:focus-visible{outline:2px solid var(--orange); outline-offset:3px; border-radius:4px;}
-
-/* ---- Abschluss-Band (Sand, wie Startseite) ---- */
-.fl-philo .endband{padding:30px 0 0;}
-.fl-philo .endband img{width:100%; aspect-ratio:21/9; object-fit:cover; object-position:center 55%; display:block; -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 22%); mask-image:linear-gradient(to bottom, transparent 0, #000 22%);}
 
 /* ---- Reveal ---- */
 .fl-philo .reveal{opacity:0; transform:translateY(20px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);}
@@ -207,7 +205,12 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
   .fl-philo .story .wrap,.fl-philo .feat .wrap,.fl-philo .cores .head{max-width:none;}
   .fl-philo .feat img{max-width:100%;}
   .fl-philo .core{padding:26px 22px;}
-  .fl-philo .endband img{aspect-ratio:16/10;}
+  .fl-philo .eyebrow{margin-bottom:12px;}
+  .fl-philo .endcta{padding:88px 0; min-height:96svh; align-items:flex-start; text-align:center;}
+  .fl-philo .endcta .cta-row{justify-content:center;}
+  .fl-philo .endcta p{margin-left:auto; margin-right:auto; font-size:15.5px;}
+  .fl-philo .endcta-overlay{background:linear-gradient(to bottom, var(--creme) 5%, rgba(244,241,235,.94) 30%, rgba(244,241,235,.48) 46%, rgba(244,241,235,0) 60%);}
+  .fl-philo .endcta-bg img{object-position:center 55%;}
 }
 @media (prefers-reduced-motion:reduce){
   .fl-philo .reveal{transition:none!important; opacity:1; transform:none;}
@@ -327,21 +330,16 @@ export default function Philosophie() {
         </div>
       </section>
 
-      {/* END-CTA */}
-      <section className="cta">
+      {/* END-CTA mit Sand-Bild (wie Startseite) */}
+      <section className="endcta">
+        <div className="endcta-bg"><img src={SAND_BG} alt="Florian Lingner am Strand" /></div>
+        <div className="endcta-overlay" aria-hidden="true" />
         <div className="wrap reveal">
           <h2>Du liest das und spürst eine gewisse <span className="em">Resonanz</span> mit all dem?</h2>
           <p>Starte deine Reise direkt jetzt mit meinem eigens entwickelten Persönlichkeitstest. Es ist der ehrlichste Test auf dem Markt, wenn du bereit bist, wirklich hinzuschauen. Am Ende erhältst du kostenlos eine Analyse deines Archetypen mit persönlichem Profil. Glaub mir, diese Viertelstunde ist es wert – so einfach hast du noch nie deine blinden Flecken gespiegelt bekommen.</p>
           <div className="cta-row">
             <a className="btn btn-primary" href={TEST_URL} target="_blank" rel="noopener noreferrer">Persönlichkeitstest starten <span className="arr">→</span></a>
           </div>
-        </div>
-      </section>
-
-      {/* ABSCHLUSS-BILD (Sand, wie auf der Startseite) */}
-      <section className="endband reveal">
-        <div className="wrap">
-          <img src={SAND_BG} alt="Florian Lingner am Strand" loading="lazy" />
         </div>
       </section>
 
