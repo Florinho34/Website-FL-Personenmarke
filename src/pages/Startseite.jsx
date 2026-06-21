@@ -94,7 +94,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-h1{font-weight:800; letter-spacing:-.035em; line-height:.96; font-size:clamp(44px,6.4vw,82px); text-transform:uppercase; color:var(--ink);}
 .fl-h1 .fl-em{background:linear-gradient(100deg,#FF4D00 0%,#FF7A33 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; padding-right:.14em; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
 .fl-rotator{display:inline-block; color:var(--orange); font-style:italic; padding-right:.12em; animation:rotIn .5s ease;}
-.fl-h1-q{font-size:67px;}
+.fl-h1-q{font-size:67px; line-height:.85;}
 @keyframes rotIn{from{opacity:0; transform:translateY(.22em);}to{opacity:1; transform:none;}}
 .fl-sub{margin-top:28px; font-size:18px; max-width:46ch; color:#595854;}
 .fl-cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:38px;}
@@ -140,7 +140,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 /* philosophie */
 .philo .grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
 .sec.philo{margin-top:-84px; z-index:5;}
-.pullquote{font-size:clamp(22px,2.6vw,34px); font-weight:700; line-height:1.25; letter-spacing:-.02em; max-width:21ch; margin:0;}
+.pullquote{font-size:clamp(19px,2.2vw,29px); font-weight:700; line-height:1.25; letter-spacing:-.02em; max-width:21ch; margin:0;}
 .qmark{color:var(--orange); font-size:64px; font-weight:800; line-height:.6; display:block; margin-bottom:18px;}
 
 /* filter */
@@ -241,7 +241,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-of
   .fl-h1-q{font-size:clamp(26px,7vw,38px);}
   .fl-sub--d{display:none;}
   .fl-sub--m{display:block;}
-  .pullquote{font-style:italic; font-size:clamp(19px,5.3vw,23px);}
+  .pullquote{font-style:italic; font-size:clamp(16px,4.5vw,20px);}
   .fl-hero-overlay{display:block; background:linear-gradient(to bottom, var(--creme) 4%, rgba(244,241,235,.9) 26%, rgba(244,241,235,.36) 42%, rgba(244,241,235,0) 56%);}
   .fl-hero-bg{position:absolute; inset:0;}
   .fl-hero-bg img{height:100%; object-fit:cover; object-position:center top; transform:none;}
@@ -379,7 +379,7 @@ const FAQS = [
 const STEPS = [
   { n: "01", t: "Den Blick schärfen", d: "Unser Alltag fordert uns und häufig fehlt uns die Energie, um bewusst mit all dem umzugehen. Deshalb ist es umso wichtiger, zu beginnen, zu erkennen, wann wir nur im Autopilot-Modus am Funktionieren sind und was dies auslöst." },
   { n: "02", t: "Die Brille absetzen", d: "Wir sind von klein auf darauf getrimmt, auf das zu hören, was uns irgendwelche Autoritäten vorschreiben. Nicht nur unser Weg wird fremdbestimmt orchestriert, sondern auch, was wir zu lernen haben. Was kein Teil unseres Lehrplans war: Wie wir richtig mit unserem Verstand umgehen, damit wir glücklich statt depressiv werden." },
-  { n: "03", t: "Irgendwann ist es zu viel", d: "Wir haben im Laufe unseres Lebens hunderte Überzeugungen und tausende Informationen über die Welt fest in uns verankert. Warum hilft dir das nächste Buch über persönliche Entwicklung schon wieder nicht wirklich? Unser Glas ist voll. Bevor du Neues WIRKLICH verinnerlichen kannst, musst du dein Glas leeren. Es geht erstmal darum, zu vergessen, statt zu lernen." },
+  { n: "03", t: "Das Glas leeren", d: "Wir haben im Laufe unseres Lebens hunderte Überzeugungen und tausende Informationen über die Welt fest in uns verankert. Warum hilft dir das nächste Buch über persönliche Entwicklung schon wieder nicht wirklich? Unser Glas ist voll. Bevor du Neues WIRKLICH verinnerlichen kannst, musst du dein Glas leeren. Es geht erstmal darum, zu vergessen, statt zu lernen." },
   { n: "04", t: "Verantwortung übernehmen", d: "Viele warten darauf, dass das nächste Seminar oder die nächste Erkenntnis sie endlich rettet. Doch leider muss ich dir eine unangenehme Wahrheit überbringen: Für unser Glück sind wir selbst verantwortlich. Nur WIR können uns entwickeln - niemand von außen. Und diese Verantwortung müssen wir zuerst anerkennen. Und anschließend kannst du mit Entschlossenheit und Mut wahre Transformation in deinem Leben erzeugen." },
   { n: "05", t: "Ein neues Selbstverständnis", d: "Der wichtigste Punkt meiner persönlichen Reise war es, zu verstehen, dass mich eine Wissensarroganz befallen hatte. Ich stellte meinen rationalen Verstand auf ein unantastbares Podest. Denken, Informationen und Logik waren mein Anker - und Untergang. Wenn wir es schaffen, aus dieser toxischen Beziehung zu entfliehen, öffnen sich Türen in deinem Leben, von denen du bisher nicht mal zu träumen gewagt hast. Und ja, ich weiß, das klingt etwas mysteriös, aber ich garantiere dir, wenn wir zusammen an deiner persönlichen Entfaltung arbeiten, wirst du irgendwann verstehen und dir wünschen, dies schon vor Jahren erkannt zu haben." },
 ];
@@ -477,7 +477,7 @@ export default function Startseite() {
             <div className="grid">
               <div>
                 <span className="qmark" aria-hidden="true">„</span>
-                <p className="pullquote">Du solltest nicht noch mehr lernen, sondern mehr vergessen. Deine alten Überzeugungen halten dich in einem Leben, das schon lang nicht mehr zu dir passt.</p>
+                <p className="pullquote">Wir sollten nicht noch mehr lernen. Wir sollten mehr vergessen. Unsere alten Überzeugungen halten uns in einem Leben fest, das schon lang nicht mehr zu uns passt.</p>
               </div>
               <div>
                 <div className="sec-eyebrow">Meine Philosophie</div>
@@ -511,7 +511,7 @@ export default function Startseite() {
       <section className="sec">
         <div className="fl-wrap">
           <div className="panel panel-sand reveal">
-            <div className="sec-eyebrow">Die Brille abnehmen</div>
+            <div className="sec-eyebrow">Der Irrtum</div>
             <h2 className="h2">Was viele über Glück <span className="fl-em">glauben</span>.</h2>
             <p className="lead">Die meisten suchen Glück an der falschen Stelle. Dreh die Karte um.</p>
             <div className="flipwrap" ref={flipRef}>
@@ -526,7 +526,7 @@ export default function Startseite() {
                   </button>
                 </div>
                 <div className="face face-back" aria-hidden={!flipped}>
-                  <h3>Worum es hier wirklich geht</h3>
+                  <h3>In Wahrheit ist es so:</h3>
                   <p className="truth">Glück scheitert selten an der Welt, sondern daran, dass wir nie gelernt haben, wie wir innerlich richtig mit ihr umgehen.</p>
                   <button className="flipbtn" onClick={() => setFlipped(false)}>
                     Zurück <Rot cls="ic" />
@@ -543,7 +543,7 @@ export default function Startseite() {
         <div className="fl-wrap">
           <div className="reveal">
             <div className="sec-eyebrow">Der Weg</div>
-            <h2 className="h2">In <span className="fl-em">4 Schritten</span> zu mehr Klarheit.</h2>
+            <h2 className="h2">In <span className="fl-em">5 Schritten</span> zu mehr Klarheit.</h2>
           </div>
           <div className="steps-grid">
             <div className="steps-line"><span /></div>
