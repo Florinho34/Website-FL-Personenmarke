@@ -94,7 +94,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-h1{font-weight:800; letter-spacing:-.035em; line-height:.96; font-size:clamp(44px,6.4vw,82px); text-transform:uppercase; color:var(--ink);}
 .fl-h1 .fl-em{background:linear-gradient(100deg,#FF4D00 0%,#FF7A33 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; padding-right:.14em; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
 .fl-rotator{display:inline-block; color:var(--orange); font-style:italic; padding-right:.12em; animation:rotIn .5s ease;}
-.fl-h1-q{font-size:67px; line-height:.85;}
+.fl-h1-q{display:block; font-size:67px; line-height:.85;}
 @keyframes rotIn{from{opacity:0; transform:translateY(.22em);}to{opacity:1; transform:none;}}
 .fl-sub{margin-top:28px; font-size:18px; max-width:46ch; color:#595854;}
 .fl-cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:38px;}
@@ -458,9 +458,9 @@ export default function Startseite() {
           <div className="fl-hero-text">
             <span className="fl-eyebrow reveal">Du hast dein Leben im Griff, aber lebst du es wirklich?</span>
             <h1 className="fl-h1 reveal d1">
-              <Rotator /><br /><span className="fl-h1-q">Aber wer bist du wirklich?</span>
+              <Rotator /><span className="fl-h1-q">Aber wer bist du wirklich?</span>
             </h1>
-            <p className="fl-sub fl-sub--d reveal d2">Noch mal so frei, lebensfroh und unbekümmert sein wie damals als Kind… Klingt weit weg, doch all das ist noch in dir und will gelebt werden! Leider hat uns niemand beigebracht, wie wir uns diese pure Lebensfreude bewahren können, und ehe man sich versieht, fristet man jahrelang denselben unbefriedigenden Alltag. Wenn du Lust auf mehr als Durchschnitt hast und spürst, dass da noch ein wahrhaftigeres Leben auf dich wartet, begleite ich dich gern auf dieser transformativen Reise.</p>
+            <p className="fl-sub fl-sub--d reveal d2">Noch mal so frei, lebensfroh und unbekümmert sein wie damals als Kind… Klingt weit weg, doch all das ist noch in dir und will gelebt werden! Wenn du Lust auf mehr als Durchschnitt hast und spürst, dass da noch ein wahrhaftigeres Leben auf dich wartet, begleite ich dich gern auf dieser transformativen Reise.</p>
             <p className="fl-sub fl-sub--m reveal d2">Noch mal so frei, lebensfroh und unbekümmert sein wie damals als Kind… Klingt weit weg, doch all das ist noch in dir und will gelebt werden! Ich begleite dich auf dieser Reise.</p>
             <div className="fl-cta-row reveal d3">
               <CtaButton href={TEST_URL} external>Mach den Persönlichkeitstest <Arrow /></CtaButton>
@@ -543,7 +543,7 @@ export default function Startseite() {
         <div className="fl-wrap">
           <div className="reveal">
             <div className="sec-eyebrow">Der Weg</div>
-            <h2 className="h2">In <span className="fl-em">5 Schritten</span> zu mehr Klarheit.</h2>
+            <h2 className="h2">In <span className="fl-em">5 Schritten</span> zu mehr Freude.</h2>
           </div>
           <div className="steps-grid">
             <div className="steps-line"><span /></div>
