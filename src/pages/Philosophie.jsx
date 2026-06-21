@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 /**
- * MEINE PHILOSOPHIE / ÜBER MICH — Florian Lingner
+ * MEINE PHILOSOPHIE / ÜBER MICH - Florian Lingner
  * Eigenständige Router-Seite (/philosophie). Single-File, eigenes <style>,
  * CI wie Startseite (Creme/Sand/Ink, ein Orange-Akzent, Inter Tight).
  * Aufbau: persönliche Geschichte (Auftakt) -> 5 Kerne der Philosophie -> sanfter CTA.
  *
- * NAV: eigenständig im Startseiten-Look. Links auf Startseiten-Abschnitte gehen
- *      root-relativ (/#mentoring), damit sie von dieser Unterseite aus funktionieren.
- *      (Sobald mehrere Unterseiten stehen, ziehen wir die Nav als geteilten Header raus.)
+ * NAV: geteilter <Header/> (components/Header.jsx + .css) - auf allen Seiten gleich.
  *
  * BILDER: kommen live aus public/images/ via raw.githubusercontent.com.
  *   ueber-florian-lingner-1.jpg  -> Feature im Story-Teil (Hochformat ~4:5 passt gut)
@@ -45,7 +44,7 @@ const CORES = [
     t: "Niemand hat uns eine Art zu denken beigebracht, die glücklich macht.",
     body: (
       <>
-        <p>Von klein auf gibt es Menschen (Eltern, Lehrer, Politiker), die uns sagen, welche Richtung für uns die beste wäre. Uns wird unverblümt gesagt, was von uns erwartet wird. Mit Druck werden wir in ein System gepresst, das nur zu den wenigsten passt. Bis zum Erwachsenwerden lernen wir sooo viel, damit wir uns am Ende perfekt einfügen.</p>
+        <p>Von klein auf gibt es Menschen (Eltern, Lehrer, Politiker), die uns sagen, welche Richtung für uns die beste wäre. Uns wird unverblümt gesagt, was von uns erwartet wird. Mit Druck werden wir in ein System gepresst, das nur zu den wenigsten passt. Bis zum Erwachsenenalter lernen wir sooo viel, damit wir uns am Ende perfekt einfügen.</p>
         <p><strong>Aber die wirklich wichtigen Dinge bringt uns niemand bei.</strong> Und nein, ich meine nicht die Steuererklärung, sondern wie wir mit unserem Verstand und uns selbst klarkommen oder sogar lernen, damit so umzugehen, dass es uns glücklich statt depressiv macht. Genau deshalb sollten wir lernen, zu verstehen, wie wir, der Mensch generell und die Welt tickt. Ungeschönt und ehrlich. Einen klaren Blick auf die Welt zu erlangen, ist unfassbar wertvoll.</p>
       </>
     ),
@@ -77,7 +76,7 @@ const CORES = [
     body: (
       <>
         <p>Wissensarroganz. Eine Arroganz, die ganz viele von uns unbewusst angenommen haben, grade vom logischen / rationalen Verstand geprägte Menschen. Wird ihr Wissen in Frage gestellt, ist das so, als triggert man die Verlustangst eines liebenden Menschen. Viele halten sich so verkrampft an diesem Wissen fest, dass diese Ansammlung an Informationen ihr Leben immer mehr bestimmt.</p>
-        <p>Der Schlüssel meiner eigenen Lebensphilosophie ist es, dies loszulassen – <strong>ALLES zu hinterfragen und mit Demut und Akzeptanz auf das Leben und das Menschsein zu blicken.</strong> Wer das schafft, wird freier leben als je zuvor.</p>
+        <p>Der Schlüssel meiner eigenen Lebensphilosophie ist es, dies loszulassen - <strong>ALLES zu hinterfragen und mit Demut und Akzeptanz auf das Leben und das Menschsein zu blicken.</strong> Wer das schafft, wird freier leben als je zuvor.</p>
         <p>Ich lade dich ein, mit mir auf diese Reise zu gehen und vom rationalen, ängstlichen Zweifler endlich zur lebensfrohsten und glücklichsten Version deiner selbst zu werden.</p>
       </>
     ),
@@ -111,20 +110,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 /* Korn */
 .fl-philo .grain{position:fixed; inset:0; z-index:9; pointer-events:none; opacity:.10; mix-blend-mode:multiply; background-image:${GRAIN};}
 
-/* ---- Nav (Startseiten-Look) ---- */
-.fl-philo .nav{position:fixed; top:0; left:0; right:0; z-index:50; transition:background .35s ease, box-shadow .35s ease, padding .35s ease; padding:22px 0;}
-.fl-philo .nav.scrolled{background:rgba(244,241,235,.82); backdrop-filter:saturate(140%) blur(12px); box-shadow:0 1px 0 rgba(28,28,28,.07); padding:14px 0;}
-.fl-philo .nav .wrap{display:flex; align-items:center; justify-content:space-between;}
-.fl-philo .logo{display:inline-flex; align-items:center; text-decoration:none; color:var(--ink);}
-.fl-philo .logo svg{height:19px; width:auto; display:block;}
-.fl-philo .menu{display:flex; gap:30px; align-items:center;}
-.fl-philo .menu a{position:relative; text-decoration:none; color:var(--ink); font-weight:500; font-size:15px; padding:4px 0;}
-.fl-philo .menu a:not(.navcta)::after{content:""; position:absolute; left:0; bottom:-2px; height:2px; width:0; background:var(--orange); transition:width .28s ease;}
-.fl-philo .menu a:not(.navcta):hover::after{width:100%;}
-.fl-philo .navcta{background:var(--orange); color:var(--creme)!important; padding:10px 18px!important; border-radius:100px; font-weight:600;}
-.fl-philo .navcta:hover{background:var(--ink);}
-.fl-philo .burger{display:none; background:none; border:0; cursor:pointer; width:38px; height:38px;}
-.fl-philo .burger span{display:block; width:24px; height:2px; background:var(--ink); margin:5px auto; transition:.3s;}
+/* ---- Nav: ausgelagert in geteilten <Header/> (components/Header.jsx + .css) ---- */
 
 /* ---- Hero / Story ---- */
 .fl-philo .hero{padding:150px 0 30px;}
@@ -196,11 +182,6 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 
 /* ---- Mobile ---- */
 @media (max-width:880px){
-  .fl-philo .nav.menu-open{background:transparent!important; backdrop-filter:none!important; -webkit-backdrop-filter:none!important; box-shadow:none!important;}
-  .fl-philo .menu{position:fixed; inset:0; width:100%; height:100%; background:var(--creme); flex-direction:column; align-items:center; justify-content:center; gap:30px; padding:0 36px; opacity:0; visibility:hidden; transform:translateY(-6px); transition:opacity .3s ease, transform .3s ease, visibility .3s; z-index:45;}
-  .fl-philo .menu.open{opacity:1; visibility:visible; transform:none;}
-  .fl-philo .menu a{font-size:24px;}
-  .fl-philo .burger{display:block; z-index:60; position:relative;}
   .fl-philo .hero{padding:120px 0 20px;}
   .fl-philo .story .wrap,.fl-philo .feat .wrap,.fl-philo .cores .head{max-width:none;}
   .fl-philo .feat img{max-width:100%;}
@@ -232,24 +213,9 @@ function Foto({ src, alt, wrapClass }) {
 }
 
 export default function Philosophie() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menu, setMenu] = useState(false);
-
   useEffect(() => {
     document.title = "Über mich & meine Philosophie | Florian Lingner";
   }, []);
-
-  useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 30);
-    on();
-    window.addEventListener("scroll", on, { passive: true });
-    return () => window.removeEventListener("scroll", on);
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = menu ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [menu]);
 
   useEffect(() => {
     const els = document.querySelectorAll(".fl-philo .reveal");
@@ -265,19 +231,8 @@ export default function Philosophie() {
     <div className="fl-philo">
       <style>{CSS}</style>
 
-      {/* NAV */}
-      <nav className={"nav" + (scrolled ? " scrolled" : "") + (menu ? " menu-open" : "")}>
-        <div className="wrap">
-          <a className="logo" href="/" aria-label="florian lingner" dangerouslySetInnerHTML={{ __html: LOGO_SVG }} />
-          <div className={"menu" + (menu ? " open" : "")}>
-            <a href="/philosophie" onClick={() => setMenu(false)}>Philosophie</a>
-            <a href="/#mentoring" onClick={() => setMenu(false)}>Mentoring</a>
-            <a href="/#kostenloses" onClick={() => setMenu(false)}>Kostenloses</a>
-            <a className="navcta" href={TEST_URL} target="_blank" rel="noopener noreferrer">Persönlichkeitstest starten</a>
-          </div>
-          <button className="burger" aria-label="Menü" onClick={() => setMenu(!menu)}><span /><span /><span /></button>
-        </div>
-      </nav>
+      {/* NAV - geteilter Header */}
+      <Header />
 
       {/* HERO */}
       <header className="hero">
@@ -291,7 +246,7 @@ export default function Philosophie() {
       <section className="story">
         <div className="wrap">
           <p className="reveal">Ich bin 5-stellig verschuldet. Ich habe Angst, meiner Familie von der prekären Situation zu erzählen. Es ist alles zusammengebrochen und es überwältigt mich. <strong>Das hier ist definitiv mein Tiefpunkt.</strong> Einen Brief entfernt von der Privatinsolvenz. Ohne richtigen Job und vor allem ohne Zuversicht. Auch mein einziger Anker, meine Partnerin, kann hieran nichts ändern.</p>
-          <p className="reveal">Durch diese erdrückende Existenzangst befindet sich auch mein Körper in alarmierendem Zustand. Und auch wenn die paar extra Pfunde, wegen der Ernährung, Alkohol und fehlendem Sport nicht schön sind, habe ich dennoch nicht kommen sehen, dass ich mit einer stressinduzierten Magenentzündung im Krankenhaus landen würde. Und hier liege ich nun in der Notaufnahme und erbreche mich in einen Plastikbeutel.</p>
+          <p className="reveal">Durch diese erdrückende Existenzangst befindet sich auch mein Körper in alarmierendem Zustand. Und auch wenn die paar extra Pfunde, wegen der Ernährung, Alkohol und fehlendem Sport nicht schön sind, habe ich dennoch nicht kommen sehen, dass ich mit einer stressinduzierten Magenentzündung im Krankenhaus landen würde. Und hier liege ich nun in der Notaufnahme und <strong>erbreche mich in einen Plastikbeutel.</strong></p>
           <p className="reveal">Das war krass. Und auch wenn es nur ein paar Jahre her ist, kommt mir diese Erinnerung vor wie ein anderes Leben.</p>
         </div>
       </section>
@@ -302,9 +257,9 @@ export default function Philosophie() {
       <section className="story">
         <div className="wrap">
           <p className="reveal"><strong>Heute bin ich unendlich dankbar für diese Phase meines Lebens.</strong> Ohne diese Erfahrung wäre ich heute nicht der, der ich bin. All das hat mich gelehrt, was im Leben wirklich zählt. Und nun, nach einigen Jahren harter, ehrlicher Arbeit an mir selbst, fühle ich mich freier, glücklicher und erfüllter als je zuvor.</p>
-          <p className="reveal">Ich weiß, dass da draußen so viele Menschen, genau wie ich damals, von äußerlichen Einflüssen, negativen Gedanken und Ängsten beeinflusst werden. Die Logiker, die sich an Informationen und Fakten klammern. Die Zweifler, die das „Nein“ schon auf den Lippen haben, bevor überhaupt gefragt wurde. Oder aber auch einfach den normalen Menschen, der sich von der Komplexität dieser Welt übermannt und orientierungslos fühlt.</p>
-          <p className="reveal">Ich wünsche mir für all jene, dass sie nicht erst an einen ähnlichen Tiefpunkt gelangen müssen, um wieder zu sich zu finden. Ich habe diese Reise hinter mir und du bist gern eingeladen, aus meinen Fehlern zu lernen, ohne sie selbst machen zu müssen.</p>
-          <p className="reveal">Wer Mut mitbringt und wachsen möchte, den begleite ich heute gern auf dieser Reise. Aber Achtung! Ich begleite. Wachsen musst du selbst – denn genau hier liegt der Unterschied zu all den selbsternannten Heilsbringern und Coaches. Ich teache nicht. Ich bin nicht dein Guru, sondern ein Mensch, genau wie du. Ich biete dir keine „Formel“ oder „Methode“, lediglich ein offenes Ohr und interessante Perspektiven. Ob du diese verinnerlichst, ist dir überlassen.</p>
+          <p className="reveal">Ich weiß, dass da draußen so viele Menschen, genau wie ich damals, von äußerlichen Einflüssen, negativen Gedanken und Ängsten beeinflusst werden. Die Logiker, die sich an Informationen und Fakten klammern. Die Zweifler, die das „Nein“ schon auf den Lippen haben, bevor überhaupt gefragt wurde. Oder aber auch einfach ganz normale Menschen, die sich von der Komplexität dieser Welt übermannt und orientierungslos fühlen.</p>
+          <p className="reveal">Ich wünsche mir für all jene, dass sie nicht erst an einen ähnlichen Tiefpunkt gelangen müssen, um wieder zu sich zu finden. Ich habe diese Reise hinter mir. Du bist nun eingeladen, aus meinen Fehlern zu lernen, ohne sie selbst machen zu müssen.</p>
+          <p className="reveal">Wer Mut mitbringt und wachsen möchte, den begleite ich heute gern auf dieser Reise. Aber Achtung! Ich begleite. Wachsen musst du selbst - denn genau hier liegt der Unterschied zu all den selbsternannten Heilsbringern und Coaches. Ich teache nicht. Ich bin nicht dein Guru, sondern ein Mensch, genau wie du. <strong>Ich biete dir keine „Formel“ oder „Methode“, lediglich ein offenes Ohr und interessante Perspektiven.</strong> Auch wenn du das vielleicht nicht hören magst: Ob sich mit der Zeit tatsächlich etwas in deinem Leben verändert, liegt in deiner Hand.</p>
         </div>
       </section>
 
@@ -336,9 +291,10 @@ export default function Philosophie() {
         <div className="endcta-overlay" aria-hidden="true" />
         <div className="wrap reveal">
           <h2>Du liest das und spürst eine gewisse <span className="em">Resonanz</span> mit all dem?</h2>
-          <p>Starte deine Reise direkt jetzt mit meinem eigens entwickelten Persönlichkeitstest. Es ist der ehrlichste Test auf dem Markt, wenn du bereit bist, wirklich hinzuschauen. Am Ende erhältst du kostenlos eine Analyse deines Archetypen mit persönlichem Profil. Glaub mir, diese Viertelstunde ist es wert – so einfach hast du noch nie deine blinden Flecken gespiegelt bekommen.</p>
+          <p>Starte deine Reise direkt jetzt mit meinem eigens entwickelten Persönlichkeitstest. Es ist der ehrlichste Test auf dem Markt, wenn du bereit bist, wirklich hinzuschauen. Am Ende erhältst du kostenlos eine Analyse deines Archetypen mit persönlichem Profil. Glaub mir, diese Viertelstunde ist es wert - so einfach hast du noch nie deine blinden Flecken gespiegelt bekommen.</p>
           <div className="cta-row">
             <a className="btn btn-primary" href={TEST_URL} target="_blank" rel="noopener noreferrer">Persönlichkeitstest starten <span className="arr">→</span></a>
+            <a className="btn btn-ghost" href="/mentoring">Mehr zum Mentoring <span className="arr">→</span></a>
           </div>
         </div>
       </section>

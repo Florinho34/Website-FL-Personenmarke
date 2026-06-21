@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 /**
- * STARTSEITE — Florian Lingner (Design-Prototyp · V2)
+ * STARTSEITE - Florian Lingner (Design-Prototyp · V2)
  * Single-File React. Kein Tailwind, eigenes CSS, CI-Farben als CSS-Variablen.
  * Look: grainy warmer Hintergrund mit leichtem Orange-Verlauf, dunkle/sandfarbene
  * Sektionen als schwebende, abgerundete Panels (keine geraden Kanten).
@@ -80,22 +81,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
 
 /* nav */
-.fl-nav{position:fixed; top:0; left:0; right:0; z-index:50; transition:background .35s ease, box-shadow .35s ease, padding .35s ease; padding:22px 0;}
-.fl-nav.scrolled{background:rgba(244,241,235,.82); backdrop-filter:saturate(140%) blur(12px); box-shadow:0 1px 0 rgba(28,28,28,.07); padding:14px 0;}
-.fl-nav .fl-wrap{display:flex; align-items:center; justify-content:space-between;}
-.fl-logo{font-weight:800; letter-spacing:-.02em; font-size:20px; text-transform:lowercase; text-decoration:none; color:var(--ink); display:inline-flex; align-items:center;}
-.fl-logo .dot{color:var(--orange);}
-.fl-logo-svg{display:inline-flex;}
-.fl-logo-svg svg{height:19px; width:auto; display:block;}
-.fl-menu{display:flex; gap:30px; align-items:center;}
-.fl-menu a{position:relative; text-decoration:none; color:var(--ink); font-weight:500; font-size:15px; padding:4px 0;}
-.fl-menu a::after{content:""; position:absolute; left:0; bottom:-2px; height:2px; width:0; background:var(--orange); transition:width .28s ease;}
-.fl-menu a:hover::after, .fl-menu a:focus-visible::after{width:100%;}
-.fl-navcta{background:var(--orange); color:var(--creme)!important; padding:10px 18px!important; border-radius:100px; font-weight:600;}
-.fl-navcta::after{display:none;}
-.fl-navcta:hover{background:var(--ink);}
-.fl-burger{display:none; background:none; border:0; cursor:pointer; width:38px; height:38px;}
-.fl-burger span{display:block; width:24px; height:2px; background:var(--ink); margin:5px auto; transition:.3s;}
+/* ---- Nav: ausgelagert in geteilten <Header/> (components/Header.jsx + .css) ---- */
 
 /* hero */
 .fl-hero{position:relative; min-height:clamp(560px,90vh,840px); display:flex; align-items:center; overflow:hidden; isolation:isolate;}
@@ -247,11 +233,6 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-offset:3px; border-radius:4px;}
 
 @media (max-width:880px){
-  .fl-nav.menu-open{background:transparent!important; backdrop-filter:none!important; -webkit-backdrop-filter:none!important; box-shadow:none!important;}
-  .fl-menu{position:fixed; inset:0; width:100%; height:100%; background:var(--creme); flex-direction:column; align-items:center; justify-content:center; gap:30px; padding:0 36px; opacity:0; visibility:hidden; transform:translateY(-6px); transition:opacity .3s ease, transform .3s ease, visibility .3s; z-index:45; box-shadow:none;}
-  .fl-menu.open{opacity:1; visibility:visible; transform:none;}
-  .fl-menu a{font-size:24px;}
-  .fl-burger{display:block; z-index:60; position:relative;}
   .fl-hero .grid,.philo .grid,.about .grid,.filter-grid{grid-template-columns:1fr; gap:32px;}
   .fl-hero{min-height:192vw; max-height:920px; align-items:flex-start;}
   .fl-eyebrow{display:none;}
@@ -399,8 +380,8 @@ const STEPS = [
   { n: "01", t: "Den Blick schärfen", d: "Unser Alltag fordert uns und häufig fehlt uns die Energie, um bewusst mit all dem umzugehen. Deshalb ist es umso wichtiger, zu beginnen, zu erkennen, wann wir nur im Autopilot-Modus am Funktionieren sind und was dies auslöst." },
   { n: "02", t: "Die Brille absetzen", d: "Wir sind von klein auf darauf getrimmt, auf das zu hören, was uns irgendwelche Autoritäten vorschreiben. Nicht nur unser Weg wird fremdbestimmt orchestriert, sondern auch, was wir zu lernen haben. Was kein Teil unseres Lehrplans war: Wie wir richtig mit unserem Verstand umgehen, damit wir glücklich statt depressiv werden." },
   { n: "03", t: "Irgendwann ist es zu viel", d: "Wir haben im Laufe unseres Lebens hunderte Überzeugungen und tausende Informationen über die Welt fest in uns verankert. Warum hilft dir das nächste Buch über persönliche Entwicklung schon wieder nicht wirklich? Unser Glas ist voll. Bevor du Neues WIRKLICH verinnerlichen kannst, musst du dein Glas leeren. Es geht erstmal darum, zu vergessen, statt zu lernen." },
-  { n: "04", t: "Verantwortung übernehmen", d: "Viele warten darauf, dass das nächste Seminar oder die nächste Erkenntnis sie endlich rettet. Doch leider muss ich dir eine unangenehme Wahrheit überbringen: Für unser Glück sind wir selbst verantwortlich. Nur WIR können uns entwickeln – niemand von außen. Und diese Verantwortung müssen wir zuerst anerkennen. Und anschließend kannst du mit Entschlossenheit und Mut wahre Transformation in deinem Leben erzeugen." },
-  { n: "05", t: "Ein neues Selbstverständnis", d: "Der wichtigste Punkt meiner persönlichen Reise war es, zu verstehen, dass mich eine Wissensarroganz befallen hatte. Ich stellte meinen rationalen Verstand auf ein unantastbares Podest. Denken, Informationen und Logik waren mein Anker – und Untergang. Wenn wir es schaffen, aus dieser toxischen Beziehung zu entfliehen, öffnen sich Türen in deinem Leben, von denen du bisher nicht mal zu träumen gewagt hast. Und ja, ich weiß, das klingt etwas mysteriös, aber ich garantiere dir, wenn wir zusammen an deiner persönlichen Entfaltung arbeiten, wirst du irgendwann verstehen und dir wünschen, dies schon vor Jahren erkannt zu haben." },
+  { n: "04", t: "Verantwortung übernehmen", d: "Viele warten darauf, dass das nächste Seminar oder die nächste Erkenntnis sie endlich rettet. Doch leider muss ich dir eine unangenehme Wahrheit überbringen: Für unser Glück sind wir selbst verantwortlich. Nur WIR können uns entwickeln - niemand von außen. Und diese Verantwortung müssen wir zuerst anerkennen. Und anschließend kannst du mit Entschlossenheit und Mut wahre Transformation in deinem Leben erzeugen." },
+  { n: "05", t: "Ein neues Selbstverständnis", d: "Der wichtigste Punkt meiner persönlichen Reise war es, zu verstehen, dass mich eine Wissensarroganz befallen hatte. Ich stellte meinen rationalen Verstand auf ein unantastbares Podest. Denken, Informationen und Logik waren mein Anker - und Untergang. Wenn wir es schaffen, aus dieser toxischen Beziehung zu entfliehen, öffnen sich Türen in deinem Leben, von denen du bisher nicht mal zu träumen gewagt hast. Und ja, ich weiß, das klingt etwas mysteriös, aber ich garantiere dir, wenn wir zusammen an deiner persönlichen Entfaltung arbeiten, wirst du irgendwann verstehen und dir wünschen, dies schon vor Jahren erkannt zu haben." },
 ];
 
 const MYTHS = ["…sich die Umstände ändern.", "…man endlich angekommen ist.", "…man noch etwas optimiert.", "…man weniger Probleme hat."];
@@ -417,8 +398,6 @@ function Rotator() {
 }
 
 export default function Startseite() {
-  const scrolled = useScrolled();
-  const [menu, setMenu] = useState(false);
   const [flipped, setFlipped] = useState(false);
   const [peek, setPeek] = useState(false);
   const [open, setOpen] = useState(0);
@@ -446,11 +425,6 @@ export default function Startseite() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = menu ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [menu]);
-
-  useEffect(() => {
     const rail = document.querySelector(".fl-root .steps-line");
     if (!rail) return;
     const onScroll = () => {
@@ -466,29 +440,12 @@ export default function Startseite() {
     return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, []);
 
-  const nav = [
-    { label: "Philosophie", href: "/philosophie" },
-    { label: "Mentoring", href: "#mentoring" },
-    { label: "Kostenloses", href: "#kostenloses" },
-  ];
-
   return (
     <div className="fl-root">
       <style>{CSS}</style>
 
-      {/* NAV */}
-      <nav className={"fl-nav" + (scrolled ? " scrolled" : "") + (menu ? " menu-open" : "")}>
-        <div className="fl-wrap">
-          <a className="fl-logo" href="#top" aria-label="florian lingner"><LogoMark /></a>
-          <div className={"fl-menu" + (menu ? " open" : "")}>
-            {nav.map((n) => (
-              <a key={n.label} href={n.href} target={n.ext ? "_blank" : undefined} rel={n.ext ? "noopener noreferrer" : undefined} onClick={() => setMenu(false)}>{n.label}</a>
-            ))}
-            <a className="fl-navcta" href={TEST_URL} target="_blank" rel="noopener noreferrer">Persönlichkeitstest starten</a>
-          </div>
-          <button className="fl-burger" aria-label="Menü" onClick={() => setMenu(!menu)}><span /><span /><span /></button>
-        </div>
-      </nav>
+      {/* NAV - geteilter Header */}
+      <Header />
 
       {/* HERO */}
       <header className="fl-hero" id="top">
