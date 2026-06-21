@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Startseite from "./pages/Startseite";
 import Philosophie from "./pages/Philosophie";
+import Mentoring from "./pages/Mentoring";
 import Impressum from "./pages/Impressum";
 import Datenschutz from "./pages/Datenschutz";
 import ConsentBanner from "./components/ConsentBanner";
@@ -11,6 +12,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Startseite />} />
         <Route path="/philosophie" element={<Philosophie />} />
+        <Route path="/mentoring" element={<Mentoring />} />
         <Route path="/impressum" element={<Impressum />} />
         <Route path="/datenschutz" element={<Datenschutz />} />
       </Routes>
