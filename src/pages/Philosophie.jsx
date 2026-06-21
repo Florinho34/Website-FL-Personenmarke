@@ -22,6 +22,7 @@ const TEST_URL = "https://test.florian-lingner.ch/";
 
 const IMG_1 = "https://raw.githubusercontent.com/Florinho34/Website-FL-Personenmarke/main/public/images/ueber-florian-lingner-1.jpg";
 const IMG_2 = "https://raw.githubusercontent.com/Florinho34/Website-FL-Personenmarke/main/public/images/ueber-florian-lingner-2.jpg";
+const SAND_BG = "https://raw.githubusercontent.com/Florinho34/Website-FL-Personenmarke/main/public/images/endcta-sand.jpg";
 
 const LOGO_SVG = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 533.93 60.95\"><g><g><path fill=\"currentColor\" d=\"M37.07.51v59.92h-9.33V24.48c0-2.31-1.8-4.11-4.11-4.11h-9.33v40.06H4.88V23.03c0-1.45-1.2-2.65-2.65-2.65H0v-4.88h4.88C4.88,8.3,9.16.51,20.12.51h16.95ZM27.74,15.49v-5.99c0-2.31-1.8-4.11-4.11-4.11h-2.48c-4.96,0-6.85,3.25-6.85,7.36,0,1.54,1.2,2.74,2.65,2.74h10.79Z\"/><path fill=\"currentColor\" d=\"M93.99,38.01c0,11.47-8.3,22.94-25.08,22.94s-25.08-11.47-25.08-22.94,8.39-23.03,25.08-23.03,25.08,11.47,25.08,23.03ZM84.32,37.92c0-9.07-5.14-18.15-15.41-18.15s-15.41,9.07-15.41,18.15,5.14,18.23,15.41,18.23,15.41-9.07,15.41-18.23Z\"/><path fill=\"currentColor\" d=\"M128.66,14.98v9.59c-11.47-4.88-18.58,1.28-18.58,13.35v22.51h-9.33V15.49h9.33v3.25c0,1.54,1.8,2.4,3,1.37,3.85-3.34,9.25-5.14,15.58-5.14Z\"/><path fill=\"currentColor\" d=\"M132.69,5.65c0-3.08,2.57-5.65,5.74-5.65s5.65,2.57,5.65,5.65-2.57,5.74-5.65,5.74-5.74-2.57-5.74-5.74ZM133.71,60.44V15.49h9.33v44.94h-9.33Z\"/><path fill=\"currentColor\" d=\"M189.78,30.48v29.96h-9.33v-2.65c0-1.63-1.97-2.57-3.17-1.46-3.6,3-8.13,4.62-13.01,4.62-9.25,0-14.55-5.05-14.55-12.07,0-9.25,8.82-18.58,29.45-18.92.68,0,1.28-.6,1.28-1.28,0-4.88-1.63-8.9-8.9-8.9-9.07,0-16.01,5.05-16.09,5.05l-3.08-3.68c.26-.26,7.1-6.16,19.18-6.16,13.18,0,18.23,5.39,18.23,15.49ZM180.45,38.01c0-1.8-1.46-3.25-3.25-3.08-12.84.77-18.06,6.59-18.06,12.84,0,4.2,3.08,7.28,8.13,7.28,7.19,0,13.18-6.42,13.18-17.04Z\"/><path fill=\"currentColor\" d=\"M239.52,29.45v30.99h-9.42v-31.07c0-5.74-3.85-8.47-9.07-8.47-7.28,0-13.27,6.42-13.27,17.04v22.51h-9.33V15.49h9.33v2.48c0,1.71,2.05,2.65,3.34,1.54,3.51-2.91,7.96-4.54,12.84-4.54,9.25,0,15.58,5.22,15.58,14.47Z\"/><path fill=\"currentColor\" d=\"M287.29,60.44V15.49h9.33v44.94h-9.33Z\"/><path fill=\"currentColor\" d=\"M346.69,29.45v30.99h-9.42v-31.07c0-5.74-3.85-8.47-9.07-8.47-7.28,0-13.27,6.42-13.27,17.04v22.51h-9.33V15.49h9.33v2.48c0,1.71,2.05,2.65,3.34,1.54,3.51-2.91,7.96-4.54,12.84-4.54,9.25,0,15.58,5.22,15.58,14.47Z\"/><path fill=\"currentColor\" d=\"M446.62,29.45v30.99h-9.42v-31.07c0-5.74-3.85-8.47-9.07-8.47-7.28,0-13.27,6.42-13.27,17.04v22.51h-9.33V15.49h9.33v2.48c0,1.71,2.05,2.65,3.34,1.54,3.51-2.91,7.96-4.54,12.84-4.54,9.25,0,15.58,5.22,15.58,14.47Z\"/><path fill=\"currentColor\" d=\"M495.07,49.99l3.08,3.77s-7.45,7.19-20.89,7.19c-16.27,0-24.31-11.47-24.31-23.03,0-15.32,11.64-22.94,23.28-22.94s23.29,7.62,23.29,22.94h-33.47c-1.97,0-3.42,1.71-3.17,3.6,1.11,7.62,5.99,14.04,14.98,14.04,10.53,0,17.21-5.56,17.21-5.56ZM462.97,33.13h23.03c2.14,0,3.68-2.14,3-4.2-2.31-6.68-7.45-9.16-12.5-9.16-5.99,0-12.07,3.42-13.52,13.35Z\"/><path fill=\"currentColor\" d=\"M533.93,14.98v9.59c-11.47-4.88-18.58,1.28-18.58,13.35v22.51h-9.33V15.49h9.33v3.25c0,1.54,1.8,2.4,3,1.37,3.85-3.34,9.25-5.14,15.58-5.14Z\"/><path fill=\"currentColor\" d=\"M287.29,51.97c-.25,2.05-1.92,3.59-4.06,3.59h-2.48c-4.96,0-6.85-3.25-6.85-7.36,0-.07.02-.14.02-.22h-.02V.51h-9.42v24.63h0v20.41c.04,7.17,4.32,14.89,15.24,14.89h7.57v-8.47Z\"/><path fill=\"currentColor\" d=\"M394.43,57.87c-.77-.59-1.73-.91-2.69-.91-.66,0-1.28.15-1.86.43-3.47,1.73-7.39,2.65-11.35,2.65-16.62,0-24.06-11.32-24.06-22.53s7.44-22.53,24.06-22.53c10.78,0,17.17,6.62,17.43,6.9l.48.51-3.38,3.56-.53-.53c-.23-.23-5.68-5.54-13.99-5.54-11.3,0-15.31,9.5-15.31,17.63s4.01,17.63,15.31,17.63c4.7,0,8.44-1.7,10.84-3.22v-9.21c0-1.52-1.21-2.75-2.69-2.75h-15.06v-5.46h26.14v24.57c0,.56-.64.87-1.08.53l-2.24-1.73Z\"/><circle fill=\"#FF4D00\" cx=\"291.95\" cy=\"5.69\" r=\"5.69\"/></g></g></svg>";
 
@@ -72,7 +73,7 @@ const CORES = [
   },
   {
     n: "05",
-    t: "Ich weiss, dass ich nichts weiss. Und das hat mich befreit.",
+    t: "Ich weiß, dass ich nichts weiß. Und das hat mich befreit.",
     body: (
       <>
         <p>Wissensarroganz. Eine Arroganz, die ganz viele von uns unbewusst angenommen haben, grade vom logischen / rationalen Verstand geprägte Menschen. Wird ihr Wissen in Frage gestellt, ist das so, als triggert man die Verlustangst eines liebenden Menschen. Viele halten sich so verkrampft an diesem Wissen fest, dass diese Ansammlung an Informationen ihr Leben immer mehr bestimmt.</p>
@@ -128,7 +129,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 /* ---- Hero / Story ---- */
 .fl-philo .hero{padding:150px 0 30px;}
 .fl-philo .eyebrow{display:inline-block; font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--orange); margin-bottom:22px;}
-.fl-philo .hero h1{font-weight:800; letter-spacing:-.03em; line-height:.96; font-size:clamp(48px,9vw,104px); text-transform:uppercase; color:var(--ink);}
+.fl-philo .hero h1{font-weight:800; letter-spacing:-.03em; line-height:.98; font-size:clamp(40px,6vw,72px); text-transform:uppercase; color:var(--ink);}
 .fl-philo .hero h1 .em{background:linear-gradient(100deg,#FF4D00 0%,#FF7A33 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
 
 .fl-philo .story{padding:24px 0 10px;}
@@ -172,7 +173,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-philo .core--peak::after{opacity:.16; mix-blend-mode:overlay;}
 
 /* ---- End-CTA ---- */
-.fl-philo .cta{padding:70px 0 90px;}
+.fl-philo .cta{padding:70px 0 44px;}
 .fl-philo .cta .wrap{max-width:720px;}
 .fl-philo .cta h2{font-weight:800; letter-spacing:-.025em; line-height:1.08; font-size:clamp(26px,3.4vw,40px); color:var(--ink);}
 .fl-philo .cta p{font-size:clamp(16px,1.4vw,18px); color:#3a3833; margin-top:18px; max-width:60ch;}
@@ -186,6 +187,10 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-philo .btn:hover .arr{transform:translateX(4px);}
 
 .fl-philo a:focus-visible,.fl-philo button:focus-visible{outline:2px solid var(--orange); outline-offset:3px; border-radius:4px;}
+
+/* ---- Abschluss-Band (Sand, wie Startseite) ---- */
+.fl-philo .endband{padding:30px 0 0;}
+.fl-philo .endband img{width:100%; aspect-ratio:21/9; object-fit:cover; object-position:center 55%; display:block; -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 22%); mask-image:linear-gradient(to bottom, transparent 0, #000 22%);}
 
 /* ---- Reveal ---- */
 .fl-philo .reveal{opacity:0; transform:translateY(20px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);}
@@ -202,6 +207,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
   .fl-philo .story .wrap,.fl-philo .feat .wrap,.fl-philo .cores .head{max-width:none;}
   .fl-philo .feat img{max-width:100%;}
   .fl-philo .core{padding:26px 22px;}
+  .fl-philo .endband img{aspect-ratio:16/10;}
 }
 @media (prefers-reduced-motion:reduce){
   .fl-philo .reveal{transition:none!important; opacity:1; transform:none;}
@@ -274,7 +280,7 @@ export default function Philosophie() {
       <header className="hero">
         <div className="wrap reveal">
           <span className="eyebrow">Über mich</span>
-          <h1>Scheiss auf <span className="em">alles</span></h1>
+          <h1>Scheiß auf <span className="em">alles</span></h1>
         </div>
       </header>
 
@@ -293,9 +299,9 @@ export default function Philosophie() {
       <section className="story">
         <div className="wrap">
           <p className="reveal"><strong>Heute bin ich unendlich dankbar für diese Phase meines Lebens.</strong> Ohne diese Erfahrung wäre ich heute nicht der, der ich bin. All das hat mich gelehrt, was im Leben wirklich zählt. Und nun, nach einigen Jahren harter, ehrlicher Arbeit an mir selbst, fühle ich mich freier, glücklicher und erfüllter als je zuvor.</p>
-          <p className="reveal">Ich weiss, dass da draußen so viele Menschen, genau wie ich damals, von äußerlichen Einflüssen, negativen Gedanken und Ängsten beeinflusst werden. Die Logiker, die sich an Informationen und Fakten klammern. Die Zweifler, die das „Nein“ schon auf den Lippen haben, bevor überhaupt gefragt wurde. Oder aber auch einfach den normalen Menschen, der sich von der Komplexität dieser Welt übermannt und orientierungslos fühlt.</p>
+          <p className="reveal">Ich weiß, dass da draußen so viele Menschen, genau wie ich damals, von äußerlichen Einflüssen, negativen Gedanken und Ängsten beeinflusst werden. Die Logiker, die sich an Informationen und Fakten klammern. Die Zweifler, die das „Nein“ schon auf den Lippen haben, bevor überhaupt gefragt wurde. Oder aber auch einfach den normalen Menschen, der sich von der Komplexität dieser Welt übermannt und orientierungslos fühlt.</p>
           <p className="reveal">Ich wünsche mir für all jene, dass sie nicht erst an einen ähnlichen Tiefpunkt gelangen müssen, um wieder zu sich zu finden. Ich habe diese Reise hinter mir und du bist gern eingeladen, aus meinen Fehlern zu lernen, ohne sie selbst machen zu müssen.</p>
-          <p className="reveal">Wer Mut mitbringt und wachsen möchte, den begleite ich heute gern auf dieser Reise. Aber Achtung! <strong>Ich begleite. Wachsen musst du selbst</strong> – denn genau hier liegt der Unterschied zu all den selbsternannten Heilsbringern und Coaches. Ich teache nicht. <strong>Ich bin nicht dein Guru, sondern ein Mensch, genau wie du.</strong> Ich biete dir keine „Formel“ oder „Methode“, lediglich ein offenes Ohr und interessante Perspektiven. Ob du diese verinnerlichst, ist dir überlassen.</p>
+          <p className="reveal">Wer Mut mitbringt und wachsen möchte, den begleite ich heute gern auf dieser Reise. Aber Achtung! Ich begleite. Wachsen musst du selbst – denn genau hier liegt der Unterschied zu all den selbsternannten Heilsbringern und Coaches. Ich teache nicht. Ich bin nicht dein Guru, sondern ein Mensch, genau wie du. Ich biete dir keine „Formel“ oder „Methode“, lediglich ein offenes Ohr und interessante Perspektiven. Ob du diese verinnerlichst, ist dir überlassen.</p>
         </div>
       </section>
 
@@ -307,7 +313,7 @@ export default function Philosophie() {
         <div className="wrap">
           <div className="head reveal">
             <div className="sec-eyebrow">Der Kern meiner Philosophie</div>
-            <h2>Fünf Überzeugungen, <span className="em">die alles tragen</span>.</h2>
+            <h2>Diese 5 Erkenntnisse haben mein Leben <span className="em">nachhaltig verändert</span>:</h2>
           </div>
           <div className="core-list">
             {CORES.map((c, i) => (
@@ -324,12 +330,18 @@ export default function Philosophie() {
       {/* END-CTA */}
       <section className="cta">
         <div className="wrap reveal">
-          <h2>Wenn dich das erreicht, fang <span className="em">hier</span> an.</h2>
-          <p>Kein dogmatischer Bullshit, keine Formel. Der ehrlichste erste Schritt ist der Persönlichkeitstest – er zeigt dir in unter einer Viertelstunde, wo du gerade wirklich stehst.</p>
+          <h2>Du liest das und spürst eine gewisse <span className="em">Resonanz</span> mit all dem?</h2>
+          <p>Starte deine Reise direkt jetzt mit meinem eigens entwickelten Persönlichkeitstest. Es ist der ehrlichste Test auf dem Markt, wenn du bereit bist, wirklich hinzuschauen. Am Ende erhältst du kostenlos eine Analyse deines Archetypen mit persönlichem Profil. Glaub mir, diese Viertelstunde ist es wert – so einfach hast du noch nie deine blinden Flecken gespiegelt bekommen.</p>
           <div className="cta-row">
             <a className="btn btn-primary" href={TEST_URL} target="_blank" rel="noopener noreferrer">Persönlichkeitstest starten <span className="arr">→</span></a>
-            <a className="btn btn-ghost" href="/#kostenloses">Kostenlose Masterclass</a>
           </div>
+        </div>
+      </section>
+
+      {/* ABSCHLUSS-BILD (Sand, wie auf der Startseite) */}
+      <section className="endband reveal">
+        <div className="wrap">
+          <img src={SAND_BG} alt="Florian Lingner am Strand" loading="lazy" />
         </div>
       </section>
 
