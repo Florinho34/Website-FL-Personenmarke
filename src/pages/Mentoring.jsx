@@ -25,14 +25,18 @@ import Header from "../components/Header";
  *
  * ----------------------------------------------------------------------------
  * KIT-ANFRAGEFORMULAR (Mentoring-Anfrage):
- *   1) In Kit eine Form "Mentoring-Anfrage" anlegen und deren Form-ID unten in
- *      KIT_FORM_ID eintragen (ersetzt "DEINE_FORM_ID"). Vorher sendet es nicht.
- *   2) Empfehlung: Form in Kit auf Single-Opt-in stellen (eine Anfrage, kein Newsletter).
- *   3) Optional in Kit ein Custom Field "anliegen" anlegen, damit Nachricht + Wunschtermine
- *      mitgespeichert werden (Name + E-Mail kommen auch ohne an).
- *   Bei erfolgreichem Absenden wird das Event `mentoring_inquiry` in den dataLayer
- *   gepusht (erst nach Server-OK). Das GTM-Tag dafuer (-> Meta Lead) wird separat
+ *   - Kit-Form "Mentoring-Anfrage" -> Form-ID 9596012 (in KIT_FORM_ID gesetzt).
+ *   - Kit-Form steht auf Single-Opt-in (eine Anfrage, kein Newsletter).
+ *   - Custom Fields in Kit: "anliegen" + "wunschtermin" - das Seitenformular
+ *     fuellt beide getrennt. Name + E-Mail kommen als Standardfelder mit.
+ *   Bei erfolgreichem Absenden (erst nach Server-OK) wird `mentoring_inquiry`
+ *   in den dataLayer gepusht; das GTM-Tag dafuer (-> Meta Lead) wird separat
  *   verdrahtet, siehe Tracking-Doc.
+ *
+ *   Zusaetzlich geht die Anfrage in Echtzeit an einen Make-Webhook
+ *   (MAKE_WEBHOOK_URL) -> Make schickt dir die Benachrichtigungs-Mail. Das ist
+ *   reines Sahnehaeubchen mit eigenem Fehler-Fang: faellt Make aus, bleibt die
+ *   Anfrage bei Kit und der Erfolg fuer den Nutzer unveraendert.
  * ----------------------------------------------------------------------------
  */
 
@@ -47,7 +51,12 @@ const IMG_PORTRAIT = REPO_RAW + "florian-lingner-mentor-portrait.jpg";
 
 // --- Kit (ConvertKit) ---
 const KIT_API_KEY = "ce3iKRTfk0Bz5mfbC5yCrg";
-const KIT_FORM_ID = "DEINE_FORM_ID"; // <-- HIER die ID der Kit-Form "Mentoring-Anfrage" eintragen
+const KIT_FORM_ID = "9596012"; // Kit-Form "Mentoring-Anfrage"
+
+// --- Make-Webhook (Benachrichtigung bei neuer Anfrage) ---
+// Faengt die Anfrage in Echtzeit ab und schickt dir eine Mail. Reines
+// Sahnehaeubchen: faellt Make aus, ist die Anfrage trotzdem bei Kit angekommen.
+const MAKE_WEBHOOK_URL = "https://hook.eu1.make.com/u9abskwali4ntc4kk9zdqcsdg3gr3zqu";
 
 const GRAIN =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
@@ -289,7 +298,8 @@ function SideImg({ src, alt, className }) {
 export default function Mentoring() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [wunschtermin, setWunschtermin] = useState("");
+  const [anliegen, setAnliegen] = useState("");
   const [status, setStatus] = useState("idle"); // idle | sending | ok | error
 
   useEffect(() => {
@@ -326,14 +336,33 @@ export default function Mentoring() {
             api_key: KIT_API_KEY,
             email: email,
             first_name: name,
-            fields: { anliegen: message },
+            fields: { anliegen: anliegen, wunschtermin: wunschtermin },
           }),
         }
       );
       if (!res.ok) throw new Error("kit");
+
+      // Kit hat die Anfrage angenommen -> Erfolg steht fest.
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: "mentoring_inquiry" });
       setStatus("ok");
+
+      // Benachrichtigung an Make. Eigener try/catch, damit ein Make-Ausfall
+      // den bereits bestaetigten Erfolg niemals kippt. Als Formular-Daten
+      // gesendet -> kein CORS-Preflight, kommt zuverlaessig durch.
+      try {
+        await fetch(MAKE_WEBHOOK_URL, {
+          method: "POST",
+          body: new URLSearchParams({
+            name: name,
+            email: email,
+            wunschtermin: wunschtermin,
+            anliegen: anliegen,
+          }),
+        });
+      } catch (notifyErr) {
+        // Make nicht erreichbar: egal, die Anfrage liegt sicher bei Kit.
+      }
     } catch (err) {
       setStatus("error");
     }
@@ -605,16 +634,24 @@ export default function Mentoring() {
                   />
                 </div>
                 <div className="field">
-                  <label htmlFor="m-msg">
-                    Worum geht&apos;s bei dir? Und 2-3 Wunschtermine fürs Gespräch.
-                  </label>
+                  <label htmlFor="m-termin">Wann passt es zeitlich für dich?</label>
+                  <input
+                    id="m-termin"
+                    type="text"
+                    value={wunschtermin}
+                    onChange={(e) => setWunschtermin(e.target.value)}
+                    placeholder="z. B. werktags abends - oder 2-3 Wunschtermine"
+                    required
+                  />
+                </div>
+                <div className="field">
+                  <label htmlFor="m-msg">Möchtest du noch etwas mitteilen?</label>
                   <textarea
                     id="m-msg"
                     rows={5}
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Ein paar Sätze reichen."
-                    required
+                    value={anliegen}
+                    onChange={(e) => setAnliegen(e.target.value)}
+                    placeholder="Worum geht's bei dir? Ein paar Sätze reichen."
                   />
                 </div>
                 <button type="submit" className="btn btn-primary" disabled={status === "sending"}>
