@@ -46,6 +46,7 @@ const PHILO_URL = "/philosophie";
 const REPO_RAW =
   "https://raw.githubusercontent.com/Florinho34/Website-FL-Personenmarke/main/public/images/";
 const IMG_HERO = REPO_RAW + "mentoring-florian-lingner-hero.jpg";
+const IMG_HERO_MOBILE = REPO_RAW + "mentoring-florian-lingner-hero-mobile.jpg";
 const IMG_KIT = REPO_RAW + "mentoring-starter-kit-workbook.jpg";
 const IMG_PORTRAIT = REPO_RAW + "florian-lingner-mentor-portrait.jpg";
 
@@ -150,7 +151,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-ment .hero-inner{width:100%; padding-top:124px; padding-bottom:104px;}
 .fl-ment .hero-text{max-width:600px;}
 .fl-ment .hero .eyebrow{display:inline-block; font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--orange); margin-bottom:22px;}
-.fl-ment .hero h1{font-weight:800; letter-spacing:-.03em; line-height:.98; font-size:clamp(42px,6.6vw,86px); text-transform:uppercase; color:var(--ink);}
+.fl-ment .hero h1{font-weight:800; letter-spacing:-.03em; line-height:.98; font-size:clamp(40px,5vw,64px); text-transform:uppercase; color:var(--ink);}
 .fl-ment .hero h1 .em{background:linear-gradient(100deg,#FF4D00 0%,#FF7A33 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; font-style:italic; padding-right:.12em; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
 .fl-ment .hero .lead{margin-top:26px; max-width:54ch; font-size:clamp(16px,1.55vw,19.5px);}
 .fl-ment .cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:38px;}
@@ -170,6 +171,8 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-ment .ql li:last-child{margin-bottom:0;}
 .fl-ment .ql li::before{content:""; position:absolute; left:0; top:11px; width:13px; height:2px; background:var(--ink); border-radius:2px;}
 .fl-ment .card.neg .ql li::before{background:var(--warmgrau);}
+/* "Für dich, wenn" (positive Karte): Häkchen statt Minus-Strich */
+.fl-ment .card:not(.neg) .ql li::before{left:2px; top:3px; width:6px; height:11px; background:none; border:solid var(--orange); border-width:0 2.5px 2.5px 0; border-radius:0; transform:rotate(45deg);}
 
 /* ---- Wie es läuft ---- */
 .fl-ment .flow-grid{display:grid; grid-template-columns:1.08fr .92fr; gap:clamp(26px,4.4vw,58px); align-items:center; margin-top:44px;}
@@ -255,10 +258,11 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 
 /* ---- Mobile ---- */
 @media (max-width:880px){
-  .fl-ment .hero{min-height:clamp(500px,140vw,720px); align-items:flex-start;}
-  .fl-ment .hero-inner{padding-top:98px; padding-bottom:48px;}
+  .fl-ment .hero{min-height:clamp(520px,135vw,720px); align-items:flex-start;}
+  .fl-ment .hero h1{font-size:34px;}
+  .fl-ment .hero-inner{padding-top:96px; padding-bottom:clamp(176px,46vw,256px);}
   .fl-ment .hero-text{max-width:none;}
-  .fl-ment .hero-bg img{object-position:center 28%;}
+  .fl-ment .hero-bg img{object-position:center bottom;}
   .fl-ment .hero-overlay{background:linear-gradient(to bottom, var(--creme) 6%, rgba(244,241,235,.9) 30%, rgba(244,241,235,.42) 48%, rgba(244,241,235,0) 64%);}
   .fl-ment .duo{grid-template-columns:1fr;}
   .fl-ment .flow-grid{grid-template-columns:1fr; gap:30px;}
@@ -369,11 +373,14 @@ export default function Mentoring() {
       <header className="hero">
         <div className="hero-bg" aria-hidden="true">
           {heroImgOk && (
-            <img
-              src={IMG_HERO}
-              alt="Florian Lingner im Mentoring-Gespräch"
-              onError={() => setHeroImgOk(false)}
-            />
+            <picture>
+              <source media="(max-width:880px)" srcSet={IMG_HERO_MOBILE} />
+              <img
+                src={IMG_HERO}
+                alt="Florian Lingner im Mentoring-Gespräch"
+                onError={() => setHeroImgOk(false)}
+              />
+            </picture>
           )}
         </div>
         <div className="hero-overlay" aria-hidden="true" />
