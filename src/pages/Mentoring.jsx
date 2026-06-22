@@ -142,17 +142,18 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-ment .btn:hover .arr{transform:translateX(4px);}
 .fl-ment a:focus-visible,.fl-ment button:focus-visible,.fl-ment input:focus-visible,.fl-ment textarea:focus-visible{outline:2px solid var(--orange); outline-offset:3px; border-radius:4px;}
 
-/* ---- HERO ---- */
-.fl-ment .hero{padding:158px 0 26px;}
+/* ---- HERO (Bild als Hintergrund, wie Startseite; kein Wortwechsler) ---- */
+.fl-ment .hero{position:relative; min-height:clamp(560px,90vh,840px); display:flex; align-items:center; overflow:hidden; isolation:isolate; padding:0;}
+.fl-ment .hero-bg{position:absolute; inset:0; z-index:-2;}
+.fl-ment .hero-bg img{width:100%; height:100%; object-fit:cover; object-position:74% 42%;}
+.fl-ment .hero-overlay{position:absolute; inset:0; z-index:-1; background:linear-gradient(96deg, var(--creme) 6%, rgba(244,241,235,.74) 28%, rgba(244,241,235,.18) 50%, rgba(244,241,235,0) 66%);}
+.fl-ment .hero-inner{width:100%; padding-top:124px; padding-bottom:104px;}
+.fl-ment .hero-text{max-width:600px;}
 .fl-ment .hero .eyebrow{display:inline-block; font-size:13px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--orange); margin-bottom:22px;}
-.fl-ment .hero h1{font-weight:800; letter-spacing:-.03em; line-height:.96; font-size:clamp(42px,6.6vw,86px); text-transform:uppercase; color:var(--ink);}
-.fl-ment .hero h1 .em{background:linear-gradient(100deg,#FF4D00 0%,#FF7A33 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; font-style:italic;}
-.fl-ment .hero .lead{margin-top:26px; max-width:58ch; font-size:clamp(16px,1.55vw,19.5px);}
+.fl-ment .hero h1{font-weight:800; letter-spacing:-.03em; line-height:.98; font-size:clamp(42px,6.6vw,86px); text-transform:uppercase; color:var(--ink);}
+.fl-ment .hero h1 .em{background:linear-gradient(100deg,#FF4D00 0%,#FF7A33 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; font-style:italic; padding-right:.12em; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
+.fl-ment .hero .lead{margin-top:26px; max-width:54ch; font-size:clamp(16px,1.55vw,19.5px);}
 .fl-ment .cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:38px;}
-
-/* Hero-Band-Bild (breit, episch) */
-.fl-ment .heroband{max-width:1180px; margin:0 auto; padding:40px 24px 4px;}
-.fl-ment .heroband img{width:100%; aspect-ratio:21/9; object-fit:cover; border-radius:clamp(20px,2.6vw,30px); display:block; box-shadow:0 50px 90px -55px rgba(28,28,28,.6);}
 
 /* ---- generische Section-Abstände ---- */
 .fl-ment .sec{padding:clamp(56px,8vw,100px) 0;}
@@ -254,7 +255,11 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 
 /* ---- Mobile ---- */
 @media (max-width:880px){
-  .fl-ment .hero{padding:122px 0 16px;}
+  .fl-ment .hero{min-height:clamp(500px,140vw,720px); align-items:flex-start;}
+  .fl-ment .hero-inner{padding-top:98px; padding-bottom:48px;}
+  .fl-ment .hero-text{max-width:none;}
+  .fl-ment .hero-bg img{object-position:center 28%;}
+  .fl-ment .hero-overlay{background:linear-gradient(to bottom, var(--creme) 6%, rgba(244,241,235,.9) 30%, rgba(244,241,235,.42) 48%, rgba(244,241,235,0) 64%);}
   .fl-ment .duo{grid-template-columns:1fr;}
   .fl-ment .flow-grid{grid-template-columns:1fr; gap:30px;}
   .fl-ment .flow-img{order:-1;}
@@ -262,28 +267,12 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
   .fl-ment .peak-grid{grid-template-columns:1fr; gap:26px;}
   .fl-ment .peak-grid .pimg{max-width:300px;}
   .fl-ment .card{padding:26px 22px;}
-  .fl-ment .heroband{padding:30px 18px 0;}
-  .fl-ment .heroband img{aspect-ratio:16/11;}
 }
 @media (prefers-reduced-motion:reduce){
   .fl-ment .reveal{transition:none!important; opacity:1; transform:none;}
   html{scroll-behavior:auto;}
 }
 `;
-
-function Foto({ src, alt, wrapClass, ratioClass }) {
-  const [ok, setOk] = useState(true);
-  if (!ok) return null;
-  return (
-    <section className={wrapClass}>
-      <div className="wrap reveal">
-        <figure className={ratioClass}>
-          <img src={src} alt={alt} loading="lazy" onError={() => setOk(false)} />
-        </figure>
-      </div>
-    </section>
-  );
-}
 
 function SideImg({ src, alt, className }) {
   const [ok, setOk] = useState(true);
@@ -301,6 +290,7 @@ export default function Mentoring() {
   const [wunschtermin, setWunschtermin] = useState("");
   const [anliegen, setAnliegen] = useState("");
   const [status, setStatus] = useState("idle"); // idle | sending | ok | error
+  const [heroImgOk, setHeroImgOk] = useState(true);
 
   useEffect(() => {
     document.title = "Mentoring | Florian Lingner";
@@ -375,33 +365,42 @@ export default function Mentoring() {
       {/* NAV - geteilter Header */}
       <Header />
 
-      {/* HERO */}
+      {/* HERO - Bild als Hintergrund (wie Startseite), kein Wortwechsler */}
       <header className="hero">
-        <div className="wrap reveal">
-          <span className="eyebrow">Mentoring · 1:1</span>
-          <h1>
-            Ich mach dich nicht glücklich.
-            <br />
-            Das ist <span className="em">dein Job</span>.
-          </h1>
-          <p className="lead">
-            Mentoring mit mir heißt: kein Coaching, keine Formel, keine Garantie. Dafür ein
-            ehrlicher Begleiter, der mit dir hinschaut, wo du sonst wegschaust - und der dich
-            nicht aussteigen lässt, wenn es gerade anfängt zu wirken.
-          </p>
-          <div className="cta-row">
-            <a className="btn btn-primary" href="#anfrage">
-              Lass uns reden <span className="arr">→</span>
-            </a>
-            <a className="btn btn-ghost" href="#ablauf">
-              So läuft&apos;s <span className="arr">→</span>
-            </a>
+        <div className="hero-bg" aria-hidden="true">
+          {heroImgOk && (
+            <img
+              src={IMG_HERO}
+              alt="Florian Lingner im Mentoring-Gespräch"
+              onError={() => setHeroImgOk(false)}
+            />
+          )}
+        </div>
+        <div className="hero-overlay" aria-hidden="true" />
+        <div className="wrap hero-inner reveal">
+          <div className="hero-text">
+            <span className="eyebrow">Mentoring · 1:1</span>
+            <h1>
+              Ich mach dich nicht glücklich.
+              <br />
+              Das ist <span className="em">dein Job</span>.
+            </h1>
+            <p className="lead">
+              Mentoring mit mir heißt: kein Coaching, keine Formel, keine Garantie. Dafür ein
+              ehrlicher Begleiter, der mit dir hinschaut, wo du sonst wegschaust - und der dich
+              nicht aussteigen lässt, wenn es gerade anfängt zu wirken.
+            </p>
+            <div className="cta-row">
+              <a className="btn btn-primary" href="#anfrage">
+                Lass uns reden <span className="arr">→</span>
+              </a>
+              <a className="btn btn-ghost" href="#ablauf">
+                So läuft&apos;s <span className="arr">→</span>
+              </a>
+            </div>
           </div>
         </div>
       </header>
-
-      {/* HERO-BAND */}
-      <Foto src={IMG_HERO} alt="Florian Lingner im Mentoring-Gespräch" wrapClass="heroband" />
 
       {/* FÜR WEN / NICHT */}
       <section className="sec">

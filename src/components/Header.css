@@ -36,8 +36,11 @@ nav.fl-hd .fl-hd-burger:focus-visible{outline:2px solid #FF4D00; outline-offset:
   nav.fl-hd.menu-open{background:transparent !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; box-shadow:none !important;}
   nav.fl-hd .fl-hd-menu{position:fixed; inset:0; width:100%; height:100%; background:#F4F1EB; flex-direction:column; align-items:center; justify-content:center; gap:30px; padding:0 36px; opacity:0; visibility:hidden; transform:translateY(-6px); transition:opacity .3s ease, transform .3s ease, visibility .3s; z-index:45;}
   nav.fl-hd .fl-hd-menu.open{opacity:1; visibility:visible; transform:none;}
-  nav.fl-hd .fl-hd-menu a{font-size:24px;}
-  /* Burger-Menue: Nav-Punkte kleiner, dafuer ALL CAPS mit etwas Sperrung. CTA bleibt unveraendert. */
-  nav.fl-hd .fl-hd-menu a:not(.fl-hd-cta){font-size:18px; text-transform:uppercase; letter-spacing:.08em;}
+  /* Burger-Menue konsistent in Versalien. Nav-Punkte fest 18px mit Sperrung. Die CTA hat
+     einen langen Text -> responsive Groesse (clamp) + weniger Sperrung + nowrap, damit sie
+     auch auf schmalen Handys einzeilig bleibt und nicht ueberlaeuft. Pill-Form bleibt. */
+  nav.fl-hd .fl-hd-menu a{text-transform:uppercase;}
+  nav.fl-hd .fl-hd-menu a:not(.fl-hd-cta){font-size:18px; letter-spacing:.08em;}
+  nav.fl-hd .fl-hd-menu a.fl-hd-cta{font-size:clamp(14px,4.6vw,18px); letter-spacing:.03em; white-space:nowrap;}
   nav.fl-hd .fl-hd-burger{display:block; z-index:60; position:relative;}
 }

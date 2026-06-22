@@ -149,13 +149,11 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 
 /* mythos flip */
 .flipwrap{margin-top:40px; perspective:1600px;}
-.flipcard{display:grid; transition:transform .9s cubic-bezier(.6,.05,.1,1); transform-style:preserve-3d;}
-.flipcard.flipped{transform:rotateX(180deg);}
-.flipcard.peek{animation:peek 1.5s ease;}
-@keyframes peek{0%{transform:rotateX(0)}24%{transform:rotateX(-27deg)}48%{transform:rotateX(7deg)}70%{transform:rotateX(-13deg)}100%{transform:rotateX(0)}}
+.flipcard{display:grid; transform-style:preserve-3d; -webkit-transform-style:preserve-3d; transition:transform .55s cubic-bezier(.33,1.1,.45,1); cursor:grab; touch-action:pan-y; user-select:none; -webkit-user-select:none; will-change:transform;}
+.flipcard.dragging{transition:none; cursor:grabbing;}
 .face{grid-area:1/1; position:relative; backface-visibility:hidden; -webkit-backface-visibility:hidden; -webkit-transform:translateZ(0); border-radius:18px; padding:56px clamp(24px,4vw,56px) 40px; display:flex; flex-direction:column; justify-content:center;}
 .face-front{background:var(--creme); border:1px solid rgba(28,28,28,.10);}
-.face-back{background:var(--ink); color:var(--creme); transform:rotateX(180deg);}
+.face-back{background:var(--ink); color:var(--creme); transform:rotateY(180deg); -webkit-transform:rotateY(180deg);}
 .face h3{font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--warmgrau); margin-bottom:24px;}
 .face-back h3{color:var(--orange);}
 .myth-list{display:flex; flex-direction:column; gap:14px;}
@@ -266,17 +264,14 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-of
   .philo .panel{padding-top:5px;}
   .sec.offer{margin-top:-54px;}
   .steps-line span{height:var(--steps-fill,0%)!important; transition:height .12s linear;}
-  .flipwrap{margin-top:26px;}
-  /* Flip ohne 3D auf schmalen Screens: saubere Überblendung, kein Durchbluten */
-  .flipcard{transform:none!important; transition:none;}
-  .flipcard.peek{animation:none;}
-  .face{backface-visibility:visible; -webkit-backface-visibility:visible; transition:opacity .35s ease;}
-  .face-back{transform:none; opacity:0; pointer-events:none;}
-  .flipcard.flipped .face-front{opacity:0; pointer-events:none;}
-  .flipcard.flipped .face-back{opacity:1; pointer-events:auto;}
+  /* engere Zahl-Abstände: mehr Platz für den Text, weniger Umbrüche, kürzere Seite */
+  .steps-grid{gap:0 18px;}
+  .step{gap:13px;}
+  .step .num{min-width:1.15em;}
+  .flipwrap{margin-top:26px; perspective:1200px;}
 }
 @media (prefers-reduced-motion:reduce){
-  .reveal,.fl-underline path,.flipcard,.steps-line span,.btn,.card,.flipcard.peek{transition:none!important; animation:none!important;}
+  .reveal,.fl-underline path,.flipcard,.steps-line span,.btn,.card{transition:none!important; animation:none!important;}
   .reveal{opacity:1; transform:none;}
   .flipcue{animation:none;}
 }
@@ -398,31 +393,74 @@ function Rotator() {
 }
 
 export default function Startseite() {
-  const [flipped, setFlipped] = useState(false);
-  const [peek, setPeek] = useState(false);
+  const [rot, setRot] = useState(0);      // Drehwinkel der Karte (0 = Vorderseite, 180 = Rückseite)
+  const [tilt, setTilt] = useState(0);    // leichtes Kippen für die Haptik beim Ziehen
+  const [dragging, setDragging] = useState(false);
   const [open, setOpen] = useState(0);
   const flipRef = useRef(null);
+  const cardRef = useRef(null);
+  const drag = useRef(null);
   const flippedOnce = useRef(false);
+
+  // Welche Seite schaut den Nutzer an? (Winkel auf 0–360 normieren)
+  const norm = ((rot % 360) + 360) % 360;
+  const showingBack = norm > 90 && norm < 270;
 
   useRevealAll([]);
 
-  // Mythos-Block: beim Reinscrollen erst "anstupsen" (Hinweis), dann einmal umdrehen
+  // Beim Reinscrollen einmal sanft anstupsen -> signalisiert: die Karte lässt sich greifen
   useEffect(() => {
     const el = flipRef.current; if (!el) return;
     const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
     const io = new IntersectionObserver((es) => es.forEach((e) => {
       if (e.isIntersecting && !flippedOnce.current) {
         flippedOnce.current = true;
         io.unobserve(e.target);
-        if (reduce) return;
-        setPeek(true);
-        setTimeout(() => setPeek(false), 1550);
-        setTimeout(() => setFlipped(true), 1850);
+        setRot(-16);
+        setTimeout(() => setRot(7), 230);
+        setTimeout(() => setRot(0), 460);
       }
     }), { threshold: 0.55 });
     io.observe(el);
     return () => io.disconnect();
   }, []);
+
+  // --- Karte per Maus/Finger drehen ---
+  const onCardDown = (e) => {
+    if (e.target.closest && e.target.closest(".flipbtn")) return; // Buttons normal lassen
+    drag.current = { x: e.clientX, y: e.clientY, startRot: rot, axis: null, id: e.pointerId };
+  };
+  const onCardMove = (e) => {
+    const d = drag.current; if (!d) return;
+    const dx = e.clientX - d.x, dy = e.clientY - d.y;
+    if (d.axis === null) {
+      if (Math.abs(dx) < 5 && Math.abs(dy) < 5) return;
+      // horizontal = drehen, vertikal = Seite scrollen lassen
+      d.axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+      if (d.axis === "x") {
+        setDragging(true);
+        try { cardRef.current.setPointerCapture(d.id); } catch (err) {}
+      }
+    }
+    if (d.axis !== "x") return;
+    setRot(d.startRot + dx * 0.6);
+    setTilt(Math.max(-10, Math.min(10, -dy * 0.1)));
+  };
+  const onCardUp = () => {
+    const d = drag.current; if (!d) { return; }
+    if (d.axis === "x") {
+      setRot((r) => Math.round(r / 180) * 180);  // auf nächste Seite einrasten (über 90° kippt's um)
+      setDragging(false);
+      try { cardRef.current.releasePointerCapture(d.id); } catch (err) {}
+    } else if (d.axis === null) {
+      setRot((r) => Math.round(r / 180) * 180 + 180); // reiner Tipp/Klick: einfach umdrehen
+    }
+    setTilt(0);
+    drag.current = null;
+  };
+  const showFront = () => { setTilt(0); setRot((r) => Math.round(r / 360) * 360); };
+  const showBack = () => { setTilt(0); setRot((r) => Math.round(r / 360) * 360 + 180); };
 
   useEffect(() => {
     const rail = document.querySelector(".fl-root .steps-line");
@@ -456,7 +494,7 @@ export default function Startseite() {
         <div className="fl-hero-overlay" aria-hidden="true" />
         <div className="fl-wrap fl-hero-inner">
           <div className="fl-hero-text">
-            <span className="fl-eyebrow reveal">Du hast dein Leben im Griff, aber lebst du es wirklich?</span>
+            <span className="fl-eyebrow reveal">Deine Vorstellung vom Leben limitiert dich.</span>
             <h1 className="fl-h1 reveal d1">
               <Rotator /><span className="fl-h1-q">Aber wer bist du wirklich?</span>
             </h1>
@@ -515,20 +553,28 @@ export default function Startseite() {
             <h2 className="h2">Was viele über Glück <span className="fl-em">glauben</span>.</h2>
             <p className="lead">Die meisten suchen Glück an der falschen Stelle. Dreh die Karte um.</p>
             <div className="flipwrap" ref={flipRef}>
-              <div className={"flipcard" + (flipped ? " flipped" : "") + (peek ? " peek" : "")}>
-                <div className="face face-front" aria-hidden={flipped}>
-                  <span className="flipcue"><Rot cls="" /> umdrehen</span>
+              <div
+                ref={cardRef}
+                className={"flipcard" + (showingBack ? " flipped" : "") + (dragging ? " dragging" : "")}
+                style={{ transform: `rotateY(${rot}deg) rotateX(${tilt}deg)` }}
+                onPointerDown={onCardDown}
+                onPointerMove={onCardMove}
+                onPointerUp={onCardUp}
+                onPointerCancel={onCardUp}
+              >
+                <div className="face face-front" aria-hidden={showingBack}>
+                  <span className="flipcue"><Rot cls="" /> ziehen</span>
                   <h3>Was viele glauben</h3>
                   <p className="myth-head">Glück entsteht, wenn…</p>
                   <ul className="myth-list">{MYTHS.map((m) => <li key={m}>{m}</li>)}</ul>
-                  <button className="flipbtn" onClick={() => setFlipped(true)}>
+                  <button className="flipbtn" onClick={showBack}>
                     Die Wahrheit ist <Rot cls="ic" />
                   </button>
                 </div>
-                <div className="face face-back" aria-hidden={!flipped}>
+                <div className="face face-back" aria-hidden={!showingBack}>
                   <h3>In Wahrheit ist es so:</h3>
                   <p className="truth">Glück scheitert selten an der Welt, sondern daran, dass wir nie gelernt haben, wie wir innerlich richtig mit ihr umgehen.</p>
-                  <button className="flipbtn" onClick={() => setFlipped(false)}>
+                  <button className="flipbtn" onClick={showFront}>
                     Zurück <Rot cls="ic" />
                   </button>
                 </div>
