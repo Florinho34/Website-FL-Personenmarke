@@ -260,7 +260,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 @media (max-width:880px){
   .fl-ment .hero{min-height:clamp(520px,135vw,720px); align-items:flex-start;}
   .fl-ment .hero h1{font-size:34px;}
-  .fl-ment .hero-inner{padding-top:96px; padding-bottom:clamp(176px,46vw,256px);}
+  .fl-ment .hero-inner{padding-top:96px; padding-bottom:clamp(176px,49vw,256px);}
   .fl-ment .hero-text{max-width:none;}
   .fl-ment .hero-bg img{object-position:center bottom;}
   .fl-ment .hero-overlay{background:linear-gradient(to bottom, var(--creme) 6%, rgba(244,241,235,.9) 30%, rgba(244,241,235,.42) 48%, rgba(244,241,235,0) 64%);}
