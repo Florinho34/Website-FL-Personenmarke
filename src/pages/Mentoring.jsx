@@ -64,31 +64,35 @@ const GRAIN =
 
 /* Echte Abfolge -> Nummerierung ist hier inhaltlich gerechtfertigt. */
 const STEPS = [
-  { n: "01", t: "Hinschauen", d: "Wir nehmen ehrlich auseinander, wo du gerade wirklich stehst - auch da, wo du sonst wegschaust." },
-  { n: "02", t: "Aufräumen", d: "Wir werfen raus, was dir im Weg steht. Alte Überzeugungen zuerst, denn dein Glas ist längst voll." },
-  { n: "03", t: "Verankern", d: "Du übst zwischen den Sitzungen, mit Workbook und Journal, bis es im Alltag wirklich trägt." },
+  { n: "01", t: "Hinschauen", d: "Bestandsaufnahme. Wo stehst du, wo sind deine Entwicklungspotenziale und was wünschst du dir? Wir schauen gemeinsam hin. Also so richtig, auch da, wo es weh tut." },
+  { n: "02", t: "Aufräumen", d: "Ich gebe dir neue Perspektiven mit an die Hand, die dir helfen werden, alles, was dir bisher nicht dienlich war, loszulassen. All das muss raus. Dein Glas ist voll, wir müssen es leeren, um Platz für Neues zu schaffen." },
+  { n: "03", t: "Verankern", d: "Zwischen den Sitzungen wird viel in dir passieren. Es werden neue Fragen und Erkenntnisse auftauchen. Und um all das wirklich in dein Leben zu integrieren, gebe ich dir einfache Übungen mit auf den Weg. Der wahre Fortschritt findet nämlich genau durch diese Reflektion statt. Durch das, was du am Ende draus machst. In der Stille, bei dir." },
 ];
 
 const FAQ = [
   {
-    q: "Ist das nicht einfach Coaching?",
-    a: "Nein. Coaching verspricht meist Methode und Ergebnis. Ich verspreche weder das eine noch das andere. Ich bringe Fragen, Perspektiven und ehrliches Feedback - die Arbeit und die Entscheidungen bleiben bei dir.",
+    q: "Kann dieser Ansatz bei jedem funktionieren?",
+    a: "Nein, absolut nicht. Ich möchte zwar helfen, doch ist mir bewusst, dass sich ein Mensch in einem gewissen Stadium seiner Entwicklung befinden muss, damit wahre Transformation stattfinden kann. Wer nur gern das Gefühl hat, an sich zu arbeiten, aber die wirklich harte Arbeit außerhalb der Komfortzone scheut, der ist bei mir nicht richtig. Ich möchte deine Weltanschauung ins Wanken bringen - denn wo hat sie dich hingeführt? Ich will, dass du ALLES hinterfragst und loslässt, was dir nicht dienlich ist. Wir reißen ab und bauen neu auf. Das geht nur, wenn du bereit bist für diesen Prozess - oder anders gesagt: Wenn du einfach keinen Bock mehr hast auf Durchschnitt.",
   },
   {
-    q: "Was, wenn ich nach drei Sitzungen nichts merke?",
-    a: "Das ist normal. Genau um die zweite, dritte Sitzung wird es oft erst unbequem, bevor es leichter wird. Deshalb arbeiten wir in einem Bogen von sechs - lang genug, dass sich wirklich etwas bewegen kann, statt dass du aussteigst, wenn es gerade anfängt zu wirken.",
+    q: "Kann ich mir sicher sein, dass das Geld sinnvoll investiert ist?",
+    a: "Das Thema Geld, würden die meisten hier gar nicht ansprechen… Ich schon, denn ich möchte dir etwas mitgeben: Wenn eine Sache auf der Welt es wert ist, in sie zu investieren, dann ist es Gesundheit und Wohlbefinden. Auch dein mentales Wohlbefinden. Ganz ehrlich, scheiß mal auf das neueste iPhone oder das 5-Sterne Hotel. Was wir wirklich brauchen ist Freude, Erfüllung und Echtheit. Denn ohne mit sich selbst im Reinen zu sein und zu wissen, wer man in dieser Welt wirklich sein will, macht auch all der Komfort und Reichtum nur halb so viel Spaß. Die eigentliche Frage ist: Bist du es dir wert? Und ganz ehrlich, ich hoffe von ganzem Herzen, dass die Antwort JA lautet.",
   },
   {
-    q: "Brauche ich Vorerfahrung?",
-    a: "Nein. Du musst nur bereit sein, ehrlich hinzuschauen und zwischen den Sitzungen selbst zu arbeiten.",
+    q: "Wann kann ich erste Veränderung spüren?",
+    a: "Klar stellt man sich diese Frage. Wenn es um eine funkelnde Belohnung am Horizont geht, möchte man sie natürlich lieber jetzt als gleich. Doch hier muss ich einmal intervenieren. Genau wie beim Thema Erfolg, gibt es keinen Weg, der „leicht und schnell reich macht“. Jeder, der das verspricht, ist schlichtweg unseriöser. Die Wahrheit ist: Kontinuität ist der Schlüssel. Jede Woche ein Prozent mehr. Jeder noch so kleine Gedanke summiert sich irgendwann zu jenem Moment, in dem es wirklich „Klick“ macht. Natürlich werden dir gewisse neue Perspektiven bei einigen Sachen direkt die Augen öffnen. Anderes wirst du erst verstehen, wenn du es immer und immer wieder beobachtet und reflektiert hast. All das ist eine Reise - ohne Fortschrittsbalken. Du wirst nie 70% vom Weg „geschafft“ haben, denn es gibt keine endgültige Erleuchtung. Das Ziel ist die Veränderung selbst und dies passiert mit jedem deiner Gedanken in dir. Und auf dieser Reise begleite ich dich als Partner, der dich unterstützt, wenn es einmal etwas holprig wird. Das wird ein Fest! Ich freue mich wahnsinnig auf deine Fortschritte!",
   },
   {
-    q: "Ist das auch Therapie?",
-    a: "Nein. Wenn ich merke, dass du etwas brauchst, das über Mentoring hinausgeht, sage ich dir das ehrlich und verweise dich weiter.",
+    q: "Warum sind es direkt 6 Sitzungen?",
+    a: "Ganz einfach: Weil Veränderung nicht über Nacht geschieht. Selbst der Zeitraum von 3 Monaten ist schon knapp bemessen, aber irgendwo muss man ja starten ;) Am Ende wäre mein Wunsch, dass wir über einen langen Zeitraum zusammenarbeiten, ohne diesen zu benennen. Du pausierst oder stoppst, wenn du es nicht mehr fühlst und nimmst es auf, wenn du denkst, du bräuchtest wieder mehr Begleitung auf deinem Weg. Ganz unkompliziert und menschlich.",
+  },
+  {
+    q: "Ist das jetzt eher Coaching oder Therapie?",
+    a: "Weder noch. Ich biete kein Coaching an, weil ich dich nicht coache. Ich habe keinen strikten Trainingsplan. Ich will dich nicht formen, denn ich bin nicht für dein Glück verantwortlich. DU bist dafür verantwortlich. Mein Part ist, dir zur Seite zu stehen bei DEINER Entwicklung. Klar, ich gebe Impulse und biete neue Perspektiven, die dir helfen können. Manchmal werde ich auch vehement unbequeme Wahrheit aussprechen. Ich bin dein Sparringspartner für deine Entwicklung, egal wie weit es aus der Komfortzone rausgehen muss, damit wirklich was passiert. Und Therapie ist nun wirklich ein ganz anderes Thema. Ich selbst habe Psychotherapie in Anspruch genommen und meiner Meinung nach gibt es psychologische Themen, die nichts mit Willen, Einstellung und Weltanschauung zu tun haben. Wenn es um tiefer liegende Themen geht, die möglicherweise durch Traumata tief verwurzelt sind, maße ich mir nicht an, hier die Rolle eines Psychiaters zu übernehmen, nur um Geld zu verdienen. Wenn ich feststelle, dass dies über meinen Verantwortungsbereich hinausgeht, bin ich so ehrlich und verweise dich an entsprechende Experten.",
   },
   {
     q: "Was, wenn wir nicht zusammenpassen?",
-    a: "Dann sage ich es dir. Wir reden vorher in einem kurzen Gespräch, in beide Richtungen. Wenn es nicht passt, ist das auch ein gutes Ergebnis.",
+    a: "Genau hierfür gibt es den Kennenlern-Call. Wenn wir merken, es passt nicht, dann ist auch das ein gutes Ergebnis.",
   },
 ];
 
@@ -161,6 +165,11 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 
 /* ---- Karten (Für wen / Angebot) ---- */
 .fl-ment .duo{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:46px;}
+/* Angebot: 2 kleine Kacheln links gestapelt, grosse Kachel rechts auf voller Hoehe */
+.fl-ment .offer-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:46px; align-items:stretch;}
+.fl-ment .offer-col{display:flex; flex-direction:column; gap:20px;}
+.fl-ment .offer-col .pcard{flex:1;}
+.fl-ment .offer-hot{height:100%;}
 .fl-ment .card{background:#FBFAF6; border:1px solid rgba(28,28,28,.09); border-radius:22px; padding:clamp(26px,3.2vw,40px); box-shadow:0 30px 70px -58px rgba(28,28,28,.5); position:relative; overflow:hidden;}
 .fl-ment .card::after{content:""; position:absolute; inset:0; pointer-events:none; opacity:.04; mix-blend-mode:multiply; background-image:${GRAIN};}
 .fl-ment .card > *{position:relative; z-index:1;}
@@ -182,7 +191,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-ment .steps{list-style:none; margin-top:26px; display:flex; flex-direction:column; gap:18px;}
 .fl-ment .steps li{display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:start;}
 .fl-ment .steps .sn{font-size:12px; font-weight:800; letter-spacing:.16em; color:var(--orange); padding-top:4px; min-width:26px;}
-.fl-ment .steps .st{font-weight:800; font-size:17px; letter-spacing:-.01em; color:var(--ink); margin-bottom:3px;}
+.fl-ment .steps .st{display:block; font-weight:800; font-size:17px; letter-spacing:-.01em; color:var(--ink); margin-bottom:3px;}
 .fl-ment .steps .sd{font-size:15px; color:#3a3833; line-height:1.45;}
 .fl-ment .flow-img img{width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:22px; display:block; box-shadow:0 40px 80px -52px rgba(28,28,28,.6);}
 
@@ -265,6 +274,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
   .fl-ment .hero-bg img{object-position:center bottom;}
   .fl-ment .hero-overlay{background:linear-gradient(to bottom, var(--creme) 6%, rgba(244,241,235,.9) 30%, rgba(244,241,235,.42) 48%, rgba(244,241,235,0) 64%);}
   .fl-ment .duo{grid-template-columns:1fr;}
+  .fl-ment .offer-grid{grid-template-columns:1fr;}
   .fl-ment .flow-grid{grid-template-columns:1fr; gap:30px;}
   .fl-ment .flow-img{order:-1;}
   .fl-ment .quotes{grid-template-columns:1fr;}
@@ -386,16 +396,19 @@ export default function Mentoring() {
         <div className="hero-overlay" aria-hidden="true" />
         <div className="wrap hero-inner reveal">
           <div className="hero-text">
-            <span className="eyebrow">Mentoring · 1:1</span>
+            <span className="eyebrow">1:1 Mentoring</span>
             <h1>
-              Ich mach dich nicht glücklich.
+              Ich kann dich nicht glücklich machen.
               <br />
               Das ist <span className="em">dein Job</span>.
             </h1>
             <p className="lead">
-              Mentoring mit mir heißt: kein Coaching, keine Formel, keine Garantie. Dafür ein
-              ehrlicher Begleiter, der mit dir hinschaut, wo du sonst wegschaust - und der dich
-              nicht aussteigen lässt, wenn es gerade anfängt zu wirken.
+              Gerne arbeite ich mit dir daran, wieder mehr Freude und Erfüllung in dein Leben zu
+              bringen. Der Unterschied zu gewöhnlichem Coaching: Ich stülpe dir kein starres
+              Gerüst über. Ich bin gegen Schubladendenken und wir alle sollten uns und das Leben
+              nicht so ernst nehmen. Lass uns beide ganz individuell hinschauen, wo der Schuh
+              drückt. Dann arbeiten wir kontinuierlich, menschlich und maximal ehrlich an deinen
+              Themen.
             </p>
             <div className="cta-row">
               <a className="btn btn-primary" href="#anfrage">
@@ -424,17 +437,17 @@ export default function Mentoring() {
             <div className="card reveal">
               <div className="label">Für dich, wenn</div>
               <ul className="ql">
-                <li>du spürst, dass „ganz okay“ nicht reicht.</li>
-                <li>du bereit bist, selbst zu arbeiten, auch wenn es unbequem wird.</li>
-                <li>du Verantwortung übernehmen willst, statt sie abzugeben.</li>
+                <li>du spürst, dass das Leben eigentlich mehr zu bieten hätte</li>
+                <li>du endlich selbst die Verantwortung für dein Glück übernehmen willst</li>
+                <li>du bereit bist, die harte, ehrliche Arbeit im Trade-off für ein besseres Leben auf dich zu nehmen</li>
               </ul>
             </div>
             <div className="card neg reveal">
               <div className="label">Eher nicht, wenn</div>
               <ul className="ql">
-                <li>du eine schnelle Lösung von außen erwartest.</li>
-                <li>du willst, dass jemand anderes die Arbeit für dich macht.</li>
-                <li>du eine Garantie brauchst, dass es „funktioniert“.</li>
+                <li>du nach einer schnellen Wundermethode suchst</li>
+                <li>du erwartest, dass dein Mentor dich retten wird</li>
+                <li>du eine Garantie brauchst, dass es „funktioniert“</li>
               </ul>
             </div>
           </div>
@@ -445,23 +458,26 @@ export default function Mentoring() {
       <section className="sec" id="ablauf">
         <div className="wrap">
           <div className="reveal">
-            <div className="sec-eyebrow">Der Weg</div>
+            <div className="sec-eyebrow">Das ist der Weg</div>
             <h2 className="sec-h">
-              Wie wir <span className="em">arbeiten</span>.
+              So läuft ein <span className="em">Mentoring</span> mit mir.
             </h2>
           </div>
           <div className="flow-grid">
             <div className="reveal">
               <p className="intro">
-                Wir arbeiten in einem Bogen von sechs Sitzungen über rund drei Monate, alle zwei
-                Wochen. Zwischen den Sitzungen passiert die eigentliche Arbeit, getragen von deinem
-                Workbook und Journal.
+                Wir haben über einen Zeitraum von 3 Monaten alle 2 Wochen einen Call von einer
+                Stunde. Hier erhältst du wertvolle Impulse und Perspektiven. Damit diese wirken
+                können, haben wir den nächsten Call erst 2 Wochen später. Während dieser Zeit ist es
+                an dir, diese neuen Impulse im Alltag zu beobachten und zu implementieren. Behilflich
+                dabei wird dir dein Workbook sein, das du von mir zugesandt bekommst. Außerdem zeige
+                ich dir, wenn du möchtest, Übungen, die dir die Reise erleichtern werden.
               </p>
               <div className="chips">
                 <span className="chip">6 Sitzungen</span>
                 <span className="chip">alle 2 Wochen</span>
                 <span className="chip">~3 Monate</span>
-                <span className="chip">Workbook + Journal</span>
+                <span className="chip">Begleitendes Workbook inkl.</span>
               </div>
               <ul className="steps">
                 {STEPS.map((s) => (
@@ -482,10 +498,12 @@ export default function Mentoring() {
             />
           </div>
           <div className="callout reveal">
-            <strong>Ehrlich vorweg:</strong> Um die zweite, dritte Sitzung wird es oft unbequemer,
-            bevor es leichter wird. Das ist normal, kein Rückschritt. Genau deshalb arbeite ich
-            nicht in losen Einzelstunden, die dich aussteigen lassen, wenn es gerade anfängt zu
-            wirken.
+            <strong>Ich will ehrlich sein:</strong> Während Sitzung 2 bis 4 kann es unbequem werden.
+            So soll das sein. Denn wir wollen wachsen und das geht nicht in der kuscheligen
+            Komfortzone. Nach der Phase des Widerstands folgt das Loslassen und ab da wird es
+            wunderbar leicht. Deshalb biete ich nur punktuell Einzelstunden an. Wirklich
+            nachhaltige, echte Veränderung passiert nur durch kontinuierliche, ehrliche Arbeit,
+            nicht durch eine Solo-Sitzung.
           </div>
         </div>
       </section>
@@ -496,28 +514,40 @@ export default function Mentoring() {
           <div className="reveal">
             <div className="sec-eyebrow">Das Angebot</div>
             <h2 className="sec-h">
-              Zwei <span className="em">Wege</span>, anzufangen.
+              Deine Wege zu <span className="em">wahrer Veränderung</span>.
             </h2>
           </div>
-          <div className="duo">
-            <div className="card pcard reveal">
-              <div className="label">Einzelstunde</div>
-              <div className="price">222 €</div>
-              <p className="meta">
-                Für eine konkrete Frage oder zum Beschnuppern. Eine Stunde, volle Aufmerksamkeit.
-              </p>
+          <div className="offer-grid">
+            <div className="offer-col">
+              <div className="card pcard reveal">
+                <div className="label">Einzelstunde</div>
+                <div className="price">222 €</div>
+                <p className="meta">
+                  Für konkrete Fragen oder den Wunsch nach Impulsen. Eine Stunde volle
+                  Aufmerksamkeit, kein Beschnuppern.
+                </p>
+              </div>
+              <div className="card pcard reveal">
+                <div className="label">Schnupperstunde</div>
+                <div className="price">Gratis</div>
+                <p className="meta">
+                  Einmalig stehe ich dir für ein gegenseitiges Kennenlernen zur Verfügung. Hier
+                  finden wir heraus, ob es für uns beide ein Match ist, oder nicht.
+                </p>
+              </div>
             </div>
-            <div className="card pcard pcard--hot reveal">
+            <div className="card pcard pcard--hot reveal offer-hot">
               <span className="pill">Empfohlen</span>
               <div className="label">Starter-Paket</div>
               <div className="price">1.111 €</div>
               <ul className="incl">
                 <li>6 Sitzungen über ~3 Monate, alle 2 Wochen</li>
-                <li>Physisches Kit: Workbook, Journal, Stift</li>
-                <li>Zugang zum Onlinekurs, sobald verfügbar</li>
+                <li>Physisches Workbook</li>
+                <li>Zugang zum Onlinekurs (Wert 199 €)</li>
                 <li>Pro Stunde günstiger als die Einzelstunde</li>
+                <li>Nachhaltige Veränderung über langfristige Zusammenarbeit</li>
               </ul>
-              <p className="foot">Bezahlt wird nach unserem Gespräch, nicht per Klick.</p>
+              <p className="foot">Bezahlt wird erst nach unserem Kennenlerngespräch, nicht per Klick.</p>
             </div>
           </div>
         </div>
@@ -558,11 +588,15 @@ export default function Mentoring() {
                 <div className="sec-eyebrow">Warum ich</div>
                 <h2>Ich war selbst an einem Punkt, an dem „ganz okay“ eine Lüge war.</h2>
                 <p>
-                  Ich habe mich da rausgearbeitet, ehrlich und unbequem. Heute gehe ich diesen Weg
-                  mit Menschen, die bereit sind, hinzuschauen. Keine Bühne, kein Guru-Gehabe, nur
-                  zwei Menschen und ehrliche Arbeit.
+                  Es war unbequem und viel harte, ehrliche Arbeit, doch ich habe es geschafft, mein
+                  Leben um 180 Grad zu ändern. Und ich bin mir sicher, dass sich das nicht nur viele
+                  ebenfalls wünschen, sondern auch, dass jeder, der sich das wahrhaft wünscht, es
+                  auch schaffen kann. Bei diesem Prozess stehe ich als Mentor zur Seite. Oder nein,
+                  nicht als Mentor - als Mensch. Ehrlich, direkt, unverblümt. So wie ich eben bin.
+                  Und genau das unterscheidet mich von all den Coaches, die sich selbst zu ernst und
+                  wichtig nehmen. Ich freue mich auf dich!
                 </p>
-                <div className="sig">Florian</div>
+                <div className="sig">Dein Florian</div>
                 <div className="peak-cta">
                   <a className="btn btn-light" href={PHILO_URL}>
                     Meine ganze Geschichte <span className="arr">→</span>
@@ -580,7 +614,7 @@ export default function Mentoring() {
           <div className="reveal">
             <div className="sec-eyebrow">Ehrlich gefragt</div>
             <h2 className="sec-h">
-              Was du dich jetzt <span className="em">fragst</span>.
+              Das fragst du dich jetzt <span className="em">vielleicht</span>…
             </h2>
           </div>
           <div className="faq-wrap" style={{ marginTop: "40px" }}>
@@ -600,13 +634,14 @@ export default function Mentoring() {
       {/* ANFRAGE */}
       <section className="inquiry" id="anfrage">
         <div className="wrap reveal">
-          <div className="sec-eyebrow">Los geht&apos;s</div>
+          <div className="sec-eyebrow">Bist du bereit?</div>
           <h2 className="sec-h">
             Lass uns herausfinden, ob es <span className="em">passt</span>.
           </h2>
           <p className="lead">
-            Kein Kaufen per Klick. Schreib mir kurz, worum es bei dir geht, und nenn mir zwei, drei
-            Wunschtermine. In einem kurzen Gespräch finden wir heraus, ob wir zusammenarbeiten.
+            Vor einer wichtigen Entscheidung, denn das ist diese intime, gemeinsame Reise, müssen
+            wir uns kennenlernen. In einem gemeinsamen Schnupper-Gespräch tauschen wir uns aus und
+            loten in beide Richtungen aus, ob es ein Match ist, oder nicht.
           </p>
 
           <div className="formcard">
