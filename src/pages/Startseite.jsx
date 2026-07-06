@@ -515,7 +515,7 @@ export default function Startseite() {
             <div className="grid">
               <div>
                 <span className="qmark" aria-hidden="true">„</span>
-                <p className="pullquote">Wir sollten nicht noch mehr lernen. Wir sollten mehr vergessen. Unsere alten Überzeugungen halten uns in einem Leben fest, das schon lang nicht mehr zu uns passt.</p>
+                <p className="pullquote">Nicht dazulernen. Loslassen. Alte Überzeugungen halten uns in einem Leben fest, das längst nicht mehr zu uns passt.</p>
               </div>
               <div>
                 <div className="sec-eyebrow">Meine Philosophie</div>

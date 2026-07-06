@@ -203,6 +203,13 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-ment .price{font-weight:800; font-size:clamp(34px,4.6vw,46px); letter-spacing:-.02em; color:var(--ink); line-height:1;}
 .fl-ment .pcard .meta{font-size:15px; color:#4a4842; line-height:1.5; margin-top:14px;}
 .fl-ment .pcard--hot{border:1.6px solid var(--orange); box-shadow:0 40px 84px -50px rgba(255,77,0,.5);}
+/* Schnupperstunde-Karte komplett klickbar (Anker zum Anfrageformular). */
+.fl-ment a.pcard--link{display:block; text-decoration:none; color:inherit; cursor:pointer; transition:transform .2s ease, border-color .25s ease, box-shadow .25s ease;}
+.fl-ment a.pcard--link:hover{transform:translateY(-3px); border-color:rgba(255,77,0,.55); box-shadow:0 40px 82px -50px rgba(255,77,0,.4);}
+.fl-ment a.pcard--link:focus-visible{outline:2px solid var(--orange); outline-offset:3px;}
+.fl-ment .pcard__go{display:inline-flex; align-items:center; gap:8px; margin-top:20px; font-weight:700; font-size:14px; letter-spacing:.02em; color:var(--orange);}
+.fl-ment .pcard__go .arr{transition:transform .25s ease;}
+.fl-ment a.pcard--link:hover .pcard__go .arr{transform:translateX(4px);}
 .fl-ment .pill{display:inline-block; background:var(--orange); color:var(--creme); font-weight:800; font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; padding:6px 14px; border-radius:100px; margin-bottom:16px;}
 .fl-ment .pcard .incl{list-style:none; margin-top:20px;}
 .fl-ment .pcard .incl li{font-size:15.5px; color:#34322d; line-height:1.4; padding-left:26px; position:relative; margin-bottom:13px;}
@@ -305,10 +312,6 @@ export default function Mentoring() {
   const [anliegen, setAnliegen] = useState("");
   const [status, setStatus] = useState("idle"); // idle | sending | ok | error
   const [heroImgOk, setHeroImgOk] = useState(true);
-
-  useEffect(() => {
-    document.title = "Mentoring | Florian Lingner";
-  }, []);
 
   useEffect(() => {
     const els = document.querySelectorAll(".fl-ment .reveal");
@@ -527,14 +530,15 @@ export default function Mentoring() {
                   Aufmerksamkeit, kein Beschnuppern.
                 </p>
               </div>
-              <div className="card pcard reveal">
+              <a className="card pcard reveal pcard--link" href="#anfrage">
                 <div className="label">Schnupperstunde</div>
                 <div className="price">Gratis</div>
                 <p className="meta">
                   Einmalig stehe ich dir für ein gegenseitiges Kennenlernen zur Verfügung. Hier
                   finden wir heraus, ob es für uns beide ein Match ist, oder nicht.
                 </p>
-              </div>
+                <span className="pcard__go" aria-hidden="true">Jetzt anfragen <span className="arr">→</span></span>
+              </a>
             </div>
             <div className="card pcard pcard--hot reveal offer-hot">
               <span className="pill">Empfohlen</span>

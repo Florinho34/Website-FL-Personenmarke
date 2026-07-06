@@ -135,7 +135,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-philo .band img{width:100%; aspect-ratio:16/7; object-fit:cover; border-radius:clamp(20px,3vw,34px); display:block;}
 
 /* ---- Kerne ---- */
-.fl-philo .cores{padding:54px 0 10px;}
+.fl-philo .cores{padding:54px 0 40px;}
 .fl-philo .cores .head{max-width:720px;}
 .fl-philo .cores .sec-eyebrow{font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--orange); margin-bottom:16px;}
 .fl-philo .cores h2{font-weight:800; letter-spacing:-.03em; line-height:1.04; font-size:clamp(30px,4.4vw,52px); text-transform:uppercase; color:var(--ink);}
@@ -213,10 +213,6 @@ function Foto({ src, alt, wrapClass }) {
 }
 
 export default function Philosophie() {
-  useEffect(() => {
-    document.title = "Über mich & meine Philosophie | Florian Lingner";
-  }, []);
-
   useEffect(() => {
     const els = document.querySelectorAll(".fl-philo .reveal");
     const io = new IntersectionObserver(

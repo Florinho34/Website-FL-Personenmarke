@@ -12,7 +12,6 @@ import Logo from "../components/Logo";
 
 export default function Datenschutz() {
   useEffect(() => {
-    document.title = "Datenschutzerklärung – Florian Lingner";
     window.scrollTo(0, 0);
   }, []);
 

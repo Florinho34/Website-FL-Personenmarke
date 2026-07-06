@@ -10,7 +10,6 @@ import Logo from "../components/Logo";
 
 export default function Impressum() {
   useEffect(() => {
-    document.title = "Impressum – Florian Lingner";
     window.scrollTo(0, 0);
   }, []);
 
