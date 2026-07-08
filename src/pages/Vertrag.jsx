@@ -338,6 +338,10 @@ function SignFlow({ form }) {
       monate: form.zahlweise === "monatlich" ? form.monate || "" : "",
       monatsbetrag: form.zahlweise === "monatlich" ? form.monatsbetrag || "" : "",
       frueher_beginn: early ? "ja" : "nein",
+      zahltext:
+        form.zahlweise === "komplett"
+          ? `${form.preis || ""} EUR, komplett im Voraus (fällig vor der ersten Session).`
+          : `${form.monate || ""} Monatsbeträge à ${form.monatsbetrag || ""} EUR, jeweils im Voraus zu Monatsbeginn.`,
       unterschrift_bild: canvasRef.current.toDataURL("image/png"),
       zeitstempel: new Date().toLocaleString("de-CH"),
       version: CONTRACT_VERSION,
