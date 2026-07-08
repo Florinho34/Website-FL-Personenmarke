@@ -327,6 +327,8 @@ function SignFlow({ form }) {
   async function submit() {
     const record = {
       kunde: `${form.vorname || ""} ${form.nachname || ""}`.trim(),
+      vorname: form.vorname || "",
+      nachname: form.nachname || "",
       unterschrift_name: signer,
       email: form.email || "",
       paket: form.paket || "",
