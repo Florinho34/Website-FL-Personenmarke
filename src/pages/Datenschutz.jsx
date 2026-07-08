@@ -1,5 +1,5 @@
 // src/pages/Datenschutz.jsx
-// Datenschutzerklärung – florian-lingner.ch · Stand: Juni 2026
+// Datenschutzerklärung – florian-lingner.ch · Stand: Juli 2026
 // Erfüllt Schweizer revDSG (primär) UND EU-DSGVO (DACH-Werbung/EU-Besucher).
 // Abgedeckte Dienste (live): Vercel, Google Tag Manager, Google Analytics 4,
 // Microsoft Clarity, Meta Pixel, Google Fonts (CDN), Kit/ConvertKit,
@@ -324,7 +324,58 @@ export default function Datenschutz() {
         </section>
 
         <section className="legal__sec">
-          <h2>16. Speicherdauer</h2>
+          <h2>16. Vertragsabschluss über die Unterschriftsseite</h2>
+          <p>
+            Für den Abschluss von Mentoring-Verträgen stelle ich eine gesonderte
+            Unterschriftsseite bereit. Sie ist nicht öffentlich verlinkt und für
+            Suchmaschinen gesperrt; du erreichst sie nur über einen persönlichen Link.
+            Wenn du dort einen Vertrag unterzeichnest, verarbeite ich die von dir
+            eingegebenen und unterzeichneten Daten: Vor- und Nachname, E-Mail-Adresse,
+            die Auftragsdaten (z. B. Paket, Umfang, Preis, Zahlweise), deine
+            elektronische Unterschrift (als Bild) sowie den Zeitpunkt der Unterzeichnung.
+          </p>
+          <p>
+            <strong>Zweck:</strong> Zustandekommen und Abwicklung des Mentoring-Vertrags
+            sowie die Erstellung und Zusendung deiner Vertragskopie.{" "}
+            <strong>Rechtsgrundlage:</strong> Erfüllung eines Vertrags bzw. Durchführung
+            vorvertraglicher Maßnahmen (Art. 6 Abs. 1 lit. b DSGVO); soweit ich zur
+            Aufbewahrung verpflichtet bin, zusätzlich rechtliche Verpflichtung
+            (Art. 6 Abs. 1 lit. c DSGVO).
+          </p>
+          <p>
+            Zur technischen Abwicklung setze ich folgende Dienstleister als
+            Auftragsverarbeiter ein:
+          </p>
+          <ul className="legal__list">
+            <li>
+              <strong>Make (Automatisierung)</strong> - Anbieter Make.com; Datenverarbeitung
+              in der EU-Region. Nimmt die Vertragsdaten entgegen und steuert die weiteren
+              Schritte.
+            </li>
+            <li>
+              <strong>CustomJS (PDF-Erstellung)</strong> - Anbieter TechnologyCircle GmbH,
+              Hamburg, Deutschland. Erzeugt aus den Vertragsdaten das PDF-Vertragsdokument.
+            </li>
+            <li>
+              <strong>Google / Gmail (E-Mail-Versand)</strong> - Anbieter Google Ireland
+              Limited. Versendet die Vertragskopie an dich und an mich. Dabei kann eine
+              Übermittlung in die USA erfolgen (siehe Abschnitt „Übermittlung in
+              Drittländer").
+            </li>
+          </ul>
+          <p>
+            Mit diesen Dienstleistern bestehen die datenschutzrechtlich erforderlichen
+            Vereinbarungen zur Auftragsverarbeitung nach Art. 28 DSGVO.
+          </p>
+          <p>
+            <strong>Speicherdauer:</strong> Unterschriebene Verträge und die zugehörigen
+            Daten bewahre ich gemäß den gesetzlichen Aufbewahrungsfristen auf und lösche sie
+            danach, sofern keine weitere Rechtsgrundlage für die Speicherung besteht.
+          </p>
+        </section>
+
+        <section className="legal__sec">
+          <h2>17. Speicherdauer</h2>
           <p>
             Ich speichere personenbezogene Daten nur so lange, wie es für die
             jeweiligen Zwecke erforderlich ist oder wie es gesetzliche
@@ -335,7 +386,7 @@ export default function Datenschutz() {
         </section>
 
         <section className="legal__sec">
-          <h2>17. Deine Rechte</h2>
+          <h2>18. Deine Rechte</h2>
           <p>Dir stehen im Rahmen der gesetzlichen Vorgaben folgende Rechte zu:</p>
           <ul className="legal__list">
             <li>Auskunft über die zu dir verarbeiteten Daten,</li>
@@ -353,7 +404,7 @@ export default function Datenschutz() {
         </section>
 
         <section className="legal__sec">
-          <h2>18. Beschwerderecht</h2>
+          <h2>19. Beschwerderecht</h2>
           <p>
             Du hast das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu
             beschweren. In der Schweiz ist dies der Eidgenössische Datenschutz-
@@ -365,7 +416,7 @@ export default function Datenschutz() {
         </section>
 
         <section className="legal__sec">
-          <h2>19. Datensicherheit</h2>
+          <h2>20. Datensicherheit</h2>
           <p>
             Diese Website nutzt eine SSL- bzw. TLS-Verschlüsselung, erkennbar am
             „https://" in der Adresszeile deines Browsers. Dadurch werden Daten,
@@ -375,7 +426,7 @@ export default function Datenschutz() {
         </section>
 
         <section className="legal__sec">
-          <h2>20. Automatisierte Entscheidungen</h2>
+          <h2>21. Automatisierte Entscheidungen</h2>
           <p>
             Eine automatisierte Entscheidungsfindung einschliesslich Profiling mit
             rechtlicher Wirkung dir gegenüber findet nicht statt.
@@ -383,7 +434,7 @@ export default function Datenschutz() {
         </section>
 
         <section className="legal__sec">
-          <h2>21. Änderungen dieser Erklärung</h2>
+          <h2>22. Änderungen dieser Erklärung</h2>
           <p>
             Ich passe diese Datenschutzerklärung an, sobald Änderungen der von mir
             durchgeführten Datenverarbeitung dies erforderlich machen (z. B. bei
@@ -392,7 +443,7 @@ export default function Datenschutz() {
           </p>
         </section>
 
-        <p className="legal__stand">Stand: Juni 2026</p>
+        <p className="legal__stand">Stand: Juli 2026</p>
       </main>
 
       <footer className="legal__footer">
