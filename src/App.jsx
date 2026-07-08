@@ -5,6 +5,7 @@ import Philosophie from "./pages/Philosophie";
 import Mentoring from "./pages/Mentoring";
 import Impressum from "./pages/Impressum";
 import Datenschutz from "./pages/Datenschutz";
+import Vertrag from "./pages/Vertrag";
 import ConsentBanner from "./components/ConsentBanner";
 
 // Bei jedem Seitenwechsel nach ganz oben springen (SPA behält sonst die Scrollposition).
@@ -98,6 +99,7 @@ export default function App() {
         <Route path="/mentoring" element={<Mentoring />} />
         <Route path="/impressum" element={<Impressum />} />
         <Route path="/datenschutz" element={<Datenschutz />} />
+        <Route path="/vertrag" element={<Vertrag />} />
       </Routes>
       <ConsentBanner />
     </BrowserRouter>
