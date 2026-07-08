@@ -57,6 +57,8 @@ const CSS = `
 html{background:#F4F1EB;color-scheme:light;}
 body{margin:0;display:block;min-width:0;background:#F4F1EB;}
 #root{max-width:none;width:auto;margin:0;padding:0;text-align:left;}
+/* Globale Website-CSS faerbt h1..h4 hell (fuer dunkle Startseiten-Sektionen) -> hier explizit Ink. */
+.flv-root h1,.flv-root h2,.flv-root h3,.flv-root h4{color:var(--ink);}
 .flv-root{
   --creme:#F4F1EB; --sand:#D6CBBF; --warmgrau:#AFA79D;
   --ink:#1C1C1C; --orange:#FF4D00; --soft:#595854;
