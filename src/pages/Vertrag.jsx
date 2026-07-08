@@ -14,6 +14,27 @@ const WEBHOOK_URL = "https://hook.eu1.make.com/z3ddjne3c9zybdpmadd86qx4n8k6lemg"
 const ADMIN_KEY = "flo-vertrag-2026";
 const CONTRACT_VERSION = "2026-07-v1";
 
+// Kurze, URL-sichere Kodierung der Auftragsdaten (Base64 statt langem %-Wust).
+function encodeData(obj) {
+  const json = JSON.stringify(obj);
+  const b64 = btoa(String.fromCharCode(...new TextEncoder().encode(json)));
+  return b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+function decodeData(s) {
+  let b64 = s.replace(/-/g, "+").replace(/_/g, "/");
+  while (b64.length % 4) b64 += "=";
+  const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
+// Kurze Schluessel im Link -> volle Feldnamen fuer die Kundenansicht.
+function expand(c) {
+  return {
+    vorname: c.v || "", nachname: c.n || "", email: c.e || "",
+    paket: c.p || "", preis: c.pr || "", sessions: c.s || "", dauer: c.d || "",
+    zeitrahmen: c.z || "", zahlweise: c.zw || "", monate: c.m || "", monatsbetrag: c.mb || "",
+  };
+}
+
 // Setzt Seitentitel + noindex, solange die Seite offen ist (nie indexieren).
 function usePageMeta(title) {
   useEffect(() => {
@@ -32,13 +53,17 @@ function usePageMeta(title) {
 
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+/* Vite-Grundstil neutralisieren (sonst dunkle Balken links/rechts, zentriert). */
+html{background:#F4F1EB;color-scheme:light;}
+body{margin:0;display:block;min-width:0;background:#F4F1EB;}
+#root{max-width:none;width:auto;margin:0;padding:0;text-align:left;}
 .flv-root{
   --creme:#F4F1EB; --sand:#D6CBBF; --warmgrau:#AFA79D;
   --ink:#1C1C1C; --orange:#FF4D00; --soft:#595854;
   --r-pill:100px; --r-card:22px;
   font-family:'Inter Tight',system-ui,-apple-system,sans-serif;
   background:var(--creme); color:var(--ink);
-  min-height:100%; padding:clamp(14px,4vw,34px);
+  min-height:100vh; padding:clamp(14px,4vw,34px);
   -webkit-font-smoothing:antialiased; line-height:1.5;
 }
 .flv-wrap{max-width:680px;margin:0 auto;}
@@ -117,7 +142,7 @@ export default function Vertrag() {
   let invalid = false;
   if (d) {
     try {
-      data = JSON.parse(decodeURIComponent(d));
+      data = expand(decodeData(d));
     } catch {
       invalid = true;
     }
@@ -162,15 +187,24 @@ function AdminMask() {
     preis: 1111,
     zahlweise: "komplett",
     monate: 3,
-    monatsbetrag: 370,
   });
   const [link, setLink] = useState("");
   const [copied, setCopied] = useState(false);
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
+  // Monatsrate automatisch aus Gesamtpreis / Anzahl Monate.
+  const monatsbetrag =
+    form.zahlweise === "monatlich" && Number(form.monate) > 0
+      ? Math.round((Number(form.preis) / Number(form.monate)) * 100) / 100
+      : "";
+
   function generate() {
-    const url = `${window.location.origin}/vertrag?d=${encodeURIComponent(JSON.stringify(form))}`;
-    setLink(url);
+    const compact = {
+      v: form.vorname, n: form.nachname, e: form.email, p: form.paket,
+      pr: form.preis, s: form.sessions, d: form.dauer, z: form.zeitrahmen,
+      zw: form.zahlweise, m: form.monate, mb: monatsbetrag,
+    };
+    setLink(`${window.location.origin}/vertrag?d=${encodeData(compact)}`);
     setCopied(false);
   }
   function copy() {
@@ -206,8 +240,11 @@ function AdminMask() {
           </div>
           {form.zahlweise === "monatlich" && (
             <>
-              <div className="flv-field"><span className="flv-label">Anzahl Monate</span><input className="flv-input" type="number" value={form.monate} onChange={set("monate")} /></div>
-              <div className="flv-field"><span className="flv-label">Monatsbetrag (EUR)</span><input className="flv-input" type="number" value={form.monatsbetrag} onChange={set("monatsbetrag")} /></div>
+              <div className="flv-field"><span className="flv-label">Anzahl Monate (Raten)</span><input className="flv-input" type="number" value={form.monate} onChange={set("monate")} /></div>
+              <div className="flv-field">
+                <span className="flv-label">Monatsbetrag (automatisch)</span>
+                <input className="flv-input" value={monatsbetrag === "" ? "" : monatsbetrag + " EUR"} readOnly style={{ background: "#EDE8DF", color: "#595854" }} />
+              </div>
             </>
           )}
         </div>
