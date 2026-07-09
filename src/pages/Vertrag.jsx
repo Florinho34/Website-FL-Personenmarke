@@ -35,21 +35,9 @@ function expand(c) {
   };
 }
 
-// Setzt Seitentitel + noindex, solange die Seite offen ist (nie indexieren).
-function usePageMeta(title) {
-  useEffect(() => {
-    const prevTitle = document.title;
-    document.title = title;
-    const m = document.createElement("meta");
-    m.setAttribute("name", "robots");
-    m.setAttribute("content", "noindex, nofollow");
-    document.head.appendChild(m);
-    return () => {
-      if (m.parentNode) m.parentNode.removeChild(m);
-      document.title = prevTitle;
-    };
-  }, [title]);
-}
+// Seitentitel und noindex werden ZENTRAL in App.jsx gesetzt (SEO-Map, Flag noindex:true).
+// Hier bewusst kein eigenes Meta-Tag mehr - sonst haetten zwei Stellen denselben Besitz.
+// Zusaetzliche Absicherung ohne JavaScript: X-Robots-Tag-Header in vercel.json fuer /vertrag.
 
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
@@ -57,7 +45,8 @@ const CSS = `
 html{background:#F4F1EB;color-scheme:light;}
 body{margin:0;display:block;min-width:0;background:#F4F1EB;}
 #root{max-width:none;width:auto;margin:0;padding:0;text-align:left;}
-/* Globale Website-CSS faerbt h1..h4 hell (fuer dunkle Startseiten-Sektionen) -> hier explizit Ink. */
+/* index.css (Vite-Template-Rest) setzt h1/h2 auf --text-h und dreht das im
+   Dark-Mode auf fast weiss -> hier explizit Ink. Faellt weg, sobald index.css saniert ist. */
 .flv-root h1,.flv-root h2,.flv-root h3,.flv-root h4{color:var(--ink);}
 .flv-root{
   --creme:#F4F1EB; --sand:#D6CBBF; --warmgrau:#AFA79D;
@@ -135,8 +124,6 @@ body{margin:0;display:block;min-width:0;background:#F4F1EB;}
 `;
 
 export default function Vertrag() {
-  usePageMeta("Mentoring-Vertrag | Florian Lingner");
-
   const params = new URLSearchParams(window.location.search);
   const isAdmin = params.get("admin") === ADMIN_KEY;
   const d = params.get("d");

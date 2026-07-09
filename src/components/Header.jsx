@@ -5,8 +5,9 @@ import "./Header.css";
 /**
  * GETEILTER HEADER (wie Footer) — auf jeder Seite via <Header/> eingebunden.
  * Menue-Links zeigen auf die echten Routen (/philosophie, /mentoring).
- * /kostenloses ist vorerst aus dem Menue genommen (Route in App.jsx bleibt bestehen);
- * der Eintrag im LINKS-Array ist nur auskommentiert und mit einer Zeile reaktivierbar.
+ * /kostenloses ist vorerst aus dem Menue genommen. ACHTUNG: In App.jsx existiert
+ * KEINE Route /kostenloses. Wer die Zeile im LINKS-Array reaktiviert, muss vorher
+ * die Seite bauen und die Route eintragen - sonst landet der Link auf der 404-Seite.
  * Test-CTA: externe Seite, dunkler Button (Ink), Hover Orange.
  */
 
@@ -17,7 +18,7 @@ const LOGO_SVG = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 533.93
 const LINKS = [
   { label: "Philosophie", to: "/philosophie" },
   { label: "Mentoring", to: "/mentoring" },
-  // { label: "Kostenloses", to: "/kostenloses" }, // vorerst ausgeblendet bis die Seite verfuegbar ist – zum Reaktivieren diese Zeile entkommentieren
+  // { label: "Kostenloses", to: "/kostenloses" }, // ausgeblendet: Seite UND Route in App.jsx fehlen noch. Erst beides bauen, dann entkommentieren.
 ];
 
 export default function Header() {
