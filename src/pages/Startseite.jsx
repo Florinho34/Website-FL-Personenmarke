@@ -46,9 +46,8 @@ const GRAIN =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
 
 const CSS = `
-/* Vite-Defaults neutralisieren: Full-Width, dunkle Schrift, linksbündig. Font kommt aus index.html. */
-:root{color-scheme:light;}
-html,body,#root{margin:0; padding:0; max-width:none; width:auto; min-height:0; background:#F4F1EB; color:#1C1C1C; display:block; place-items:normal; text-align:left; font-family:'Inter Tight',system-ui,-apple-system,Segoe UI,sans-serif;}
+/* Grundstil (Reset, CI-Farben, Inter Tight, color-scheme:light) kommt global aus src/index.css.
+   Hier nur seiteneigenes Scroll-Verhalten: weiche Anker-Spruenge, Offset fuer den fixen Header. */
 html{scroll-behavior:smooth; scroll-padding-top:90px;}
 
 .fl-root {

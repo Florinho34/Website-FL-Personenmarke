@@ -6,16 +6,11 @@
 // waere nur mit einer Serverless-Funktion moeglich. Der wirksame Hebel ist
 // stattdessen das noindex, das App.jsx fuer unbekannte Pfade setzt (NOT_FOUND_SEO).
 //
-// Der Reset im <style> neutralisiert die Vite-Defaults aus index.css
-// (zentrierter #root-Kasten, Dark-Mode-Farben). Faellt weg, sobald index.css saniert ist.
+// Grundstil (Reset, CI-Farben, Inter Tight, color-scheme:light) kommt global aus src/index.css.
 
 import { Link } from "react-router-dom";
 
 const CSS = `
-html{background:#F4F1EB;color-scheme:light;}
-body{margin:0;background:#F4F1EB;}
-#root{max-width:none;width:auto;margin:0;padding:0;text-align:left;border:none;display:block;}
-
 .fl-404{
   --creme:#F4F1EB; --sand:#D6CBBF; --warmgrau:#AFA79D;
   --ink:#1C1C1C; --orange:#FF4D00; --soft:#595854;
@@ -27,7 +22,6 @@ body{margin:0;background:#F4F1EB;}
   padding:clamp(24px,6vw,64px);
   -webkit-font-smoothing:antialiased; line-height:1.5;
 }
-.fl-404 h1,.fl-404 h2{color:var(--ink);}
 
 .fl-404__inner{max-width:620px;width:100%;text-align:center;}
 

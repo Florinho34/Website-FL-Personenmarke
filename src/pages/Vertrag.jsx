@@ -40,14 +40,8 @@ function expand(c) {
 // Zusaetzliche Absicherung ohne JavaScript: X-Robots-Tag-Header in vercel.json fuer /vertrag.
 
 const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
-/* Vite-Grundstil neutralisieren (sonst dunkle Balken links/rechts, zentriert). */
-html{background:#F4F1EB;color-scheme:light;}
-body{margin:0;display:block;min-width:0;background:#F4F1EB;}
-#root{max-width:none;width:auto;margin:0;padding:0;text-align:left;}
-/* index.css (Vite-Template-Rest) setzt h1/h2 auf --text-h und dreht das im
-   Dark-Mode auf fast weiss -> hier explizit Ink. Faellt weg, sobald index.css saniert ist. */
-.flv-root h1,.flv-root h2,.flv-root h3,.flv-root h4{color:var(--ink);}
+/* Grundstil (Reset, CI-Farben, Inter Tight, color-scheme:light) kommt global aus
+   src/index.css. Die Schriften laedt index.html - hier bewusst kein eigener @import. */
 .flv-root{
   --creme:#F4F1EB; --sand:#D6CBBF; --warmgrau:#AFA79D;
   --ink:#1C1C1C; --orange:#FF4D00; --soft:#595854;

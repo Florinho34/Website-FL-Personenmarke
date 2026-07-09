@@ -135,13 +135,8 @@ export default function Impressum() {
 }
 
 const css = `
-/* Vite-Standard-Defaults aus index.css neutralisieren, solange diese Seite
-   gemountet ist: Flex-Zentrierung von body, max-width/Padding von #root und
-   dunkles color-scheme. Genau das verursachte den dunklen Streifen rechts,
-   die Linksbündigkeit und die fehlende Mobile-Passung. */
-html { background: #F4F1EB; color-scheme: light; }
-body { margin: 0; display: block; min-width: 0; background: #F4F1EB; }
-#root { max-width: none; width: auto; margin: 0; padding: 0; text-align: left; }
+/* Grundstil (Reset, CI-Farben, Inter Tight, color-scheme:light) kommt global
+   aus src/index.css. Diese Seite braucht keinen eigenen Gegen-Reset mehr. */
 
 .legal {
   --creme:   #F4F1EB;

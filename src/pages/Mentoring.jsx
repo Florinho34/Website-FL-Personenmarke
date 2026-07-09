@@ -104,9 +104,8 @@ const QUOTES = [
 ];
 
 const CSS = `
-/* Vite-Defaults neutralisieren (sonst dunkler Streifen / Linksbündigkeit / Mobile-Zoom). */
-:root{color-scheme:light;}
-html,body,#root{margin:0; padding:0; max-width:none; width:auto; min-height:0; background:#F4F1EB; color:#1C1C1C; display:block; place-items:normal; text-align:left; font-family:'Inter Tight',system-ui,-apple-system,Segoe UI,sans-serif;}
+/* Grundstil (Reset, CI-Farben, Inter Tight, color-scheme:light) kommt global aus src/index.css.
+   Hier nur seiteneigenes Scroll-Verhalten: weiche Anker-Spruenge, Offset fuer den fixen Header. */
 html{scroll-behavior:smooth; scroll-padding-top:90px;}
 
 .fl-ment{
