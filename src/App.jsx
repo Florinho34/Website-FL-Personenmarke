@@ -70,6 +70,23 @@ const SEO = {
   },
 };
 
+// --- Seiten ohne jedes Tracking -----------------------------------------------
+// WARUM: Der Kundenlink der Vertragsstrecke lautet /vertrag?d=<base64> und
+// enthält Vorname, Nachname, E-Mail, Paket und Preis. Base64 ist keine
+// Verschlüsselung. GA4 sendet page_location INKLUSIVE Query-String, Meta meldet
+// die Quell-URL, Clarity zeichnet die Sitzung auf. Personenbezogene Daten haben
+// dort nichts verloren - Google untersagt sie in GA4 ausdrücklich.
+//
+// WIE: Auf diesen Pfaden wird der ConsentBanner gar nicht erst gerendert.
+// Der Banner ist die einzige Stelle, die consent.js aufruft und GTM nachlädt
+// (siehe ConsentBanner.jsx, useEffect). Kein Banner -> kein GTM -> kein Tag,
+// kein Cookie. Und ohne nicht-notwendige Cookies braucht es dort auch kein Banner.
+//
+// Das trägt, weil der Kunde per Direktlink aus der E-Mail kommt, also mit einem
+// echten Seitenaufbau - und GA4-/Meta-Tags feuern beim Seitenaufbau, nicht bei
+// SPA-Routenwechseln.
+const NO_TRACKING = ["/vertrag"];
+
 function setMeta(attr, key, value) {
   let el = document.head.querySelector('meta[' + attr + '="' + key + '"]');
   if (!el) {
@@ -108,6 +125,7 @@ function setSharing(title, description, url) {
 // unabhängig von Gross-/Kleinschreibung. Ohne Normalisierung würde /Mentoring/
 // die Mentoring-Seite anzeigen, aber in der SEO-Map nicht gefunden und
 // fälschlich als 404 behandelt (= noindex auf einer echten Seite).
+// Ebenso wichtig fürs Tracking-Gate: /Vertrag/ muss genauso greifen wie /vertrag.
 function normalize(pathname) {
   if (pathname.length <= 1) return "/";
   return pathname.replace(/\/+$/, "").toLowerCase() || "/";
@@ -137,6 +155,13 @@ function Seo() {
   return null;
 }
 
+// Rendert den ConsentBanner überall AUSSER auf den Pfaden in NO_TRACKING.
+function ConsentGate() {
+  const { pathname } = useLocation();
+  if (NO_TRACKING.includes(normalize(pathname))) return null;
+  return <ConsentBanner />;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -151,7 +176,7 @@ export default function App() {
         <Route path="/vertrag" element={<Vertrag />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <ConsentBanner />
+      <ConsentGate />
     </BrowserRouter>
   );
 }
