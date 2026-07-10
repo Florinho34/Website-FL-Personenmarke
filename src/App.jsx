@@ -7,6 +7,7 @@ import Impressum from "./pages/Impressum";
 import Datenschutz from "./pages/Datenschutz";
 import Vertrag from "./pages/Vertrag";
 import NotFound from "./pages/NotFound";
+import McDanke from "./pages/McDanke";
 import ConsentBanner from "./components/ConsentBanner";
 
 // Bei jedem Seitenwechsel nach ganz oben springen (SPA behält sonst die Scrollposition).
@@ -66,6 +67,14 @@ const SEO = {
   "/vertrag": {
     title: "Mentoring-Vertrag | Florian Lingner",
     description: "Persönliche Vertragsseite.",
+    noindex: true,
+  },
+  // Ziel des Kit-Double-Opt-in. noindex, nicht in der sitemap.xml, nirgends
+  // verlinkt - ein zufälliger Aufruf würde eine Bestätigung vortäuschen.
+  // ABER: bewusst NICHT in NO_TRACKING. Hier soll masterclass_confirmed feuern.
+  "/mc-danke": {
+    title: "Danke | Florian Lingner",
+    description: "Anmeldung zur Masterclass bestätigt.",
     noindex: true,
   },
 };
@@ -174,6 +183,7 @@ export default function App() {
         <Route path="/impressum" element={<Impressum />} />
         <Route path="/datenschutz" element={<Datenschutz />} />
         <Route path="/vertrag" element={<Vertrag />} />
+        <Route path="/mc-danke" element={<McDanke />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ConsentGate />

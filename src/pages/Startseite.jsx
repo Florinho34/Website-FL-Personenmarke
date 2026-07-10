@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
@@ -93,7 +94,7 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .fl-h1{font-weight:800; letter-spacing:-.035em; line-height:.96; font-size:clamp(44px,6.4vw,82px); text-transform:uppercase; color:var(--ink);}
 .fl-h1 .fl-em{background:linear-gradient(100deg,#FF4D00 0%,#FF7A33 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; padding-right:.14em; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
 .fl-rotator{display:inline-block; color:var(--orange); font-style:italic; padding-right:.12em; animation:rotIn .5s ease;}
-.fl-h1-q{display:block; font-size:67px; line-height:.85;}
+.fl-h1-q{display:block; font-size:67px; line-height:.85; margin-top:.12em;}
 @keyframes rotIn{from{opacity:0; transform:translateY(.22em);}to{opacity:1; transform:none;}}
 .fl-sub{margin-top:28px; font-size:18px; max-width:46ch; color:#595854;}
 .fl-cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:38px;}
@@ -195,6 +196,45 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 .card a:hover .arr{transform:translateX(5px);}
 .card.feat{background:linear-gradient(160deg,#33200f,#262524); border-color:rgba(255,77,0,.35);}
 
+/* --- Masterclass-Kachel: Flip + Warteliste ---------------------------------
+   Eigene Mechanik statt der Mythos-Flipcard: die hat Drag-Gesten und lebt in
+   einem anderen Layout. Hier dreht sich nur der INHALT im Kachelrahmen.
+   Beide Seiten liegen in derselben Grid-Zelle -> die Kachel ist so hoch wie
+   die hoehere Seite (die Rueckseite). Das gilt schon vor dem Umdrehen und
+   macht alle drei Kacheln der Reihe gleich hoch. Absicht, kein Bug. */
+.card.mc{display:block; perspective:1400px;}
+.mc-inner{display:grid; height:100%; transform-style:preserve-3d; -webkit-transform-style:preserve-3d; transition:transform .6s cubic-bezier(.33,1.1,.45,1);}
+.mc-inner.flipped{transform:rotateY(180deg);}
+.mc-face{grid-area:1/1; display:flex; flex-direction:column; backface-visibility:hidden; -webkit-backface-visibility:hidden;}
+.mc-face--back{transform:rotateY(180deg);}
+/* .card p{flex:1} wuerde jeden Absatz der Rueckseite dehnen -> nur einer waechst. */
+.mc-face--back p{flex:none;}
+.mc-grow{flex:1 !important;}
+
+/* Umdreh-Link: sieht aus wie .card a, ist aber ein echter Button. */
+.mc-link{align-self:flex-start; margin-top:26px; background:none; border:0; padding:0; color:var(--creme); font-family:inherit; font-weight:600; font-size:15px; cursor:pointer; display:inline-flex; align-items:center; gap:8px;}
+.mc-link .arr{color:var(--orange); transition:transform .25s;}
+.mc-link:hover .arr{transform:translateX(5px);}
+
+.mc-form{display:flex; flex-direction:column; gap:11px; margin-top:18px;}
+.mc-input{width:100%; box-sizing:border-box; background:#1f1e1d; border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:12px 14px; color:var(--creme); font-family:inherit; font-size:15px;}
+.mc-input::placeholder{color:#8b857c;}
+.mc-check{display:flex; align-items:flex-start; gap:10px; font-size:12.5px; line-height:1.45; color:#bdb7ad; cursor:pointer;}
+.mc-check input{flex:none; width:16px; height:16px; margin-top:2px; accent-color:var(--orange); cursor:pointer;}
+.mc-submit{align-self:flex-start; margin-top:3px; background:var(--orange); color:var(--creme); border:0; border-radius:100px; padding:12px 24px; font-family:inherit; font-weight:700; font-size:15px; cursor:pointer; transition:background .2s;}
+.mc-submit[disabled]{opacity:.6; cursor:default;}
+.mc-err{font-size:12.5px; color:#FF8A5C;}
+.mc-legal{font-size:12px; color:#8b857c;}
+/* .card a setzt margin-top:26px und align-self -> fuer den Inline-Link zuruecknehmen. */
+.mc-legal a{margin-top:0; align-self:auto; display:inline; color:#bdb7ad; text-decoration:underline; text-underline-offset:2px; font-size:12px; font-weight:500;}
+.mc-back{align-self:flex-start; margin-top:20px; background:none; border:0; padding:0; color:#8b857c; font-family:inherit; font-weight:600; font-size:13px; cursor:pointer;}
+.mc-back:hover{color:var(--creme);}
+
+.mc-link:focus-visible,.mc-submit:focus-visible,.mc-back:focus-visible,.mc-input:focus-visible,.mc-check input:focus-visible{outline:2px solid var(--orange); outline-offset:2px;}
+
+@media (hover:hover){ .mc-submit:hover{background:#e64500;} }
+@media (prefers-reduced-motion:reduce){ .mc-inner{transition:none;} }
+
 /* about */
 .about .grid{display:grid; grid-template-columns:.8fr 1.1fr; gap:56px; align-items:center;}
 .about p{color:#3a3833; margin-top:16px; max-width:58ch;}
@@ -233,16 +273,16 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange); outline-of
   .fl-hero .grid,.philo .grid,.about .grid,.filter-grid{grid-template-columns:1fr; gap:32px;}
   .fl-hero{min-height:192vw; max-height:920px; align-items:flex-start;}
   .fl-eyebrow{display:none;}
-  .fl-hero-inner{padding-top:78px; padding-bottom:84px;}
+  .fl-hero-inner{padding-top:100px; padding-bottom:84px;}
   .fl-hero-text{max-width:none; text-align:center;}
-  .fl-h1-q{font-size:clamp(26px,7vw,38px);}
+  .fl-h1-q{font-size:clamp(30px,8vw,44px);}
   .fl-sub--d{display:none;}
   .fl-sub--m{display:block;}
   .pullquote{font-style:italic; font-size:clamp(16px,4.5vw,20px);}
   .fl-hero-overlay{display:block; background:linear-gradient(to bottom, var(--creme) 4%, rgba(244,241,235,.9) 26%, rgba(244,241,235,.36) 42%, rgba(244,241,235,0) 56%);}
   .fl-hero-bg{position:absolute; inset:0;}
   .fl-hero-bg img{height:100%; object-fit:cover; object-position:center top; transform:none;}
-  .fl-h1{font-size:clamp(34px,9vw,48px);}
+  .fl-h1{font-size:clamp(39px,10.4vw,55px);}
   .fl-sub{font-size:15px; margin:12px auto 0; max-width:40ch;}
   .fl-cta-row{margin-top:18px;}
   .fl-hero .fl-cta-row{justify-content:center; gap:9px;}
@@ -391,11 +431,73 @@ function Rotator() {
   return <span className="fl-rotator" key={i}>{ROTATOR[i]},</span>;
 }
 
+// --- Kit-Anbindung Masterclass-Warteliste -------------------------------------
+// Muster wie in Mentoring.jsx: direkter v3-Aufruf aus dem Browser.
+// Der api_key ist der OEFFENTLICHE Kit-Schluessel. Er kann ausschliesslich in
+// bestehende Formulare eintragen - keine Liste lesen, nichts loeschen.
+// Niemals das api_secret hier ablegen.
+const KIT_API_KEY = "ce3iKRTfk0Bz5mfbC5yCrg";
+const KIT_MC_FORM_ID = "9667893";      // Kit-Form "Masterclass-Warteliste (Startseite)"
+const KIT_MC_TAG_ID = 21030382;        // Tag "mc-warteliste"
+
+// Dokumentiert, WELCHEM Einwilligungstext die Person zugestimmt hat.
+// Aendert sich der Text unter der Checkbox, wird dieser Wert hochgezaehlt.
+// Gleiches Prinzip wie CONTRACT_VERSION in Vertrag.jsx.
+const MC_CONSENT_VERSION = "mc-2026-07";
+
+// Der Satz MUSS wortgleich in der Kit-Double-Opt-in-Mail stehen.
+// Sie ist der Nachweis der Einwilligung, nicht dieses Formular.
+const MC_CONSENT_TEXT =
+  "Ja, schreib mir. Ich möchte per E-Mail erfahren, wenn die Masterclass online geht, " +
+  "und ab und zu ehrliche Impulse und Angebote von dir bekommen. Abmeldung jederzeit möglich.";
+
 export default function Startseite() {
   const [rot, setRot] = useState(0);      // Drehwinkel der Karte (0 = Vorderseite, 180 = Rückseite)
   const [tilt, setTilt] = useState(0);    // leichtes Kippen für die Haptik beim Ziehen
   const [dragging, setDragging] = useState(false);
   const [open, setOpen] = useState(0);
+
+  // Masterclass-Kachel: Flip + Formular
+  const [mcFlipped, setMcFlipped] = useState(false);
+  const [mcEmail, setMcEmail] = useState("");
+  const [mcOk, setMcOk] = useState(false);
+  const [mcState, setMcState] = useState("idle"); // idle | loading | done | error
+
+  function openMasterclass() {
+    setMcFlipped(true);
+  }
+
+  async function submitMc(e) {
+    e.preventDefault();
+    if (mcState === "loading") return;
+    setMcState("loading");
+    try {
+      const res = await fetch(
+        "https://api.convertkit.com/v3/forms/" + KIT_MC_FORM_ID + "/subscribe",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            api_key: KIT_API_KEY,
+            email: mcEmail,
+            tags: [KIT_MC_TAG_ID],
+            fields: { einwilligung_version: MC_CONSENT_VERSION },
+          }),
+        }
+      );
+      if (!res.ok) throw new Error("Kit antwortete mit " + res.status);
+
+      // Noch KEIN GTM-Tag dafuer. Wird mit mentoring_inquiry und kurs_purchase
+      // zusammen verdrahtet. Der Push kostet nichts und sammelt ab sofort.
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "masterclass_waitlist", funnel: "startseite" });
+
+      setMcState("done");
+    } catch (err) {
+      console.error("Kit-Eintragung fehlgeschlagen:", err);
+      setMcState("error");
+    }
+  }
   const flipRef = useRef(null);
   const cardRef = useRef(null);
   const drag = useRef(null);
@@ -624,17 +726,75 @@ export default function Startseite() {
                 <p>30 Fragen aus deinem Alltag, die in unter einer Viertelstunde deine unbewussten Blockaden und Coping-Mechanismen offenlegen. Der ehrlichste Einstieg.</p>
                 <a href={TEST_URL} target="_blank" rel="noopener noreferrer">Test starten <span className="arr">→</span></a>
               </div>
-              <div className="card" id="kostenloses">
-                <span className="tag">Kostenlos</span>
-                <h3>Masterclass</h3>
-                <p>Ein kostenloses Video, in dem ich so einfach wie möglich erkläre, was bei den meisten der Kern der Unzufriedenheit ist. Dein erster Schritt, einfach anmelden.</p>
-                <a href="#kostenloses">Zur Masterclass <span className="arr">→</span></a>
+              <div className="card mc" id="kostenloses">
+                <div className={"mc-inner" + (mcFlipped ? " flipped" : "")}>
+                  <div className="mc-face mc-face--front" inert={mcFlipped || undefined}>
+                    <span className="tag">Kostenlos</span>
+                    <h3>Masterclass</h3>
+                    <p>Ein kostenloses Video, in dem ich so einfach wie möglich erkläre, was bei den meisten der Kern der Unzufriedenheit ist. Dein erster Schritt, einfach anmelden.</p>
+                    <button type="button" className="mc-link" onClick={openMasterclass}>
+                      Zur Masterclass <span className="arr">→</span>
+                    </button>
+                  </div>
+
+                  <div className="mc-face mc-face--back" inert={!mcFlipped || undefined}>
+                    <span className="tag">Coming soon</span>
+                    <h3>Noch nicht ganz fertig</h3>
+
+                    {mcState === "done" ? (
+                      <>
+                        <p className="mc-grow">Fast geschafft. Ich habe dir eine Mail geschickt – bestätige darin kurz deine Adresse, dann bist du dabei.</p>
+                        <button type="button" className="mc-back" onClick={() => setMcFlipped(false)}>← Zurück</button>
+                      </>
+                    ) : (
+                      <>
+                        <p className="mc-grow">Die Masterclass ist noch in Arbeit. Trag dich ein, dann sage ich dir Bescheid, sobald sie online geht.</p>
+
+                        <form className="mc-form" onSubmit={submitMc}>
+                          <input
+                            className="mc-input"
+                            type="email"
+                            required
+                            autoComplete="email"
+                            placeholder="Deine E-Mail-Adresse"
+                            value={mcEmail}
+                            onChange={(e) => setMcEmail(e.target.value)}
+                          />
+
+                          <label className="mc-check">
+                            <input
+                              type="checkbox"
+                              required
+                              checked={mcOk}
+                              onChange={(e) => setMcOk(e.target.checked)}
+                            />
+                            <span>{MC_CONSENT_TEXT}</span>
+                          </label>
+
+                          <button className="mc-submit" type="submit" disabled={mcState === "loading"}>
+                            {mcState === "loading" ? "Moment…" : "Sag mir Bescheid"}
+                          </button>
+
+                          {mcState === "error" && (
+                            <p className="mc-err">Das hat nicht geklappt. Versuch es gleich noch einmal, oder schreib mir an Kontakt@florian-lingner.ch</p>
+                          )}
+
+                          <p className="mc-legal">
+                            Wie ich mit deinen Daten umgehe, steht in der <Link to="/datenschutz">Datenschutzerklärung</Link>.
+                          </p>
+                        </form>
+
+                        <button type="button" className="mc-back" onClick={() => setMcFlipped(false)}>← Zurück</button>
+                      </>
+                    )}
+                  </div>
+                </div>
               </div>
               <div className="card">
                 <span className="tag">1:1</span>
                 <h3>Mentoring</h3>
                 <p>Und nein, ich coache nicht. Ich sage dir nicht, was du tun sollst, ich begleite dich, rege neue Perspektiven an, und du wächst organisch.</p>
-                <a href="#mentoring">Das 1:1 Mentoring <span className="arr">→</span></a>
+                <Link to="/mentoring">Das 1:1 Mentoring <span className="arr">→</span></Link>
               </div>
             </div>
           </div>
@@ -689,7 +849,7 @@ export default function Startseite() {
           <p className="lead">Keine Formeln. Kein dogmatischer Bullshit. Nur ehrliche Impulse für ein Leben, das wirklich zu dir passt.</p>
           <div className="fl-cta-row">
             <CtaButton href={TEST_URL} external>Mach den Persönlichkeitstest <Arrow /></CtaButton>
-            <a className="btn btn-ghost" href="#kostenloses">Kostenlose Masterclass</a>
+            <a className="btn btn-ghost" href="#kostenloses" onClick={openMasterclass}>Kostenlose Masterclass</a>
           </div>
         </div>
       </section>
