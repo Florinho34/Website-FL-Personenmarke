@@ -493,10 +493,12 @@ export default function Startseite() {
       );
       if (!res.ok) throw new Error("Kit antwortete mit " + res.status);
 
-      // Noch KEIN GTM-Tag dafuer. Wird mit mentoring_inquiry und kurs_purchase
-      // zusammen verdrahtet. Der Push kostet nichts und sammelt ab sofort.
+      // Gleicher Event-Name wie auf der Ergebnisseite des Tests. Die Quelle steht
+      // im Parameter, nicht im Namen - so wie bei masterclass_confirmed.
+      // WICHTIG: Der Meta-Lead-Tag feuert per Trigger-Bedingung NUR bei funnel = "test".
+      // Ein Kachelklick ist keine Vorqualifikation, ein absolvierter Test schon.
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: "masterclass_waitlist", funnel: "startseite" });
+      window.dataLayer.push({ event: "email_submitted", funnel: "startseite" });
 
       setMcState("done");
     } catch (err) {
@@ -744,7 +746,7 @@ export default function Startseite() {
                   </div>
 
                   <div className="mc-face mc-face--back" inert={!mcFlipped || undefined}>
-                    <span className="tag">Coming soon</span>
+                    <span className="tag">Bald verfügbar</span>
                     <h3>Noch nicht ganz fertig</h3>
 
                     {mcState === "done" ? (
