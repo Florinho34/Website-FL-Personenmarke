@@ -8,8 +8,9 @@ import Header from "../components/Header";
  * CI wie Startseite (Creme/Sand/Ink, ein Orange-Akzent, Inter Tight).
  * Verkaufsseite, bewusst "epischer" als die Philosophie-Seite, ohne vom Wesentlichen abzulenken.
  *
- * Aufbau: Hero -> Fuer wen/nicht -> Wie es laeuft -> Angebot -> Stimmen ->
+ * Aufbau: Hero -> Fuer wen/nicht -> Wie es laeuft -> Angebot ->
  *         persoenliches Crescendo (dunkel) -> FAQ -> Anfrage (Kit-Formular).
+ *         (Die Stimmen-Sektion ist auskommentiert, bis echte Zitate vorliegen.)
  *
  * NAV: geteilter <Header/> (components/Header.jsx + .css) - auf allen Seiten gleich.
  *
@@ -96,7 +97,11 @@ const FAQ = [
   },
 ];
 
-/* Platzhalter-Stimmen: durch echte Zitate von Menschen ersetzen, die dich kennen. */
+/* Platzhalter-Stimmen: durch echte Zitate von Menschen ersetzen, die dich kennen.
+   AKTUELL UNGENUTZT - die STIMMEN-Sektion ist auskommentiert (siehe unten im JSX),
+   bis drei echte Zitate vorliegen. Konstante + CSS (.quotes/.quote) bleiben stehen,
+   damit das Wiedereinschalten ein Handgriff ist. */
+// eslint-disable-next-line no-unused-vars
 const QUOTES = [
   { text: "[Platzhalter: ein, zwei ehrliche Sätze einer Person, die dich kennt.]", who: "[Vorname, kurzer Kontext]" },
   { text: "[Platzhalter: ein, zwei ehrliche Sätze einer Person, die dich kennt.]", who: "[Vorname, kurzer Kontext]" },
@@ -167,7 +172,14 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 /* Angebot: 2 kleine Kacheln links gestapelt, grosse Kachel rechts auf voller Hoehe */
 .fl-ment .offer-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:46px; align-items:stretch;}
 .fl-ment .offer-col{display:flex; flex-direction:column; gap:20px;}
-.fl-ment .offer-col .pcard{flex:1;}
+/* WICHTIG: flex-basis MUSS auto bleiben (nicht "flex:1" = "flex:1 1 0%").
+   .card traegt overflow:hidden -> damit faellt laut Flexbox-Spec die automatische
+   Mindesthoehe eines Flex-Items auf 0. Mit flex-basis:0 teilen sich die beiden
+   Kacheln die Spaltenhoehe stur 50/50: die kurze Einzelstunde-Kachel bekommt
+   Leerraum, der Inhalt der laengeren Schnupperstunde-Kachel wird gegen den
+   unteren Rand gedrueckt. Mit "1 1 auto" startet jede Kachel bei ihrer echten
+   Inhaltshoehe, nur der tatsaechliche Restplatz wird verteilt. */
+.fl-ment .offer-col .pcard{flex:1 1 auto;}
 .fl-ment .offer-hot{height:100%;}
 .fl-ment .card{background:#FBFAF6; border:1px solid rgba(28,28,28,.09); border-radius:22px; padding:clamp(26px,3.2vw,40px); box-shadow:0 30px 70px -58px rgba(28,28,28,.5); position:relative; overflow:hidden;}
 .fl-ment .card::after{content:""; position:absolute; inset:0; pointer-events:none; opacity:.04; mix-blend-mode:multiply; background-image:${GRAIN};}
@@ -556,7 +568,15 @@ export default function Mentoring() {
         </div>
       </section>
 
-      {/* STIMMEN */}
+      {/* ---------------------------------------------------------------------
+          STIMMEN - vorerst ausgeblendet, bis drei echte Zitate vorliegen.
+
+          Wieder einschalten:
+            1. diesen Kommentar-Block aufloesen (Anfang + Ende entfernen),
+            2. QUOTES oben mit echten Zitaten befuellen,
+            3. die "eslint-disable-next-line"-Zeile ueber QUOTES loeschen.
+          Das zugehoerige CSS (.quotes / .quote) steht unveraendert im CSS-Block.
+
       <section className="sec">
         <div className="wrap">
           <div className="reveal">
@@ -576,6 +596,8 @@ export default function Mentoring() {
           </div>
         </div>
       </section>
+
+      --------------------------------------------------------------------- */}
 
       {/* PERSÖNLICHES CRESCENDO (dunkel) */}
       <section className="peak-sec">

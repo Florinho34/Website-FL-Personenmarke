@@ -4,7 +4,7 @@
 // Dadurch kann er beim Multipage-Port direkt nach App.jsx wandern und
 // funktioniert auf jeder Seite, auch ausserhalb von .fl-root.
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { openConsentSettings } from "../lib/consent";
 import "./Footer.css";
 
@@ -17,21 +17,31 @@ function LogoMark() {
 }
 
 export default function Footer() {
+  const { pathname } = useLocation();
+
+  // Steht man schon auf "/", aendert <Link to="/"> den Pfad nicht -> ScrollToTop in
+  // App.jsx feuert nicht und die Seite bleibt stehen. Deshalb hier selbst scrollen.
+  function handleLogoClick(e) {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
   return (
     <footer className="fl-foot">
       <div className="fl-wrap">
         <div className="top">
           <div>
-            <a className="fl-logo" href="#top" aria-label="florian lingner"><LogoMark /></a>
+            <Link className="fl-logo" to="/" onClick={handleLogoClick} aria-label="florian lingner"><LogoMark /></Link>
             <p className="fl-foot-tagline">Ehrliche Impulse für ein Leben, das wirklich zu dir passt.</p>
           </div>
           <div className="cols">
             <div>
               <h4>Seiten</h4>
               <ul>
-                <li><a href="#philosophie">Meine Philosophie</a></li>
-                <li><a href="#mentoring">Mentoring</a></li>
-                <li><a href="#kostenloses">Kostenloses</a></li>
+                <li><Link to="/philosophie">Meine Philosophie</Link></li>
+                <li><Link to="/mentoring">Mentoring</Link></li>
                 <li><a href={TEST_URL} target="_blank" rel="noopener noreferrer">Persönlichkeitstest</a></li>
               </ul>
             </div>
