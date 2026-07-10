@@ -199,14 +199,20 @@ html{scroll-behavior:smooth; scroll-padding-top:90px;}
 /* --- Masterclass-Kachel: Flip + Warteliste ---------------------------------
    Eigene Mechanik statt der Mythos-Flipcard: die hat Drag-Gesten und lebt in
    einem anderen Layout. Hier dreht sich nur der INHALT im Kachelrahmen.
-   Beide Seiten liegen in derselben Grid-Zelle -> die Kachel ist so hoch wie
-   die hoehere Seite (die Rueckseite). Das gilt schon vor dem Umdrehen und
-   macht alle drei Kacheln der Reihe gleich hoch. Absicht, kein Bug. */
+   Die Kachel ist immer so hoch wie die SICHTBARE Seite - siehe unten. */
 .card.mc{display:block; perspective:1400px;}
-.mc-inner{display:grid; height:100%; transform-style:preserve-3d; -webkit-transform-style:preserve-3d; transition:transform .6s cubic-bezier(.33,1.1,.45,1);}
+.mc-inner{position:relative; display:flex; flex-direction:column; min-height:100%; transform-style:preserve-3d; -webkit-transform-style:preserve-3d; transition:transform .6s cubic-bezier(.33,1.1,.45,1);}
 .mc-inner.flipped{transform:rotateY(180deg);}
-.mc-face{grid-area:1/1; display:flex; flex-direction:column; backface-visibility:hidden; -webkit-backface-visibility:hidden;}
-.mc-face--back{transform:rotateY(180deg);}
+.mc-face{display:flex; flex-direction:column; flex:1; backface-visibility:hidden; -webkit-backface-visibility:hidden;}
+
+/* Die jeweils UNSICHTBARE Seite wird aus dem Layoutfluss genommen (absolut).
+   Sonst bestimmt die hohe Formular-Rueckseite die Hoehe der Kachel - und weil
+   Grid-Items gleich hoch werden, zieht sie die ganze Reihe mit. Genau das war
+   das Loch unter dem Fliesstext. Beim Umdrehen tauschen die beiden die Rollen,
+   damit immer die SICHTBARE Seite die Hoehe bestimmt. */
+.mc-face--back{position:absolute; inset:0; transform:rotateY(180deg);}
+.mc-inner.flipped .mc-face--front{position:absolute; inset:0;}
+.mc-inner.flipped .mc-face--back{position:relative; inset:auto;}
 /* .card p{flex:1} wuerde jeden Absatz der Rueckseite dehnen -> nur einer waechst. */
 .mc-face--back p{flex:none;}
 .mc-grow{flex:1 !important;}

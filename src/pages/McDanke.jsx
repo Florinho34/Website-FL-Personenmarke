@@ -28,6 +28,14 @@ const CSS = `
 }
 .mcd__inner{max-width:600px; width:100%; text-align:center;}
 
+/* Portrait ueber der Eyebrow. Hoehe automatisch, damit nichts verzerrt.
+   Breite bewusst gedeckelt, sonst wirkt es ueberdimensional. */
+.mcd__portrait{
+  display:block; margin:0 auto clamp(18px,3vw,26px);
+  width:50%; max-width:220px; height:auto;
+  border-radius:50%;
+}
+
 .mcd__eyebrow{
   text-transform:uppercase; letter-spacing:.16em;
   font-size:.72rem; font-weight:700; color:var(--orange);
@@ -39,6 +47,8 @@ const CSS = `
   letter-spacing:-.02em; line-height:1.04;
   margin:0 0 18px;
 }
+/* Der einzige Akzent auf dieser Seite. */
+.mcd__smile{color:var(--orange);}
 .mcd__text{
   font-size:clamp(15px,2.2vw,17px);
   color:var(--soft);
@@ -78,8 +88,17 @@ export default function McDanke() {
       <style>{CSS}</style>
       <main className="mcd">
         <div className="mcd__inner">
+          <img
+            className="mcd__portrait"
+            src="/images/portrait-round.png"
+            alt="Florian Lingner"
+            width="440"
+            height="440"
+          />
           <p className="mcd__eyebrow">Bestätigt</p>
-          <h1 className="mcd__title">Du bist dabei</h1>
+          <h1 className="mcd__title">
+            Du bist dabei <span className="mcd__smile">:)</span>
+          </h1>
           <p className="mcd__text">
             Deine Adresse ist bestätigt. Sobald die Masterclass online geht, bekommst du
             von mir eine Mail. Kein Spam, kein Countdown, kein Druck.
