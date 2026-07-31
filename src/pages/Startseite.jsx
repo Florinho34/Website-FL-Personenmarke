@@ -629,7 +629,7 @@ export default function Startseite() {
               <div>
                 <div className="sec-eyebrow">Meine Philosophie</div>
                 <h2 className="h2">Ein ehrlicher Blick auf dich, die Welt und das <span className="fl-em">Leben</span> selbst.</h2>
-                <p className="lead">Irgendwann kommt der Punkt, da fragt man sich: Da muss doch noch mehr sein? Und an diesem Punkt hast du die Wahl, auf die Suche zu gehen oder dich ins Durchschnittsleben zu fügen.</p>
+                <p className="lead">Irgendwann kommt der Punkt, da fragt man sich: War das wirklich schon alles? Und an diesem Punkt hast du die Wahl, auf die Suche zu gehen oder dich ins Durchschnittsleben zu fügen.</p>
                 <div className="fl-cta-row" style={{ marginTop: 30 }}>
                   <CtaButton href="/philosophie">Das ist meine Philosophie <Arrow /></CtaButton>
                 </div>
