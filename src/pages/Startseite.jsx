@@ -607,8 +607,8 @@ export default function Startseite() {
             <h1 className="fl-h1 reveal d1">
               <Rotator /><span className="fl-h1-q">Aber wer bist du wirklich?</span>
             </h1>
-            <p className="fl-sub fl-sub--d reveal d2">Noch mal so frei, lebensfroh und unbekümmert sein wie damals als Kind… Klingt weit weg, doch all das ist noch in dir und will gelebt werden! Wenn du Lust auf mehr als Durchschnitt hast und spürst, dass da noch ein wahrhaftigeres Leben auf dich wartet, begleite ich dich gern auf dieser transformativen Reise.</p>
-            <p className="fl-sub fl-sub--m reveal d2">Noch mal so frei, lebensfroh und unbekümmert sein wie damals als Kind… Klingt weit weg, doch all das ist noch in dir und will gelebt werden! Ich begleite dich auf dieser Reise.</p>
+            <p className="fl-sub fl-sub--d reveal d2">Dein Leben fühlt sich „okay“ an? Und wieso solltest du dich mit „okay“ zufrieden geben? Mal alle relativierenden Ausreden beiseite: Da geht noch mehr. Das Leben hält noch mehr für dich bereit. Die bittere Wahrheit ist: Selbst wenn du spürst, dass da noch mehr auf dich wartet, hat dir niemand beigebracht, wie du das Realität werden lässt. Ich helfe dir dabei.</p>
+            <p className="fl-sub fl-sub--m reveal d2">Weil „okay“ nicht deine Antwort auf „Wie geht es dir?“ sein sollte. Tief in dir drin weißt du: Da geht noch mehr.</p>
             <div className="fl-cta-row reveal d3">
               <CtaButton href={TEST_URL} external>Mach den Persönlichkeitstest <Arrow /></CtaButton>
               <a className="btn btn-ghost" href="#mentoring">Mein Angebot</a>
@@ -629,7 +629,7 @@ export default function Startseite() {
               <div>
                 <div className="sec-eyebrow">Meine Philosophie</div>
                 <h2 className="h2">Ein ehrlicher Blick auf dich, die Welt und das <span className="fl-em">Leben</span> selbst.</h2>
-                <p className="lead">Irgendwann kommt bei den meisten der Punkt, an dem sie merken: Da muss noch mehr sein. Dann hast du die Wahl, auf die Suche zu gehen oder dich ins Durchschnittsleben zu fügen.</p>
+                <p className="lead">Irgendwann kommt der Punkt, da fragt man sich: Da muss doch noch mehr sein? Und an diesem Punkt hast du die Wahl, auf die Suche zu gehen oder dich ins Durchschnittsleben zu fügen.</p>
                 <div className="fl-cta-row" style={{ marginTop: 30 }}>
                   <CtaButton href="/philosophie">Das ist meine Philosophie <Arrow /></CtaButton>
                 </div>
