@@ -8,6 +8,7 @@ import Datenschutz from "./pages/Datenschutz";
 import Vertrag from "./pages/Vertrag";
 import NotFound from "./pages/NotFound";
 import McDanke from "./pages/McDanke";
+import DeinErgebnis from "./pages/DeinErgebnis";
 import ConsentBanner from "./components/ConsentBanner";
 
 // Bei jedem Seitenwechsel nach ganz oben springen (SPA behält sonst die Scrollposition).
@@ -77,6 +78,14 @@ const SEO = {
     description: "Anmeldung zur Masterclass bestätigt.",
     noindex: true,
   },
+  // Personalisierte Ergebnisseite. Der Link /dein-ergebnis?d=<token> enthält den
+  // Vornamen des Nutzers - deshalb noindex (darf nie in den Index) und zusätzlich
+  // in NO_TRACKING (kein Vorname an GA4/Meta/Clarity). Analog zu /vertrag.
+  "/dein-ergebnis": {
+    title: "Dein Ergebnis | Florian Lingner",
+    description: "Deine persönliche Auswertung aus dem Unfuck-Typentest.",
+    noindex: true,
+  },
 };
 
 // --- Seiten ohne jedes Tracking -----------------------------------------------
@@ -94,7 +103,7 @@ const SEO = {
 // Das trägt, weil der Kunde per Direktlink aus der E-Mail kommt, also mit einem
 // echten Seitenaufbau - und GA4-/Meta-Tags feuern beim Seitenaufbau, nicht bei
 // SPA-Routenwechseln.
-const NO_TRACKING = ["/vertrag"];
+const NO_TRACKING = ["/vertrag", "/dein-ergebnis"];
 
 function setMeta(attr, key, value) {
   let el = document.head.querySelector('meta[' + attr + '="' + key + '"]');
@@ -184,6 +193,7 @@ export default function App() {
         <Route path="/datenschutz" element={<Datenschutz />} />
         <Route path="/vertrag" element={<Vertrag />} />
         <Route path="/mc-danke" element={<McDanke />} />
+        <Route path="/dein-ergebnis" element={<DeinErgebnis />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ConsentGate />
