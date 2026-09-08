@@ -79,8 +79,10 @@ const SEO = {
     noindex: true,
   },
   // Personalisierte Ergebnisseite. Der Link /dein-ergebnis?d=<token> enthält den
-  // Vornamen des Nutzers - deshalb noindex (darf nie in den Index) und zusätzlich
-  // in NO_TRACKING (kein Vorname an GA4/Meta/Clarity). Analog zu /vertrag.
+  // Vornamen des Nutzers - deshalb noindex (darf nie in den Index), zusätzlich
+  // abgesichert per X-Robots-Tag in vercel.json, nicht in der sitemap.xml und
+  // nirgends verlinkt.
+  // ABER: bewusst NICHT in NO_TRACKING - siehe Kommentar dort.
   "/dein-ergebnis": {
     title: "Dein Ergebnis | Florian Lingner",
     description: "Deine persönliche Auswertung aus dem Unfuck-Typentest.",
@@ -103,7 +105,21 @@ const SEO = {
 // Das trägt, weil der Kunde per Direktlink aus der E-Mail kommt, also mit einem
 // echten Seitenaufbau - und GA4-/Meta-Tags feuern beim Seitenaufbau, nicht bei
 // SPA-Routenwechseln.
-const NO_TRACKING = ["/vertrag", "/dein-ergebnis"];
+//
+// WARUM /dein-ergebnis hier NICHT (mehr) steht:
+// Auch dort steckt ein Vorname im Query-String, das Problem ist dasselbe. Die
+// Lösung ist aber eine andere, weil auf dieser Seite gemessen werden SOLL
+// (Wiedererkennungs-Skala, Aufruf des Ergebnisses, Share).
+// DeinErgebnis.jsx liest den Token beim ersten Render aus, legt ihn in den
+// sessionStorage und entfernt ihn per history.replaceState sofort aus der
+// Adresszeile - lange bevor GTM überhaupt lädt (GTM lädt erst nach einem Klick
+// im Consent-Banner). GA4 und Meta sehen deshalb nur "/dein-ergebnis" ohne
+// Anhängsel. Clarity lässt sich damit nicht schützen, weil es den Bildschirm
+// aufzeichnet - deshalb schaltet die Seite Clarity dort per clarity("stop") ab,
+// zusätzlich zur Trigger-Ausnahme am Clarity-Tag in GTM.
+// Ein komplettes Gate wie bei /vertrag wäre hier falsch: Dann würde GTM nie
+// laden, und jedes Event auf der Seite bliebe stumm - ohne Fehlermeldung.
+const NO_TRACKING = ["/vertrag"];
 
 function setMeta(attr, key, value) {
   let el = document.head.querySelector('meta[' + attr + '="' + key + '"]');

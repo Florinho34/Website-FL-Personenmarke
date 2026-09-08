@@ -1,14 +1,37 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ARCHETYPE_CORE, ARCHETYPE_ORDER, CORE_SCALES } from "../data/archetypeCore";
 
 /*  ────────────────────────────────────────────────────────────────────────
     /dein-ergebnis  ·  Personalisierte Ergebnisseite (Unfuck-Typentest)
     ────────────────────────────────────────────────────────────────────────
     Liest den Token aus ?d=<base64url>, baut daraus den vollstaendigen Report.
     Der Token traegt NUR den persoenlichen Kern (Name, Archetyp, 10 Werte,
-    Top-3). Alle Texte liegen hier im Code.
+    Top-3). Alle Texte liegen hier im Code bzw. in src/data/archetypeCore.js.
 
-    WICHTIG (Leitplanke): Dieser Pfad muss in App.jsx in NO_TRACKING stehen
-    und noindex sein - im Link steht ein Vorname. Siehe Uebergabe.
+    LEITPLANKE 1 - noindex.
+    Die Seite ist personalisiert und darf nie in den Index. Gesetzt an zwei
+    Stellen: SEO-Map in App.jsx und X-Robots-Tag in vercel.json. Nicht in der
+    sitemap.xml, nirgends verlinkt.
+
+    LEITPLANKE 2 - der Vorname darf nicht ins Analytics.
+    Im Token steckt der Vorname. Base64 ist keine Verschluesselung. GA4, Meta
+    und Clarity melden die volle Seiten-URL inklusive Query-String.
+    Loesung: stripUrlToken() liest ?d= aus, legt den Token in den
+    sessionStorage und entfernt ihn per history.replaceState SOFORT aus der
+    Adresszeile - noch bevor GTM ueberhaupt laedt (GTM laedt erst nach einem
+    Klick im Consent-Banner). Ab dann sehen alle Tools nur "/dein-ergebnis".
+    Deshalb darf dieser Pfad NICHT (mehr) in NO_TRACKING stehen: hier soll
+    gemessen werden.
+
+    LEITPLANKE 3 - Clarity bleibt hier aus.
+    URL-Stripping hilft gegen Clarity nicht: Clarity zeichnet den BILDSCHIRM
+    auf, und auf dieser Seite stehen Vorname und vollstaendiges Profil.
+    stopClarity() schaltet die Aufzeichnung ab, sobald Clarity geladen ist.
+    Zweite Absicherung: Ausnahme fuer diesen Pfad am Clarity-Tag in GTM.
+
+    ZWILLINGSDATEI: Archetyp-Name, Tagline, unbequeme Wahrheit und Falle
+    kommen aus src/data/archetypeCore.js. Dieselbe Datei liegt im Test-Repo.
+    Aenderungen dort immer in beiden Repos.
     ──────────────────────────────────────────────────────────────────────── */
 
 // Rendert **fett**-Marker als <strong>. Content ist unser eigener, kein XSS-Risiko.
@@ -42,8 +65,64 @@ function DimIcon({ k }) {
 const TEST_URL = "https://test.florian-lingner.ch";
 const SHARE_MSG = "Ich habe grade diesen Persönlichkeitstest gemacht und war echt beeindruckt! Kann ihn nur empfehlen, wenn man mal genauer hinsehen möchte!";
 
-const ARCHETYPE_ORDER = ["zuschauer", "getriebener", "idealist", "suchender", "klarsichtiger"];
-const CORE_SCALES = ["REF", "SL", "ML", "OL", "ETH", "WS", "NAT", "EX", "EF", "HA"];
+/* ─── TRACKING ─────────────────────────────────────────────────────────────
+   Schreibt nur in den dataLayer. Ob daraus ein Tag feuert, entscheidet GTM
+   und damit die Einwilligung - hier bewusst KEIN eigener Consent-Check.
+   Ohne Einwilligung laedt GTM gar nicht, dann liegt der Push folgenlos rum. */
+function trackEvent(eventName, params = {}) {
+  if (typeof window === "undefined") return;
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: eventName, ...params });
+}
+
+/* ─── VORNAMEN-SCHUTZ: Token aus der Adresszeile entfernen ─────────────────
+   Laeuft beim allerersten Render, lange bevor GTM geladen ist. Danach steht
+   in der Adresszeile nur noch "/dein-ergebnis" - GA4 und Meta bekommen nie
+   einen Vornamen zu sehen.
+
+   Der Token wandert in den sessionStorage, damit ein Reload die Seite nicht
+   leer laesst. Ein neuer Browser-Tab hat ihn nicht mehr; dann greift der
+   Fallback-Screen mit dem Hinweis auf die Ergebnis-Mail. Das ist gewollt:
+   lieber ein klarer Hinweis als ein Vorname im Analytics. */
+const TOKEN_STORAGE_KEY = "fl-ergebnis-token";
+
+function stripUrlToken() {
+  if (typeof window === "undefined") return null;
+  let fromUrl = null;
+  try {
+    fromUrl = new URLSearchParams(window.location.search).get("d");
+  } catch { /* kaputte Query-Syntax - wie kein Token behandeln */ }
+
+  if (fromUrl) {
+    try { sessionStorage.setItem(TOKEN_STORAGE_KEY, fromUrl); } catch { /* Privatmodus */ }
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("d");
+      window.history.replaceState({}, "", url.pathname + url.search + url.hash);
+    } catch { /* replaceState nicht verfuegbar - Anzeige laeuft trotzdem */ }
+    return fromUrl;
+  }
+
+  try { return sessionStorage.getItem(TOKEN_STORAGE_KEY); } catch { return null; }
+}
+
+/* ─── CLARITY AUF DIESER SEITE ABSCHALTEN ──────────────────────────────────
+   Clarity zeichnet den Bildschirm auf. Hier stehen Vorname und komplettes
+   Profil - das gehoert in keine Sitzungsaufzeichnung. Heatmaps braeuchte man
+   hier ohnehin nicht, weil jeder Besucher etwas anderes sieht.
+   Clarity laedt erst nach der Consent-Entscheidung ueber GTM, kann beim Mount
+   also noch fehlen. Deshalb wird bis zu 15 Sekunden nachgefasst. */
+function stopClarity() {
+  try {
+    if (typeof window !== "undefined" && typeof window.clarity === "function") {
+      window.clarity("stop");
+      return true;
+    }
+  } catch { /* Clarity meldet sich nicht - nichts zu stoppen */ }
+  return false;
+}
+
+// ARCHETYPE_ORDER und CORE_SCALES kommen aus der Zwillingsdatei (oben importiert).
 
 // Idealprofile fuer das Radar (identisch zum Test, TYPE_PROFILES)
 const TYPE_PROFILES = {
@@ -110,22 +189,22 @@ const DIMENSIONS = {
   },
 };
 
+/*  Das PDF-Vorwort, fuer die Endposition angepasst. Nur der erste Satz ist neu -
+    aus "Hi, mein Name ist Florian" wurde eine Anknuepfung ans Gelesene. Und der
+    Schlusssatz spricht vom "Ergebnis" statt vom "Report", weil es kein PDF mehr
+    gibt (Entscheidung 08.09.2026). */
 const VORWORT = [
-  "Hi, mein Name ist Florian, und ich will ehrlich mit dir sein: **Ich hatte mein Leben nicht immer im Griff**. Über einen langen Zeitraum wurde ich immer unglücklicher. Monat für Monat.",
+  "Ich bin Florian, und wenn du bis hierhin gelesen hast, sollst du auch wissen, von wem das alles kommt. Ich will ehrlich mit dir sein: **Ich hatte mein Leben nicht immer im Griff**. Über einen langen Zeitraum wurde ich immer unglücklicher. Monat für Monat.",
   "Das, was ich irgendwann nach einigen Jahren an Arbeit endlich über mich verstehen durfte, hat dann alles verändert. Doch bis dahin hat es mich viele Jahre gekostet, in denen ich längst hätte glücklich sein können. Also habe ich mich oft gefragt: **Wieso gibt es keine Abkürzung dorthin?**",
   "Und klar, Transformation passiert nicht über Nacht. Aber wie sagt man so schön: **Selbsterkenntnis ist der erste Schritt zur Besserung**. Und genau dafür, für ehrliches Hinschauen, habe ich diesen Test gebaut.",
-  "Wenn du wirklich ehrlich geantwortet hast, spiegelt dir dieses Ergebnis auch unangenehme Blind Spots. Genau das macht dieses Ergebnis so wertvoll: **ein ehrlicher Spiegel deines aktuellen Selbst.** Ich hoffe du gehst offen mit diesem Report um, denn nur dann kann er ein ähnlicher Türöffner für dich sein, wie meine Erkenntnisse es damals für mich waren.",
+  "Wenn du wirklich ehrlich geantwortet hast, spiegelt dir dieses Ergebnis auch unangenehme Blind Spots. Genau das macht dieses Ergebnis so wertvoll: **ein ehrlicher Spiegel deines aktuellen Selbst.** Ich hoffe, du gehst offen mit deinem Ergebnis um, denn nur dann kann es ein ähnlicher Türöffner für dich sein, wie meine Erkenntnisse es damals für mich waren.",
 ];
 
-const ARCHETYPES = {
+/*  Was NUR die Detailseite zeigt: Potenzial-Analyse und Reintyp-Text.
+    Name, Tagline, unbequeme Wahrheit und Falle stehen in der Zwillingsdatei
+    src/data/archetypeCore.js und werden unten dazugemischt.  */
+const ARCHETYPE_EXTRA = {
   zuschauer: {
-    name: "Der Zuschauer", dativ: "Zuschauer", avatar: "/images/Archetypen-Zuschauer.png",
-    tagline: "Dein scharfer Verstand ist ein Segen - und genau der steht dir im Weg.",
-    wahrheit: [
-      "Deine Beobachtungsgabe ist messerscharf. Du durchschaust Situationen, Menschen und Zusammenhänge, während andere noch nicht mal wissen, welche Frage sie zuerst stellen sollen. **Diese Klarheit ist wertvoll und selten**.",
-      "Aber Erkennen ist nicht Handeln. Genau da liegt dein Haken: Du siehst Dinge, die andere übersehen, und hast dadurch einen Vorsprung, theoretisch. Denn solange die Erkenntnis nur in deinem Kopf bleibt, **verändert sie in deinem Leben genau nichts**.",
-    ],
-    falle: "Du analysierst im Kreis und **verwechselst Erkenntnis mit Fortschritt**. Jeder Tag, an dem du nur verstehst statt zu handeln, macht den nächsten Schritt nicht leichter, sondern schwerer.",
     potenzial: [
       "Stell dir einen Zuschauer vor, der **von der Tribüne aufs Feld gegangen** ist. Sein scharfer Blick ist geblieben, aber er schaut nicht mehr nur zu.",
       "Deine Analyse ist dann kein Versteck mehr, sondern ein Werkzeug. Du denkst immer noch gründlich, aber du merkst inzwischen, **wann du fertig gedacht hast**. Und an genau dieser Stelle machst du den Schritt, statt eine weitere Runde zu drehen. Was du erkennst, landet in deinem Leben, nicht nur in deinem Kopf.",
@@ -135,13 +214,6 @@ const ARCHETYPES = {
     reintyp: "Dein Ergebnis ist ungewöhnlich klar. Kein zweiter Archetyp mischt sich merklich ein, du bist Zuschauer in Reinform. Das ist keine schlechte Nachricht, im Gegenteil: Bei dir liegt kein zweites Muster über dem eigentlichen Hebel. Es gibt genau einen Punkt, an dem du ansetzen musst, und alles darüber zeigt ihn dir schwarz auf weiß. Klarer als bei den meisten. **Das macht deinen nächsten Schritt einfacher, nicht schwerer**.",
   },
   getriebener: {
-    name: "Der Getriebene", dativ: "Getriebenen", avatar: "/images/Archetypen-Getriebener.png",
-    tagline: "Deine Power ist beeindruckend - nur setzt du sie aktuell wahrscheinlich für das Erreichen von Zielen ein, die du dir nicht wirklich unbeeinflusst selbst gesetzt hast.",
-    wahrheit: [
-      "Du bist ein Macher. Wo andere zögern, lieferst du. Deine Disziplin, deine Belastbarkeit, dein Durchhaltevermögen, das ist selten, und es hat dich weit gebracht. **Auf dich ist Verlass**.",
-      "Nur: **Bewegung ist nicht dasselbe wie Richtung**. Du funktionierst, aber irgendwann hat sich die Frage verschoben von „Will ich das?“ zu „Wie schaffe ich das?“. Und solange du in Bewegung bleibst, musst du dir die erste Frage nicht stellen.",
-    ],
-    falle: "Du bist so beschäftigt mit Funktionieren, dass du gar nicht merkst, wie weit du dich von dir selbst entfernt hast. Noch mehr Leistung bringt dich diesem Punkt nicht näher, **sie bringt dich weiter weg**.",
     potenzial: [
       "Stell dir einen Getriebenen vor, der immer noch mit voller Kraft läuft, aber **endlich in seine eigene Richtung**.",
       "Deine Power ist geblieben, sie hat jetzt nur ein Ziel, das wirklich deins ist. Du lieferst weiterhin ab, aber du fragst dich vorher, wofür. Und wenn die Antwort nicht trägt, dann lässt du es. Diese Fähigkeit, etwas nicht zu tun, **wird deine größte Freiheit**.",
@@ -151,13 +223,6 @@ const ARCHETYPES = {
     reintyp: "Dein Ergebnis ist ungewöhnlich klar. Kein zweiter Archetyp mischt sich merklich ein, du bist der Getriebene in Reinform. Das erklärt vieles: Dein Antrieb kennt keine Gegenstimme, die ihn mal ausbremst. Genau das macht dich so leistungsfähig, und genau das macht es **so schwer, den Fuß vom Gas zu nehmen**.",
   },
   idealist: {
-    name: "Der Idealist", dativ: "Idealisten", avatar: "/images/Archetypen-Idealist.png",
-    tagline: "Du willst die Welt besser machen - und vergisst dabei den Einen, der dich am dringendsten braucht: dich.",
-    wahrheit: [
-      "Du spürst, was auf der Welt schiefläuft. Ungerechtigkeit, Oberflächlichkeit, der Zustand der Welt, das perlt an dir nicht ab, das geht dir nah. Dieser Wertekompass ist echt und tief, und ehrlich gesagt **bräuchte die Welt mehr Menschen wie dich**.",
-      "Dein Weltschmerz erzeugt ein Gewicht auf deinen Schultern, das dich langsam auffrisst. Du gibst deine Energie nach außen, an Themen, an andere, an das große Ganze, bis für dich selbst nichts mehr übrig ist. Das Paradoxe: Du hast ein gutes Gespür dafür, wie man Umstände besser machen kann, **außer bei deinem eigenen Leben**.",
-    ],
-    falle: "Dein Gerechtigkeitssinn ist ehrenvoll, aber wenn du dich von ihm zu unbewusst antreiben lässt, kann er sich gegen dich richten. **Großes ändern beginnt dennoch im Kleinen. Bei dir**.",
     potenzial: [
       "Stell dir einen Idealisten vor, der die Welt immer noch verändern will und **dem es dabei richtig gut geht**.",
       "Dein Mitgefühl ist geblieben, es frisst dich nur nicht mehr auf. Du nimmst weiterhin wahr, was schiefläuft, aber du trägst es nicht mehr allein auf deinen Schultern. Du hast gelernt, deine Energie dorthin zu lenken, **wo sie tatsächlich ankommt**, statt sie über alles Ungerechte dieser Welt zu verteilen.",
@@ -167,13 +232,6 @@ const ARCHETYPES = {
     reintyp: "Dein Ergebnis ist ungewöhnlich klar. Kein zweiter Archetyp mischt sich merklich ein, du bist der Idealist in Reinform. Dein Wertekompass bestimmt dich ohne Gegengewicht. Das ist eine seltene Kraft und zugleich der Grund, **warum du dich selbst so leicht aus dem Blick verlierst**.",
   },
   suchender: {
-    name: "Der Suchende", dativ: "Suchenden", avatar: "/images/Archetypen-Suchende.png",
-    tagline: "Deine Neugier ist ein Geschenk - nur suchst du im Außen, was längst in dir liegt.",
-    wahrheit: [
-      "Du gibst dich nicht mit der Oberfläche zufrieden. Dein Wissensdurst, deine Offenheit, dein Gespür dafür, wenn etwas nicht stimmt, **das ist ein echtes Talent**. Die meisten stellen die Fragen gar nicht erst, die du dir längst stellst.",
-      "Nur: Zufrieden macht es dich nicht. Du hast schon vieles probiert, Bücher, Podcasts, Methoden, Ansätze. Manches hat kurz resoniert, aber nichts hat wirklich gehalten. Das liegt nicht daran, dass du sprunghaft bist. Es liegt daran, dass die Antwort, die du im nächsten Impuls suchst, **dort gar nicht warten kann**.",
-    ],
-    falle: "Du verwechselst Bewegung mit Fortschritt. Es liegt nicht an den Methoden. Es liegt daran, dass du nie lange genug an einer Stelle gräbst, um auf Gold zu stoßen. Es gibt hierfür eine Lösung, doch **sie liegt nicht im Außen, sondern in dir**.",
     potenzial: [
       "Stell dir einen Suchenden vor, der aufgehört hat zu suchen. Kein Aufgeben, keine Resignation. **Er ist angekommen**.",
       "Deine Neugier ist dann keine Fluchtbewegung mehr, **sondern echte Vertiefung**. Du liest und lernst immer noch, aber nicht mehr auf der Jagd nach dem einen fehlenden Teil. Du tust es, weil es dich nährt. Das eine ist ein Loch, das du zu stopfen versuchst. Das andere ist ein Garten, den du pflegst.",
@@ -183,13 +241,6 @@ const ARCHETYPES = {
     reintyp: "Dein Ergebnis ist ungewöhnlich klar. Kein zweiter Archetyp mischt sich merklich ein, du bist der Suchende in Reinform. Deine Suche hat keinen inneren Gegenpol, der sie mal zur Ruhe bringt. Das erklärt, warum sie sich so endlos anfühlt, und **warum der Ausstieg für dich umso mehr verändert**.",
   },
   klarsichtiger: {
-    name: "Der Klarsichtige", dativ: "Klarsichtigen", avatar: "/images/Archetypen-Klarsichtiger.png",
-    tagline: "Du bist weiter als die meisten - und genau das ist dein blinder Fleck.",
-    wahrheit: [
-      "Machen wir uns nichts vor: Du hast an dir gearbeitet wie kaum jemand. Du reflektierst, du führst dich selbst, du kommst ins Handeln, und du erkennst Muster, bei dir und bei anderen, mit einer Klarheit, die beeindruckend ist. Du bist bereits weiter gekommen, **als die meisten je werden**.",
-      "Und genau da liegt die versteckte Gefahr. Denn wer viel verstanden hat, hört irgendwann auf, sich zu hinterfragen: „das ist mir schon bewusst“. Zwischen Klarsehen und konsequent-danach-leben bleibt eine letzte Lücke. **Klein, aber hartnäckig**.",
-    ],
-    falle: "Klarsehen fühlt sich für dich an wie Ankommen. Zu wissen, wie es geht, ist nicht dasselbe, wie es zu leben, und die letzten Meter gehen die wenigsten, **gerade weil sie sich schon am Ziel wähnen**.",
     potenzial: [
       "Stell dir einen Klarsichtigen vor, der das, was er längst versteht, **jeden einzelnen Tag auch lebt**.",
       "Es sieht von außen unspektakulär aus. Keine Erleuchtung, kein großer Umbruch. Nur **eine stille Konsequenz, die vorher nicht da war**. Du weißt weiterhin genau, wie es ginge, aber du tust es jetzt auch dann, wenn niemand hinschaut und wenn es unbequem wird.",
@@ -199,6 +250,16 @@ const ARCHETYPES = {
     reintyp: "Dein Ergebnis ist ungewöhnlich klar, was bei deinem Typ fast schon poetisch ist. Kein zweiter Archetyp mischt sich merklich ein, du bist der Klarsichtige in Reinform. Deine Klarheit ist ungetrübt von anderen Mustern. Das bringt dich weit, und es macht den letzten blinden Fleck umso hartnäckiger, **weil nichts ihn dir spiegelt**.",
   },
 };
+
+/*  Zusammenfuehrung: gemeinsame Kerntexte + seitenspezifische Ergaenzungen.
+    Der Bildpfad wird hier gesetzt - die Zwillingsdatei kennt nur den
+    Dateinamen, weil das Test-Repo seine Bilder direkt unter "/" ablegt. */
+const ARCHETYPES = Object.fromEntries(
+  Object.entries(ARCHETYPE_CORE).map(([key, core]) => [
+    key,
+    { ...core, ...ARCHETYPE_EXTRA[key], avatar: `/images/${core.avatarFile}` },
+  ])
+);
 
 // ④ Mischtyp: 20 Kombinationen, Key = "haupttyp+zweittyp"
 const MISCHTYP = {
@@ -236,28 +297,89 @@ function base64UrlToUtf8(token) {
   return new TextDecoder().decode(bytes);
 }
 
+/*  Hoechste Token-Version, die diese Seite lesen kann. Wird der Token-Aufbau im
+    Test je erweitert, zaehlt der Test dort hoch - und diese Seite erkennt einen
+    zu neuen Link, statt ihn falsch anzuzeigen. Falsch anzeigen waere schlimmer
+    als gar nicht anzeigen: Niemand merkt es, und der Leser bekommt ein fremdes
+    Profil praesentiert. */
+const TOKEN_VERSION = 1;
+
+/*  Rueckgabe immer { status, data }:
+      "ok"       - alles gelesen
+      "empty"    - gar kein Token da (Direktaufruf, neuer Tab)
+      "broken"   - Token da, aber nicht lesbar (abgeschnittener Link)
+      "outdated" - Token aus einer neueren Test-Version
+    Drei getrennte Faelle, weil der Mensch davor drei verschiedene Dinge tun
+    muss. Ein gemeinsames "geht nicht" waere hier Faulheit. */
 function decodeToken(raw) {
-  if (!raw) return null;
+  if (!raw) return { status: "empty", data: null };
   try {
     const p = JSON.parse(base64UrlToUtf8(raw));
+    if (typeof p.v === "number" && p.v > TOKEN_VERSION) {
+      return { status: "outdated", data: null };
+    }
     const primaryKey = ARCHETYPE_ORDER[p.p];
-    if (!primaryKey || !ARCHETYPES[primaryKey]) return null;
-    if (!Array.isArray(p.d) || p.d.length !== CORE_SCALES.length) return null;
-    if (!Array.isArray(p.st) || !Array.isArray(p.pt)) return null;
+    if (!primaryKey || !ARCHETYPES[primaryKey]) return { status: "broken", data: null };
+    if (!Array.isArray(p.d) || p.d.length !== CORE_SCALES.length) return { status: "broken", data: null };
+    if (!Array.isArray(p.st) || !Array.isArray(p.pt)) return { status: "broken", data: null };
     const secondaryKey = p.s >= 0 ? ARCHETYPE_ORDER[p.s] : null;
     return {
-      name: (p.n || "").trim(),
-      primaryKey,
-      secondaryKey,
-      isReintyp: p.r === 1,
-      date: p.t || "",
-      values: CORE_SCALES.reduce((acc, k, i) => { acc[k] = p.d[i]; return acc; }, {}),
-      strengths: p.st.filter((k) => DIMENSIONS[k]),
-      potentials: p.pt.filter((k) => DIMENSIONS[k]),
+      status: "ok",
+      data: {
+        name: (p.n || "").trim(),
+        primaryKey,
+        secondaryKey,
+        isReintyp: p.r === 1,
+        date: p.t || "",
+        values: CORE_SCALES.reduce((acc, k, i) => { acc[k] = p.d[i]; return acc; }, {}),
+        strengths: p.st.filter((k) => DIMENSIONS[k]),
+        potentials: p.pt.filter((k) => DIMENSIONS[k]),
+      },
     };
   } catch {
-    return null;
+    return { status: "broken", data: null };
   }
+}
+
+/* ─── DIE LÜCKE ────────────────────────────────────────────────────────────
+   Keine neue Messung, sondern eine Verdichtung von vier Werten, die ohnehin
+   erhoben werden - zugespitzt auf zwei Zahlen und den Abstand dazwischen.
+
+   Erkenntnis = (REF + ETH) / 2   ← wie klar jemand sieht
+   Umsetzung  = (HA  + SL)  / 2   ← wie konsequent er danach lebt
+
+   Alle vier Dimensionen sind positiv gerichtet (positive: true), deshalb wird
+   hier direkt mit den normalisierten Werten gerechnet und NICHT mit
+   strengthScore. Wer das je aendert, muss hier nachziehen. */
+function computeLuecke(values) {
+  const erkenntnis = Math.round(((values.REF ?? 50) + (values.ETH ?? 50)) / 2);
+  const umsetzung = Math.round(((values.HA ?? 50) + (values.SL ?? 50)) / 2);
+  return { erkenntnis, umsetzung, luecke: erkenntnis - umsetzung };
+}
+
+/*  Reihenfolge ist bindend: Die beiden Sonderfaelle MUESSEN zuerst greifen.
+    Sonst liest jemand mit 28/28 ein "ausgeglichen" als Lob, obwohl bei ihm
+    schlicht beides niedrig ist. Das ist der einzige echte Fallstrick hier. */
+function lueckeText({ erkenntnis, umsetzung, luecke }) {
+  if (erkenntnis < 35 && umsetzung < 35) {
+    return "Beides ist bei dir noch nicht ausgeprägt. Das sieht auf den Balken nach Gleichgewicht aus, ist aber keins. Weder die Klarheit noch die Umsetzung trägt dich gerade. Das klingt hart, ist aber die ehrlichste Ausgangslage von allen: **Du hast dich noch nicht festgefahren**.";
+  }
+  if (erkenntnis > 70 && umsetzung > 70) {
+    return "Beides ist bei dir stark ausgeprägt, und das ist selten. Du siehst klar und du handelst danach. Genau deshalb sitzt dein blinder Fleck nicht zwischen diesen beiden Werten, sondern **an einer Stelle, die dir von außen niemand mehr spiegelt**.";
+  }
+  if (luecke >= 30) {
+    return "Du siehst deutlich mehr, als du lebst. Zwischen dem, was dir klar ist, und dem, was davon in deinem Alltag ankommt, liegt ein breiter Streifen. Das ist keine Faulheit und kein Charakterfehler. Es ist der häufigste Befund überhaupt, und der unbequemste, **weil du ihn selbst am besten kennst**.";
+  }
+  if (luecke >= 10) {
+    return "Deine Erkenntnis liegt vor deiner Umsetzung. Nicht dramatisch, aber spürbar. Du weißt in den meisten Fällen, was dran wäre. **Ein Teil davon bleibt trotzdem regelmäßig liegen**.";
+  }
+  if (luecke >= -9) {
+    return "Erkenntnis und Umsetzung liegen bei dir fast gleichauf. Was du siehst, lebst du auch. Das ist selten, und es heißt nicht, dass du fertig bist. Es heißt, **dass dein Thema woanders liegt**.";
+  }
+  if (luecke >= -29) {
+    return "Du handelst schneller, als du prüfst. Das bringt dich in Bewegung, und Bewegung ist mehr, als die meisten hinbekommen. Die Frage ist nur, **ob die Richtung deine ist oder eine übernommene**.";
+  }
+  return "Du bewegst dich viel und hinterfragst wenig. Deine Umsetzungskraft ist deutlich stärker ausgeprägt als dein Blick darauf, wofür du sie einsetzt. **Solange du in Bewegung bleibst, musst du diese Frage nicht stellen**.";
 }
 
 const strengthScore = (key, val) => (DIMENSIONS[key].positive ? val : 100 - val);
@@ -467,11 +589,159 @@ const STYLES = `
 .erg-share-cp{background:var(--ink);color:var(--creme);}
 .erg-share .copied{color:var(--orange);font-weight:700;font-size:.85rem;margin-top:.8rem;}
 
+/* Die Lücke */
+.erg-luecke-intro{font-weight:600;color:var(--ink);margin-bottom:1.6rem;}
+.erg-gap{position:relative;margin-bottom:1.6rem;}
+.erg-gap-row{margin-bottom:1.1rem;}
+.erg-gap-row:last-of-type{margin-bottom:0;}
+.erg-gap-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:.45rem;}
+.erg-gap-lbl{font-weight:800;color:var(--ink);font-size:1rem;}
+.erg-gap-val{font-weight:900;font-size:1.05rem;font-variant-numeric:tabular-nums;}
+.erg-gap-row.erk .erg-gap-val{color:var(--orange);}
+.erg-gap-row.ums .erg-gap-val{color:var(--soft);}
+.erg-gap-track{position:relative;height:14px;border-radius:100px;background:rgba(175,167,157,.24);overflow:hidden;}
+.erg-gap-fill{height:100%;border-radius:100px;width:0;transition:width 1.1s cubic-bezier(.2,.8,.2,1);}
+.erg-reveal.in .erg-gap-fill{width:var(--w);}
+.erg-gap-row.erk .erg-gap-fill{background:var(--orange);}
+.erg-gap-row.ums .erg-gap-fill{background:linear-gradient(90deg,var(--warmgrau),var(--sand));}
+/* Der markierte Abstand zwischen den Balkenenden - das ist die eigentliche Botschaft. */
+.erg-gap-delta{position:absolute;height:14px;border-radius:100px;top:0;
+  background:repeating-linear-gradient(135deg,rgba(255,77,0,.5) 0 5px,rgba(255,77,0,.16) 5px 10px);
+  opacity:0;transition:opacity .5s ease .9s;}
+.erg-reveal.in .erg-gap-delta{opacity:1;}
+.erg-gap-caption{margin-top:.9rem;font-size:.86rem;color:var(--warmgrau);text-align:center;}
+.erg-gap-caption b{color:var(--orange);font-weight:800;font-variant-numeric:tabular-nums;}
+
+/* Recognition-Slider */
+.erg-slider{text-align:center;}
+.erg-slider h2{margin-bottom:.6rem;}
+.erg-slider .lead{max-width:42ch;margin:0 auto 1.6rem;}
+.erg-slider-scale{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;}
+.erg-slider-btn{width:60px;height:60px;border:1.5px solid var(--warmgrau);border-radius:18px;background:transparent;
+  font-family:inherit;font-size:1.2rem;font-weight:800;color:var(--ink);cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;transition:all .2s ease;}
+@media (hover:hover){.erg-slider-btn:hover:not(.sel){border-color:var(--orange);background:rgba(255,77,0,.07);}}
+.erg-slider-btn.sel{border-color:var(--orange);background:var(--orange);color:#fff;transform:scale(1.06);}
+.erg-slider-labels{display:flex;justify-content:space-between;max-width:352px;margin:.7rem auto 0;
+  font-size:.74rem;color:var(--warmgrau);letter-spacing:.04em;text-transform:uppercase;}
+.erg-slider-thanks{margin-top:1.2rem;color:var(--orange);font-weight:700;font-size:.92rem;}
+
+/* Schlussblock */
+.erg-outro .erg-card p:last-child{margin-bottom:0;}
+.erg-outro-lead{font-weight:700;color:var(--ink) !important;}
+
+@media (max-width:420px){
+  .erg-slider-btn{width:52px;height:52px;font-size:1.05rem;}
+  .erg-slider-scale{gap:.5rem;}
+  .erg-slider-labels{max-width:300px;}
+}
+
 @media (prefers-reduced-motion: reduce){
-  .erg-reveal,.erg-bar-fill,.erg-radar-userwrap{transition:none !important;}
+  .erg-reveal,.erg-bar-fill,.erg-radar-userwrap,.erg-gap-fill,.erg-gap-delta{transition:none !important;}
   .erg-reveal{opacity:1;transform:none;}
+  .erg-reveal .erg-gap-delta{opacity:1;}
 }
 `;
+
+/* ─── DIE LÜCKE: zwei Balken, ein markierter Abstand ──────────────────────
+   Bewusst OHNE "/100". Mit Nenner liest es sich wie eine Schulnote, und dann
+   diskutiert der Leser seine Punktzahl statt den Abstand. */
+function LueckeBlock({ values }) {
+  const { erkenntnis, umsetzung, luecke } = computeLuecke(values);
+  const lo = Math.min(erkenntnis, umsetzung);
+  const hi = Math.max(erkenntnis, umsetzung);
+  const zeigeDelta = Math.abs(luecke) >= 4; // darunter waere der Streifen ein Strich
+
+  return (
+    <div className="erg-card">
+      <p className="erg-luecke-intro">
+        Zwei Werte aus deinen Antworten: wie klar du siehst, und wie konsequent du danach lebst.
+        Der Abstand dazwischen ist der eigentliche Befund.
+      </p>
+
+      <div className="erg-gap">
+        <div className="erg-gap-row erk">
+          <div className="erg-gap-head">
+            <span className="erg-gap-lbl">Erkenntnis</span>
+            <span className="erg-gap-val">{erkenntnis}</span>
+          </div>
+          <div className="erg-gap-track">
+            <div className="erg-gap-fill" style={{ "--w": `${erkenntnis}%` }} />
+          </div>
+        </div>
+
+        <div className="erg-gap-row ums">
+          <div className="erg-gap-head">
+            <span className="erg-gap-lbl">Umsetzung</span>
+            <span className="erg-gap-val">{umsetzung}</span>
+          </div>
+          <div className="erg-gap-track">
+            <div className="erg-gap-fill" style={{ "--w": `${umsetzung}%` }} />
+            {zeigeDelta && (
+              <div className="erg-gap-delta" style={{ left: `${lo}%`, width: `${hi - lo}%` }} />
+            )}
+          </div>
+        </div>
+
+        {zeigeDelta && (
+          <p className="erg-gap-caption">
+            Der schraffierte Bereich ist deine Lücke: <b>{Math.abs(luecke)} Punkte</b>
+          </p>
+        )}
+      </div>
+
+      <p><RichText text={lueckeText({ erkenntnis, umsetzung, luecke })} /></p>
+    </div>
+  );
+}
+
+/* ─── RECOGNITION-SLIDER ───────────────────────────────────────────────────
+   Skala 1-5, identisch zum bisherigen Slider im Test. Nicht auf 1-10 aendern,
+   ohne den GTM-Trigger "recognition_score_min4" (Muster ^[45]$) mitzuziehen -
+   sonst feuert das Meta-Event HighRecognition beim Mittelfeld.
+
+   Das Event wird um 1,5 Sekunden verzoegert gesendet. Wer von 3 auf 5
+   korrigiert, erzeugt so EIN Event mit dem Endwert statt zweier Events.
+   archetype faehrt mit, weil genau daraus die interessante Auswertung
+   entsteht: Welches Profil erkennt sich am staerksten wieder? */
+function RecognitionSlider({ archetype }) {
+  const [score, setScore] = useState(null);
+  const timerRef = useRef(null);
+
+  useEffect(() => () => clearTimeout(timerRef.current), []);
+
+  function pick(n) {
+    setScore(n);
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      trackEvent("recognition_score", { score: n, archetype });
+    }, 1500);
+  }
+
+  return (
+    <div className="erg-card erg-slider">
+      <h2>Wie genau trifft das Ergebnis auf dich zu?</h2>
+      <p className="lead">
+        Hat es dich getroffen, oder lag es daneben? Sei ehrlich, ich lese das wirklich.
+      </p>
+      <div className="erg-slider-scale" role="group" aria-label="Wie genau trifft das Ergebnis auf dich zu?">
+        {[1, 2, 3, 4, 5].map((n) => (
+          <button
+            key={n}
+            type="button"
+            className={`erg-slider-btn${score === n ? " sel" : ""}`}
+            aria-pressed={score === n}
+            onClick={() => pick(n)}
+          >
+            {n}
+          </button>
+        ))}
+      </div>
+      <div className="erg-slider-labels"><span>Gar nicht</span><span>Voll und ganz</span></div>
+      {score !== null && <p className="erg-slider-thanks">Danke dir.</p>}
+    </div>
+  );
+}
 
 /* ─── HAUPTKOMPONENTE ──────────────────────────────────────────────────── */
 function DimItem({ dimKey, kind, value }) {
@@ -494,13 +764,42 @@ function DimItem({ dimKey, kind, value }) {
 
 /* ─── HAUPTKOMPONENTE ──────────────────────────────────────────────────── */
 export default function DeinErgebnis() {
-  const data = useMemo(() => {
-    const raw = new URLSearchParams(window.location.search).get("d");
-    return decodeToken(raw);
-  }, []);
+  /*  Lazy-Initializer: laeuft beim allerersten Render, also so frueh wie
+      moeglich. stripUrlToken() raeumt dabei die Adresszeile auf. React ruft
+      den Initializer im StrictMode zweimal auf - beim zweiten Mal steht kein
+      ?d= mehr in der URL, dann greift der sessionStorage-Fallback und liefert
+      denselben Token. Deshalb ist das doppelte Ausfuehren hier harmlos. */
+  const [result] = useState(() => decodeToken(stripUrlToken()));
+  const { status, data } = result;
 
   const rootRef = useRef(null);
   const [copied, setCopied] = useState(false);
+  const trackedRef = useRef(false);
+
+  /*  Clarity abschalten. Clarity laedt erst nach der Consent-Entscheidung ueber
+      GTM, kann beim Mount also noch fehlen - deshalb wird bis zu 15 Sekunden
+      nachgefasst. Laeuft auch auf den Fallback-Screens: Auch dort koennte im
+      sessionStorage noch ein Ergebnis stehen. */
+  useEffect(() => {
+    if (stopClarity()) return;
+    let versuche = 0;
+    const iv = setInterval(() => {
+      if (stopClarity() || ++versuche > 60) clearInterval(iv);
+    }, 250);
+    return () => clearInterval(iv);
+  }, []);
+
+  /*  ergebnis_abgerufen: der Beweis, dass die Ergebnis-Mail angekommen ist UND
+      geklickt wurde. Genau das Funnel-Leck, das bisher niemand sehen konnte.
+      Ref-Guard gegen den doppelten Effekt-Aufruf im StrictMode. */
+  useEffect(() => {
+    if (status !== "ok" || !data || trackedRef.current) return;
+    trackedRef.current = true;
+    trackEvent("ergebnis_abgerufen", {
+      archetype: data.primaryKey,
+      is_reintyp: data.isReintyp ? "true" : "false",
+    });
+  }, [status, data]);
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -518,13 +817,48 @@ export default function DeinErgebnis() {
     catch { /* stille Fehlbehandlung */ }
   }
 
-  if (!data) {
+  /*  Drei Fehlerbilder, drei Texte. Jeder sagt, was jetzt konkret zu tun ist -
+      "geht nicht" allein schickt Leute weg, die alles richtig gemacht haben.
+      Bewusst NICHT auf die 404-Seite umleiten: Die Seite gibt es ja, nur der
+      Schluessel fehlt. */
+  if (status !== "ok" || !data) {
+    const FALLBACKS = {
+      empty: {
+        h: "Hier fehlt dein persönlicher Schlüssel.",
+        p: [
+          "Diese Seite zeigt dein Ergebnis nur, wenn du sie über deinen persönlichen Link öffnest. Den hast du per E-Mail bekommen.",
+          "Öffne die Mail mit dem Betreff „Dein Ergebnis“ und klick den Link darin noch einmal an. Wenn du sie nicht findest: Schau im Werbe- oder Spam-Ordner nach.",
+        ],
+      },
+      broken: {
+        h: "Dieser Link ist unvollständig.",
+        p: [
+          "Da fehlt ein Stück. Das passiert, wenn ein Link beim Kopieren abgeschnitten wird oder wenn das E-Mail-Programm ihn über zwei Zeilen umbricht.",
+          "Geh zurück in deine Ergebnis-Mail und klick den Link dort direkt an, statt ihn zu kopieren. Dann kommt er vollständig an.",
+        ],
+      },
+      outdated: {
+        h: "Dieser Link stammt aus einer älteren Version.",
+        p: [
+          "Der Test wurde weiterentwickelt, und dein Link passt nicht mehr zur aktuellen Auswertung. Dein altes Ergebnis lässt sich damit leider nicht mehr korrekt anzeigen.",
+          "Der schnellste Weg zu einem gültigen Ergebnis: den Test einmal neu machen. Er dauert rund zehn Minuten, und du bekommst danach direkt einen frischen Link.",
+        ],
+        cta: true,
+      },
+    };
+    const fb = FALLBACKS[status] || FALLBACKS.broken;
+
     return (
       <div className="erg-root">
         <style>{STYLES}</style>
         <div className="erg-fallback">
-          <h1>Dieser Link ist unvollständig.</h1>
-          <p>Wir konnten dein Ergebnis nicht laden. Am sichersten öffnest du den Link direkt aus deiner Ergebnis-Mail - dort steht er vollständig. Prüf zur Not auch den Werbe- oder Spam-Ordner.</p>
+          <h1>{fb.h}</h1>
+          {fb.p.map((t, i) => <p key={i}>{t}</p>)}
+          {fb.cta && (
+            <p style={{ marginTop: "1.6rem" }}>
+              <a className="erg-cta-btn" href={TEST_URL} style={{ marginTop: 0 }}>Zum Test →</a>
+            </p>
+          )}
         </div>
       </div>
     );
@@ -553,9 +887,29 @@ export default function DeinErgebnis() {
           {dateStr && <div className="erg-meta">Test vom {dateStr}</div>}
         </header>
 
-        {/* ② DEIN PROFIL: Radar + Top-3 (Akkordeon) */}
+        {/* ② UNBEQUEME WAHRHEIT */}
         <section className="erg-section erg-reveal">
-          <div className="erg-eyebrow"><span className="num">②</span> Das ist bei dir besonders auffällig</div>
+          <div className="erg-eyebrow"><span className="num">②</span> Die unbequeme Wahrheit</div>
+          <h2>Was dich ausbremst</h2>
+          <div className="erg-card">
+            {meta.wahrheit.map((t, i) => <p key={i}><RichText text={t} /></p>)}
+            <div className="erg-falle">
+              <div className="lbl">⚠ Deine Falle</div>
+              <p><RichText text={meta.falle} /></p>
+            </div>
+          </div>
+        </section>
+
+        {/* ③ DIE LÜCKE - die staerkste Einzelaussage, deshalb weit vorne */}
+        <section className="erg-section erg-reveal">
+          <div className="erg-eyebrow"><span className="num">③</span> Der eigentliche Befund</div>
+          <h2>Die Lücke</h2>
+          <LueckeBlock values={data.values} />
+        </section>
+
+        {/* ④ DEIN PROFIL: Radar + Top-3 (Akkordeon) */}
+        <section className="erg-section erg-reveal">
+          <div className="erg-eyebrow"><span className="num">④</span> Das ist bei dir besonders auffällig</div>
           <h2>Dein Profil über zehn Dimensionen</h2>
           <div className="erg-card">
             <div className="erg-radar-box">
@@ -579,30 +933,17 @@ export default function DeinErgebnis() {
           </div>
         </section>
 
-        {/* ③ UNBEQUEME WAHRHEIT */}
-        <section className="erg-section erg-reveal">
-          <div className="erg-eyebrow"><span className="num">③</span> Die unbequeme Wahrheit</div>
-          <h2>Was dich ausbremst</h2>
-          <div className="erg-card">
-            {meta.wahrheit.map((t, i) => <p key={i}><RichText text={t} /></p>)}
-            <div className="erg-falle">
-              <div className="lbl">⚠ Deine Falle</div>
-              <p><RichText text={meta.falle} /></p>
-            </div>
-          </div>
-        </section>
-
-        {/* ④ MISCHTYP oder REINTYP */}
+        {/* ⑤ MISCHTYP oder REINTYP */}
         <section className="erg-section erg-reveal">
           {data.isReintyp || !showMischtyp ? (
             <>
-              <div className="erg-eyebrow"><span className="num">④</span> Dein Profil ist eindeutig</div>
+              <div className="erg-eyebrow"><span className="num">⑤</span> Dein Profil ist eindeutig</div>
               <h2>Ein klarer Fall</h2>
               <div className="erg-card"><p><RichText text={meta.reintyp} /></p></div>
             </>
           ) : (
             <>
-              <div className="erg-eyebrow"><span className="num">④</span> Dein zweiter Anteil</div>
+              <div className="erg-eyebrow"><span className="num">⑤</span> Dein zweiter Anteil</div>
               <h2>Was noch in dir steckt</h2>
               <div className="erg-card">
                 <div className="erg-second">
@@ -618,27 +959,48 @@ export default function DeinErgebnis() {
           )}
         </section>
 
-        {/* ⑤ SO KÖNNTE DEIN LEBEN AUSSEHEN */}
+        {/* ⑥ SO KÖNNTE DEIN LEBEN AUSSEHEN */}
         <section className="erg-section erg-reveal">
-          <div className="erg-eyebrow"><span className="num">⑤</span> So könnte dein Leben aussehen</div>
+          <div className="erg-eyebrow"><span className="num">⑥</span> So könnte dein Leben aussehen</div>
           <h2>Deine Potenzial-Analyse</h2>
           <div className="erg-card">
             {meta.potenzial.map((t, i) => <p key={i}><RichText text={t} /></p>)}
           </div>
         </section>
 
-        {/* ⑥ WIE ES WEITERGEHT */}
+        {/* SLIDER - direkt hinter dem letzten inhaltlichen Wort.
+            Erst alles lesen, dann bewerten. Alles darunter ist Rahmen,
+            keine Aussage ueber die Person mehr. */}
         <section className="erg-section erg-reveal">
-          <div className="erg-card erg-cta">
-            <div className="erg-eyebrow"><span className="num">⑥</span> Wie es weitergeht</div>
-            <p>In den nächsten Wochen wird intensiv an einer Masterclass exklusiv für deinen Archetyp gearbeitet. Sobald diese online geht, wirst du selbstverständlich benachrichtigt.</p>
+          <div className="erg-eyebrow">Kurz nachgefragt</div>
+          <RecognitionSlider archetype={data.primaryKey} />
+        </section>
+
+        {/* SCHLUSSBLOCK */}
+        <section className="erg-section erg-reveal erg-outro">
+          <div className="erg-eyebrow">Zum Schluss</div>
+          <h2>Erkennen ist noch nicht Ändern</h2>
+          <div className="erg-card">
+            <p className="erg-outro-lead">Du hast jetzt ein ziemlich vollständiges Bild von dir. Und genau da fängt das eigentliche Problem an: Erkennen fühlt sich schon an wie Verändern. Ist es aber nicht.</p>
+            <p>Woran das liegt und was der Schritt danach wirklich braucht, daran arbeite ich gerade. Du stehst auf der Liste und erfährst es als Erster.</p>
           </div>
         </section>
 
-        {/* VORWORT (ganz unten, mit eigener Ueberschrift) */}
+        {/* AUSBLICK - weicht zum Masterclass-Launch dem echten Pitch (⑥ aus dem
+            Textdokument, 27 EUR). Das ist eingeplant, kein Rueckbau. */}
+        <section className="erg-section erg-reveal">
+          <div className="erg-card erg-cta">
+            <div className="erg-eyebrow">Ausblick</div>
+            <h2>Was als Nächstes kommt</h2>
+            <p>Ich baue gerade für jeden Archetyp eine eigene Masterclass. Kein weiterer Input zum Sammeln, sondern genau der Teil, den dieses Ergebnis bewusst offen lässt: der Weg von der Erkenntnis in ein Leben, das sich wirklich anders anfühlt.</p>
+            <p>Sobald es soweit ist, melde ich mich bei dir. Eintragen musst du dich nicht mehr, das hast du ja schon.</p>
+          </div>
+        </section>
+
+        {/* PERSÖNLICHER ABSCHLUSS (das frühere PDF-Vorwort, ans Ende gerueckt) */}
         <section className="erg-section erg-reveal">
           <div className="erg-eyebrow">Der Mensch dahinter</div>
-          <h2>Wer hat diesen Test weshalb erstellt?</h2>
+          <h2>Noch was Persönliches zum Schluss</h2>
           <div className="erg-card erg-vorwort">
             <img className="erg-portrait" src="/images/portrait-round.png" alt="Florian Lingner" onError={(e) => { e.currentTarget.style.display = "none"; }} />
             {VORWORT.map((t, i) => <p key={i}><RichText text={t} /></p>)}
