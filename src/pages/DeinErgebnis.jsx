@@ -487,7 +487,7 @@ const STYLES = `
 .erg-signature{font-family:'Caveat',cursive;font-size:1.7rem;color:var(--orange);line-height:1;margin-top:.4rem;}
 
 /* Falle */
-.erg-falle{margin-top:16px;background:rgba(255,77,0,.06);border-left:4px solid var(--orange);border-radius:14px;padding:18px 22px;}
+.erg-falle{margin-top:16px;background:rgba(255,77,0,.06);border-radius:16px;padding:18px 22px;}
 .erg-falle .lbl{display:flex;align-items:center;gap:.5rem;font-weight:800;color:var(--orange);font-size:.86rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:.5rem;}
 .erg-falle p{color:var(--ink);margin:0;}
 
