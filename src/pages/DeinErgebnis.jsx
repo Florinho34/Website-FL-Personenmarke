@@ -29,8 +29,9 @@ import { ARCHETYPE_CORE, ARCHETYPE_ORDER, CORE_SCALES } from "../data/archetypeC
     stopClarity() schaltet die Aufzeichnung ab, sobald Clarity geladen ist.
     Zweite Absicherung: Ausnahme fuer diesen Pfad am Clarity-Tag in GTM.
 
-    ZWILLINGSDATEI: Archetyp-Name, Tagline, unbequeme Wahrheit und Falle
-    kommen aus src/data/archetypeCore.js. Dieselbe Datei liegt im Test-Repo.
+    ZWILLINGSDATEI: Archetyp-Name, Tagline, unbequeme Wahrheit (Absatz 1+2)
+    und Falle kommen aus src/data/archetypeCore.js. Absatz 3+4 stehen nur
+    hier (ARCHETYPE_EXTRA.wahrheitDetail). Dieselbe Datei liegt im Test-Repo.
     Aenderungen dort immer in beiden Repos.
     ──────────────────────────────────────────────────────────────────────── */
 
@@ -200,11 +201,17 @@ const VORWORT = [
   "Wenn du wirklich ehrlich geantwortet hast, spiegelt dir dieses Ergebnis auch unangenehme Blind Spots. Genau das macht dieses Ergebnis so wertvoll: **ein ehrlicher Spiegel deines aktuellen Selbst.** Ich hoffe, du gehst offen mit deinem Ergebnis um, denn nur dann kann es ein ähnlicher Türöffner für dich sein, wie meine Erkenntnisse es damals für mich waren.",
 ];
 
-/*  Was NUR die Detailseite zeigt: Potenzial-Analyse und Reintyp-Text.
-    Name, Tagline, unbequeme Wahrheit und Falle stehen in der Zwillingsdatei
-    src/data/archetypeCore.js und werden unten dazugemischt.  */
+/*  Was NUR die Detailseite zeigt: Wahrheit Absatz 3+4 (wahrheitDetail),
+    Potenzial-Analyse und Reintyp-Text.
+    Name, Tagline, Wahrheit Absatz 1+2 und Falle stehen in der Zwillingsdatei
+    src/data/archetypeCore.js und werden unten dazugemischt. Absatz 1+2 zeigt
+    auch der Teaser, 3+4 nur diese Seite (Copy-Version 2026-09-11c).  */
 const ARCHETYPE_EXTRA = {
   zuschauer: {
+    wahrheitDetail: [
+      "Das zieht sich durch mehr Bereiche, als dir lieb ist. Im Job bist du oft der Mensch, der das Problem als Erstes sieht, und selten der, der es anpackt. In Beziehungen verstehst du oft besser als dein Gegenüber, was zwischen euch gerade passiert, und behältst es trotzdem für dich. Und mit dir selbst führst du lange, kluge Gespräche im Kopf, **die nie das Licht der Welt erblicken**.",
+      "Das Tückische: Dein Muster fühlt sich gar nicht wie ein Problem an, eher wie Gründlichkeit. Solange du noch analysierst, hast du dich nicht festgelegt, und wer sich nicht festlegt, kann auch nicht falschliegen. Der Preis ist unsichtbar, aber hoch: Chancen, die leise vorbeiziehen, und das Gefühl, dass andere mutiger sind als du, obwohl sie weniger verstanden haben. Wenn du dich hier ertappt fühlst: Mach dir keine Vorwürfe. **Genau dieses Denken hat dich lange geschützt**.",
+    ],
     potenzial: [
       "Stell dir vor, du bist **von der Tribüne aufs Feld gegangen**. Dein scharfer Blick ist geblieben, aber du schaust nicht mehr nur zu.",
       "Deine Analyse ist dann kein Versteck mehr, sondern ein Werkzeug. Du denkst immer noch gründlich, aber du merkst inzwischen, **wann du fertig gedacht hast**. Und an genau dieser Stelle machst du den Schritt, statt eine weitere Runde zu drehen. Was du erkennst, landet in deinem Leben, nicht nur in deinem Kopf.",
@@ -214,6 +221,10 @@ const ARCHETYPE_EXTRA = {
     reintyp: "Dein Ergebnis ist ungewöhnlich klar. Kein zweiter Archetyp mischt sich merklich ein, du bist Typ Zuschauer in Reinform. Das ist keine schlechte Nachricht, im Gegenteil: Bei dir liegt kein zweites Muster über dem eigentlichen Hebel. Es gibt genau einen Punkt, an dem du ansetzen musst, und alles darüber zeigt ihn dir schwarz auf weiß. Klarer als bei den meisten. **Das macht deinen nächsten Schritt einfacher, nicht schwerer**.",
   },
   getriebener: {
+    wahrheitDetail: [
+      "Das zeigt sich überall dort, wo es still wird. Im Job bist du verlässlich, oft der Mensch, auf den am Ende alles zuläuft. Privat planst du Freizeit wie ein Projekt, selbst Erholung bekommt bei dir eine To-do-Liste. Und wenn dich jemand fragt, wie es dir geht, **erzählst du, was gerade alles ansteht**.",
+      "Das Tückische: Dafür wirst du belohnt. Leistung bringt Anerkennung, und wer so viel schafft, muss sich keine unbequemen Fragen gefallen lassen. Der Preis kommt leise: Du erreichst ein Ziel, und das Gefühl, auf das du hingearbeitet hast, bleibt aus. Also setzt du dir das nächste. Wenn du dich hier ertappt fühlst: Mach dir keine Vorwürfe. „Deine Leistung bestimmt deinen Wert“ ist ein Programm, das schon ein paar hundert Jahre läuft. **Du hast es nur übernommen, wie fast alle**.",
+    ],
     potenzial: [
       "Stell dir vor, du läufst immer noch mit voller Kraft, aber **endlich in deine eigene Richtung**.",
       "Deine Power ist geblieben, sie hat jetzt nur ein Ziel, das wirklich deins ist. Du lieferst weiterhin ab, aber du fragst dich vorher, wofür. Und wenn die Antwort nicht trägt, dann lässt du es. Diese Fähigkeit, etwas nicht zu tun, **wird deine größte Freiheit**.",
@@ -223,6 +234,10 @@ const ARCHETYPE_EXTRA = {
     reintyp: "Dein Ergebnis ist ungewöhnlich klar. Kein zweiter Archetyp mischt sich merklich ein, du bist Typ Getrieben in Reinform. Das erklärt vieles: Dein Antrieb kennt keine Gegenstimme, die ihn mal ausbremst. Genau das macht dich so leistungsfähig, und genau das macht es **so schwer, den Fuß vom Gas zu nehmen**.",
   },
   idealist: {
+    wahrheitDetail: [
+      "Das zeigt sich nicht nur beim Blick in die Nachrichten. Im Job reibst du dich an allem, was unfair oder sinnlos läuft, und nimmst es abends mit nach Hause. In Beziehungen kümmerst du dich um alle und fragst dich selten, was du eigentlich selbst brauchst. Und dein eigenes Verhalten misst du an einem Maßstab, den kein Mensch erfüllen kann: **jeder Einkauf, jede Entscheidung ein kleines Gewissensverfahren**.",
+      "Das Tückische: Dein Einsatz fühlt sich richtig an, und er ist es ja auch. Genau deshalb fällt kaum auf, was er dich kostet. Erschöpfung, Frust, das Gefühl, gegen eine Wand zu rennen. Und irgendwann ein Zynismus, der sich wie Klarheit anfühlt und in Wahrheit nur Müdigkeit ist. Wenn du dich hier ertappt fühlst: Mach dir keine Vorwürfe. **Wer so viel spürt, hat es schlicht schwerer als die, denen alles egal ist**.",
+    ],
     potenzial: [
       "Stell dir vor, du willst die Welt immer noch verändern, und **dir geht es dabei richtig gut**.",
       "Dein Mitgefühl ist geblieben, es frisst dich nur nicht mehr auf. Du nimmst weiterhin wahr, was schiefläuft, aber du trägst es nicht mehr allein auf deinen Schultern. Du hast gelernt, deine Energie dorthin zu lenken, **wo sie tatsächlich ankommt**, statt sie über alles Ungerechte dieser Welt zu verteilen.",
@@ -232,6 +247,10 @@ const ARCHETYPE_EXTRA = {
     reintyp: "Dein Ergebnis ist ungewöhnlich klar. Kein zweiter Archetyp mischt sich merklich ein, du bist Typ Idealist in Reinform. Dein Wertekompass bestimmt dich ohne Gegengewicht. Das ist eine seltene Kraft und zugleich der Grund, **warum du dich selbst so leicht aus dem Blick verlierst**.",
   },
   suchender: {
+    wahrheitDetail: [
+      "Das zieht sich durch mehr als nur dein Bücherregal. Im Job fragst du dich regelmäßig, ob das schon alles war, und hast drei Alternativen im Kopf, von denen du keine wirklich geprüft hast. Mit dir selbst bist du ständig im Umbau: neue Routine, neues Ziel, jedes Mal mit voller Überzeugung. Und wenn andere von ihrem Weg erzählen, **fragst du dich heimlich, ob das vielleicht deiner wäre**.",
+      "Das Tückische: Der Anfang ist die schönste Phase. Alles ist neu, alles verspricht etwas, die Begeisterung ist echt. Die zähe Mitte, in der sich zeigt, ob etwas trägt, fühlt sich dagegen an wie ein Irrtum. Also gehst du, bevor sie dir eine Antwort geben kann. Wenn du dich hier ertappt fühlst: Mach dir keine Vorwürfe. **Wer sucht, dem ist etwas wichtig**, und das können längst nicht alle von sich sagen.",
+    ],
     potenzial: [
       "Stell dir vor, du hast aufgehört zu suchen. Kein Aufgeben, keine Resignation. **Du bist angekommen**.",
       "Deine Neugier ist dann keine Fluchtbewegung mehr, **sondern echte Vertiefung**. Du liest und lernst immer noch, aber nicht mehr auf der Jagd nach dem einen fehlenden Teil. Du tust es, weil es dich nährt. Das eine ist ein Loch, das du zu stopfen versuchst. Das andere ist ein Garten, den du pflegst.",
@@ -241,6 +260,10 @@ const ARCHETYPE_EXTRA = {
     reintyp: "Dein Ergebnis ist ungewöhnlich klar. Kein zweiter Archetyp mischt sich merklich ein, du bist Typ Suchend in Reinform. Deine Suche hat keinen inneren Gegenpol, der sie mal zur Ruhe bringt. Das erklärt, warum sie sich so endlos anfühlt, und **warum der Ausstieg für dich umso mehr verändert**.",
   },
   klarsichtiger: {
+    wahrheitDetail: [
+      "Das zeigt sich vor allem dort, wo es niemand merkt. Im Job bist du oft die Stimme, die anderen die Lage erklärt, während die eigenen Baustellen leise nach hinten wandern. Dein Umfeld fragt dich um Rat, selten umgekehrt. Und für dein eigenes Verhalten hast du fast immer eine gute Erklärung parat, **so gut, dass sie sich wie eine Lösung anfühlt**.",
+      "Das Tückische: Von außen sieht alles gut aus, und meistens ist es das auch. Niemand fordert dich mehr heraus, weil du scheinbar alles schon selbst auf dem Schirm hast. Genau so bleiben die wirklich unbequemen Themen unberührt, du hast sie ja längst ‚durch‘. Wenn du dich hier ertappt fühlst, gönn dir ein Schmunzeln: Wer bei diesem Absatz denkt ‚kenne ich, weiß ich‘, steckt gerade mittendrin. **Das ist keine Schande, sondern der Preis dafür, so weit gekommen zu sein**.",
+    ],
     potenzial: [
       "Stell dir vor, du lebst das, was du längst verstehst, **jeden einzelnen Tag**.",
       "Es sieht von außen unspektakulär aus. Keine Erleuchtung, kein großer Umbruch. Nur **eine stille Konsequenz, die vorher nicht da war**. Du weißt weiterhin genau, wie es ginge, aber du tust es jetzt auch dann, wenn niemand hinschaut und wenn es unbequem wird.",
@@ -269,20 +292,20 @@ const MISCHTYP = {
   "zuschauer+klarsichtiger": "Du bist wahrscheinlich näher dran, als du denkst. Dein Verständnis für dich selbst ist weiter als bei den meisten. Aber vielleicht kennst du das: Zwischen „Ich könnte“ und „Ich tue es“ liegt bei dir noch **eine Lücke, die du lieber nicht zu genau anschaust**.",
   "getriebener+zuschauer": "Vielleicht kennst du das: In ruhigen Momenten taucht ein subtiles Gefühl auf, dass hinter deinem hohen Pensum etwas wartet, dem du dich nicht so gerne stellst. Und statt hinzuschauen, drehst du die Geschwindigkeit meist dann doch wieder hoch. Dein analytischer Verstand erkennt das vermutlich sogar. Aber **das Erkennen allein ändert noch nichts**.",
   "getriebener+idealist": "Du gibst wahrscheinlich viel Energie für andere und für eine „gute Sache“, während deine eigenen Bedürfnisse oft hinten anstehen. Vielleicht tust du sie sogar als egoistisch ab. Du funktionierst und kämpfst gleichzeitig und wunderst dich manchmal, **warum du dich trotzdem noch nicht angekommen oder erfüllt fühlst**.",
-  "getriebener+suchender": "Du gibst Vollgas und bist irgendwie auch stolz drauf. Doch dann kommen, nicht ständig, doch immer wieder, Zweifel ob du eigentlich in die richtige Richtung rennst. Mal funktionierst du wie eine Maschine, dann fragst du dich plötzlich: „Wofür eigentlich?“ Aber bevor du wirklich auf die Suche nach der Antwort gehst, **stürzt du dich schon in den nächsten Sprint**.",
-  "getriebener+klarsichtiger": "Entweder du bist bereits voll im Selbstoptimierungswahn, denn du siehst deine Potenziale und Schwächen genau so klar wie die anderer, oder du nutzt dieses Wissen durch Selbstreflektion manchmal, um dein Funktionieren zu rechtfertigen. „Ich weiß ja, warum ich so bin.“ Und dann machst du so weiter. Nicht blind für deine Muster, aber ziemlich gut darin, sie zu rationalisieren und dir selbst vorzumachen, weshalb **die wirklich unangenehme Veränderung gerade nicht nötig ist**.",
-  "idealist+zuschauer": "Vielleicht merkst du, dass sich dein Weltschmerz manchmal mit Selbstanalyse vermischt. Du wünschst dir tief in deinem Inneren eine utopische Optimallösung für die Welt, doch erkennst in deinem Leben, aber auch in deinem Umfeld zu viel, das diesem Wunsch entgegenwirkt. Das führt zu Frustration und Lähmung. Du verurteilst dich selbst, Teil des Problems zu sein, doch es fühlt sich an, **als wären dir die Hände gebunden** dein Leben entsprechend zu verändern.",
-  "idealist+getriebener": "Dein Idealismus gibt dir vermutlich eine Richtung. Einen moralischen Kompass. Dein getriebener Anteil gibt dir zusätzlich Antrieb. Das kann produktiv sein. Aber vielleicht verwechselst du manchmal Aktivismus mit echtem Fortschritt und bist so beschäftigt, gegen das Falsche zu kämpfen, dass für den Aufbau von etwas Eigenem wenig Raum und Energie bleibt. Vielleicht lohnt es sich ja mehr, langfristig zu denken und zu handeln, um am Ende wahre Veränderung zu bewirken. Verbrenne dich nicht selbst im Namen der Sache, **die Welt braucht Menschen wie dich**.",
-  "idealist+suchender": "Du suchst nicht nur nach Möglichkeiten die Welt besser zu machen, sondern auch nach der richtigen Richtung für dich. Du willst ein guter Mensch sein. Ein hoher Anspruch. Und vielleicht führt genau das dazu, dass nichts wirklich genügt. Jede Methode, jeder Ansatz fällt irgendwann durch dein Raster. Vielleicht liegt es nicht am Raster der Welt, sondern daran, dass deins etwas zu eng ist. Zu eng dir auch mal selbst zu verzeihen. Zu eng, **auch mal die 80-20-Lösung als Erfolg zu sehen**. Manchmal ist auch kleiner Fortschritt besser als eine theoretische Optimallösung, die nie Realität wird.",
+  "getriebener+suchender": "Du gibst Vollgas und bist irgendwie auch stolz drauf. Doch dann kommen, nicht ständig, doch immer wieder, Zweifel, ob du eigentlich in die richtige Richtung rennst. Mal funktionierst du wie eine Maschine, dann fragst du dich plötzlich: „Wofür eigentlich?“ Aber bevor du wirklich auf die Suche nach der Antwort gehst, **stürzt du dich schon in den nächsten Sprint**.",
+  "getriebener+klarsichtiger": "Entweder du bist bereits voll im Selbstoptimierungswahn, denn du siehst deine Potenziale und Schwächen genauso klar wie die anderer, oder du nutzt dieses Wissen durch Selbstreflexion manchmal, um dein Funktionieren zu rechtfertigen. „Ich weiß ja, warum ich so bin.“ Und dann machst du so weiter. Nicht blind für deine Muster, aber ziemlich gut darin, sie zu rationalisieren und dir selbst vorzumachen, weshalb **die wirklich unangenehme Veränderung gerade nicht nötig ist**.",
+  "idealist+zuschauer": "Vielleicht merkst du, dass sich dein Weltschmerz manchmal mit Selbstanalyse vermischt. Du wünschst dir tief in deinem Inneren eine utopische Optimallösung für die Welt, doch erkennst in deinem Leben, aber auch in deinem Umfeld zu viel, das diesem Wunsch entgegenwirkt. Das führt zu Frustration und Lähmung. Du verurteilst dich selbst, Teil des Problems zu sein, doch es fühlt sich an, **als wären dir die Hände gebunden**, dein Leben entsprechend zu verändern.",
+  "idealist+getriebener": "Dein Idealismus gibt dir vermutlich eine Richtung. Einen moralischen Kompass. Dein getriebener Anteil gibt dir zusätzlich Antrieb. Das kann produktiv sein. Aber vielleicht verwechselst du manchmal Aktivismus mit echtem Fortschritt und bist so beschäftigt, gegen das Falsche zu kämpfen, dass für den Aufbau von etwas Eigenem wenig Raum und Energie bleibt. Verbrenne dich nicht selbst im Namen der Sache, **die Welt braucht Menschen wie dich**.",
+  "idealist+suchender": "Du suchst nicht nur nach Möglichkeiten die Welt besser zu machen, sondern auch nach der richtigen Richtung für dich. Du willst ein guter Mensch sein. Ein hoher Anspruch. Und vielleicht führt genau das dazu, dass nichts wirklich genügt. Jede Methode, jeder Ansatz fällt irgendwann durch dein Raster. Vielleicht ist dein Raster einfach etwas zu eng. Zu eng, um dir auch mal selbst zu verzeihen. Zu eng, um **auch mal die 80-20-Lösung als Erfolg zu sehen**. Manchmal ist auch kleiner Fortschritt besser als eine theoretische Optimallösung, die nie Realität wird.",
   "idealist+klarsichtiger": "Du hast echte Reflexionsfähigkeit und einen klaren Blick auf vieles. Aber vielleicht ist für deinen idealistischen Anteil diese Klarheit eher Treibstoff für Frustration statt für Veränderung. Du erkennst ziemlich scharf, was falsch läuft, und vergisst dabei manchmal, dass **Klarheit ohne Selbstfürsorge auf Dauer nicht trägt**.",
   "suchender+zuschauer": "Vielleicht kennst du das: Du merkst, dass du springst, und du ahnst sogar warum. Aber dieses Meta-Wissen hilft dir nicht unbedingt, es zu ändern. Im Gegenteil: Es gibt dir das Gefühl von Neugier, Horizont-Erweitern und Fortschritt. Doch **in Wahrheit drehst du dich im Kreis**, da du nicht wirklich weißt, wohin es für dich gehen soll.",
   "suchender+getriebener": "Während andere Suchende eher grübeln, springst du vermutlich immer wieder zum nächsten Ding. Neues Projekt, neues Hobby, neuer Ansatz. Von außen sieht das nach Energie, Neugier, Entwicklung aus. Doch wenn du mal genau hinschaust, fühlt es sich vielleicht eher an, als würdest du vor etwas davonlaufen, das dich einholt, sobald du stehen bleibst. Ein Zeichen, weniger im Außen nach neuen Wahrheiten zu suchen und **stattdessen in dein Inneres zu schauen**.",
-  "suchender+idealist": "Du willst wahrscheinlich nicht nur dich selbst finden, sondern auch den Sinn im großen Ganzen. Klingt tiefgründig, fühlt sich aber für viele häufig schnell erschöpfend an. Vielleicht liegt es nicht am Raster der Welt, sondern daran, dass der Anspruch, beides gleichzeitig und optimal zu lösen, **dich eher blockiert als beflügelt**.",
-  "suchender+klarsichtiger": "Vielleicht kennst du den Moment: Du bist einen Schritt weiter, und dann kommt die Frage: „Aber was, wenn das noch nicht das Richtige ist?“ Gesunde Neugier und Sprunghaftigkeit liegen manchmal nah beieinander. Vielleicht ist es manchmal besser erstmal bei Themen mit denen du in Resonanz gehst oder du profitierst zu bleiben und **auf deine Entwicklung zu vertrauen**, statt ständig in einer Art Selbstoptimierungswahn von einem zu nächsten zu springen.",
+  "suchender+idealist": "Du willst wahrscheinlich nicht nur dich selbst finden, sondern auch den Sinn im großen Ganzen. Klingt tiefgründig, fühlt sich aber oft schnell erschöpfend an. Vielleicht ist genau dieser Anspruch, beides gleichzeitig und optimal zu lösen, das, was **dich eher blockiert als beflügelt**.",
+  "suchender+klarsichtiger": "Vielleicht kennst du den Moment: Du bist einen Schritt weiter, und dann kommt die Frage: „Aber was, wenn das noch nicht das Richtige ist?“ Gesunde Neugier und Sprunghaftigkeit liegen manchmal nah beieinander. Vielleicht ist es manchmal besser, erst mal bei Themen zu bleiben, mit denen du in Resonanz gehst oder von denen du profitierst, und **auf deine Entwicklung zu vertrauen**, statt ständig in einer Art Selbstoptimierungswahn von einem zum nächsten zu springen.",
   "klarsichtiger+zuschauer": "Vielleicht genießt du die Erkenntnis manchmal fast zu sehr. Du durchschaust vieles, bei dir und bei anderen. Aber vielleicht nutzt du diese Klarheit gelegentlich als Ausrede zur Bequemlichkeit? Eine Ausrede, um nichts verändern zu müssen, weil „Ich hab's ja durchschaut“ **sich anfühlt wie Fortschritt, es aber nicht immer ist**.",
   "klarsichtiger+getriebener": "Du erkennst vieles und dazu gehört wahrscheinlich auch, wo du langsamer machen solltest. Aber dein getriebener Anteil kann das nicht so gut aushalten. Vielleicht reflektierst du abends, was du tagsüber eigentlich schon wusstest, und am nächsten Morgen funktionierst du trotzdem wieder gleich. Die Frage ist weniger, ob du es siehst. Sondern **ob du es dir erlaubst, danach zu leben**.",
-  "klarsichtiger+idealist": "Statt dein Wissen für dein eigenes Leben zu nutzen, fließt deine Energie vielleicht oft eher in irgendeine Art der Kompensation deines Weltschmerzes. Vielleicht verstehst du nicht nur wie du, sondern auch die Welt tickt. Oder besser ticken sollte. Und diese Diskrepanz zwischen Wunschvorstellung und Realität frustriert dich. Verständlich. Mit deiner Klarsicht und einem gut ausgerichteten Wertekompass bist du schon auf einem guten Weg, doch achte darauf, **dich nicht zu sehr von deinem Wunsch nach einer Ideallösung ausbremsen zu lassen**.",
-  "klarsichtiger+suchender": "Vielleicht kennst du die Frage: „Was, wenn das noch nicht alles war?“ Das kann gesund sein, solange es nicht zur Dauerschleife wird. Es gibt viele interessante Theorien, hörenswerte Reden, lesenswerte Bücher. Doch verliere dich nicht in der Vielfalt deiner Möglichkeiten. Du lebst bereits reflektierter als die meisten, also **lass deinen Erkenntnissen Taten folgen**. Bringt die eine Richtung nach einem ordentlichen Stück auf diesem Weg noch keinen Erfolg, kannst du ihn immer noch jederzeit wechseln.",
+  "klarsichtiger+idealist": "Statt dein Wissen für dein eigenes Leben zu nutzen, fließt deine Energie vielleicht oft eher in irgendeine Art der Kompensation deines Weltschmerzes. Vielleicht verstehst du nicht nur, wie du tickst, sondern auch, wie die Welt tickt. Oder besser ticken sollte. Und diese Diskrepanz zwischen Wunschvorstellung und Realität frustriert dich. Verständlich. Mit deiner Klarsicht und einem gut ausgerichteten Wertekompass bist du schon auf einem guten Weg, doch achte darauf, **dich nicht zu sehr von deinem Wunsch nach einer Ideallösung ausbremsen zu lassen**.",
+  "klarsichtiger+suchender": "Vielleicht kennst du die Frage: „Was, wenn das noch nicht alles war?“ Das kann gesund sein, solange es nicht zur Dauerschleife wird. Es gibt viele interessante Theorien, hörenswerte Reden, lesenswerte Bücher. Doch verliere dich nicht in der Vielfalt deiner Möglichkeiten. Du lebst bereits reflektierter als die meisten, also **lass deinen Erkenntnissen Taten folgen**. Bringt die eine Richtung nach einem ordentlichen Stück auf diesem Weg noch keinen Erfolg, kannst du sie immer noch jederzeit wechseln.",
 };
 
 
@@ -892,7 +915,8 @@ export default function DeinErgebnis() {
           <div className="erg-eyebrow"><span className="num">②</span> Dein Muster</div>
           <h2>Die unbequeme Wahrheit</h2>
           <div className="erg-card">
-            {meta.wahrheit.map((t, i) => <p key={i}><RichText text={t} /></p>)}
+            {/* Absatz 1+2 aus der Zwillingsdatei (wie im Teaser), 3+4 nur hier */}
+            {[...meta.wahrheit, ...(meta.wahrheitDetail || [])].map((t, i) => <p key={i}><RichText text={t} /></p>)}
             <div className="erg-falle">
               <div className="lbl">⚠ Deine Falle</div>
               <p><RichText text={meta.falle} /></p>
