@@ -402,7 +402,7 @@ function Radar({ values, ideal }) {
   const rings = [0.25, 0.5, 0.75, 1];
 
   return (
-    <svg className="erg-radar" viewBox="-72 -8 484 356" role="img" aria-label="Dein Profil im Vergleich zum Idealprofil deines Archetyps">
+    <svg className="erg-radar" viewBox="-72 -8 484 356" role="img" aria-label="Dein Profil im Vergleich zur Referenz deines Archetyps">
       {rings.map((fac, i) => (
         <polygon key={i} className="erg-radar-ring"
           points={CORE_SCALES.map((_, idx) => [c + maxR * fac * Math.cos(angle(idx)), c + maxR * fac * Math.sin(angle(idx))].join(",")).join(" ")} />
@@ -889,8 +889,8 @@ export default function DeinErgebnis() {
 
         {/* ② UNBEQUEME WAHRHEIT */}
         <section className="erg-section erg-reveal">
-          <div className="erg-eyebrow"><span className="num">②</span> Die unbequeme Wahrheit</div>
-          <h2>Was dich ausbremst</h2>
+          <div className="erg-eyebrow"><span className="num">②</span> Dein Muster</div>
+          <h2>Die unbequeme Wahrheit</h2>
           <div className="erg-card">
             {meta.wahrheit.map((t, i) => <p key={i}><RichText text={t} /></p>)}
             <div className="erg-falle">
@@ -916,7 +916,7 @@ export default function DeinErgebnis() {
               <Radar values={data.values} ideal={ideal} />
               <div className="erg-radar-legend">
                 <span><i style={{ borderColor: "var(--orange)" }} /> Dein Profil</span>
-                <span><i style={{ borderColor: "var(--warmgrau)", borderTopStyle: "dashed" }} /> Idealprofil {meta.name}</span>
+                <span><i style={{ borderColor: "var(--warmgrau)", borderTopStyle: "dashed" }} /> Referenz: {meta.name}</span>
               </div>
             </div>
             <p className="erg-intro-line">Aus deinem Profil stechen drei Stärken und drei unausgeschöpfte Potenziale besonders hervor:</p>
@@ -982,7 +982,7 @@ export default function DeinErgebnis() {
           <h2>Erkennen ist noch nicht Ändern</h2>
           <div className="erg-card">
             <p className="erg-outro-lead">Du hast jetzt ein ziemlich vollständiges Bild von dir. Und genau da fängt das eigentliche Problem an: Erkennen fühlt sich schon an wie Verändern. Ist es aber nicht.</p>
-            <p>Woran das liegt und was der Schritt danach wirklich braucht, daran arbeite ich gerade. Du stehst auf der Liste und erfährst es als Erster.</p>
+            <p>Woran das liegt und was der Schritt danach wirklich braucht, daran arbeite ich gerade. Du stehst auf der Liste und erfährst es zuerst.</p>
           </div>
         </section>
 
@@ -993,7 +993,6 @@ export default function DeinErgebnis() {
             <div className="erg-eyebrow">Ausblick</div>
             <h2>Was als Nächstes kommt</h2>
             <p>Ich baue gerade für jeden Archetyp eine eigene Masterclass. Kein weiterer Input zum Sammeln, sondern genau der Teil, den dieses Ergebnis bewusst offen lässt: der Weg von der Erkenntnis in ein Leben, das sich wirklich anders anfühlt.</p>
-            <p>Sobald es soweit ist, melde ich mich bei dir. Eintragen musst du dich nicht mehr, das hast du ja schon.</p>
           </div>
         </section>
 
