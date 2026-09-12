@@ -11,9 +11,17 @@
 // Kommt der Nutzer ohne erteilte Einwilligung hier an (typisch: Test am Laptop,
 // Mail-Bestaetigung am Handy), laedt GTM nicht und das Event zaehlt nicht.
 // Bekannte Luecke. Die echte Anmeldezahl steht in Kit, nicht in GA4.
+//
+// KORREKTUR 12.09.2026: Bis hierher zaehlte das Event bei NIEMANDEM, auch nicht
+// bei erteilter Einwilligung. Der Push lief beim Laden der Seite und landete im
+// dataLayer VOR dem "consent update" - GTM verwirft an dieser Position alles,
+// was noch "denied" ist. Auch bei Wiederkehrern, weil der ConsentBanner in
+// App.jsx hinter den <Routes> steht und sein Effekt spaeter laeuft.
+// Deshalb jetzt ueber onConsentReady(). Details in src/lib/consent.js.
 
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { onConsentReady } from "../lib/consent";
 
 const CSS = `
 .mcd{
@@ -75,12 +83,16 @@ export default function McDanke() {
   const fired = useRef(false);
 
   useEffect(() => {
-    // Guard gegen den doppelten Effekt-Aufruf im StrictMode (nur Entwicklung).
-    if (fired.current) return;
-    fired.current = true;
+    // Erst melden, wenn die Einwilligungs-Entscheidung gefallen ist.
+    // Guard gegen den doppelten Effekt-Aufruf im StrictMode: sitzt INNEN,
+    // sonst blockiert der erste Durchlauf den zweiten und es feuert nie.
+    return onConsentReady(() => {
+      if (fired.current) return;
+      fired.current = true;
 
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: "masterclass_confirmed", funnel: "startseite" });
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "masterclass_confirmed", funnel: "startseite" });
+    });
   }, []);
 
   return (

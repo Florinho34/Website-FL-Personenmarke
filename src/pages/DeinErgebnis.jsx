@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ARCHETYPE_CORE, ARCHETYPE_ORDER, CORE_SCALES } from "../data/archetypeCore";
+import { onConsentReady } from "../lib/consent";
 
 /*  ────────────────────────────────────────────────────────────────────────
     /dein-ergebnis  ·  Personalisierte Ergebnisseite (Unfuck-Typentest)
@@ -69,7 +70,13 @@ const SHARE_MSG = "Ich habe grade diesen Persönlichkeitstest gemacht und war ec
 /* ─── TRACKING ─────────────────────────────────────────────────────────────
    Schreibt nur in den dataLayer. Ob daraus ein Tag feuert, entscheidet GTM
    und damit die Einwilligung - hier bewusst KEIN eigener Consent-Check.
-   Ohne Einwilligung laedt GTM gar nicht, dann liegt der Push folgenlos rum. */
+
+   ACHTUNG, teuer gelernt am 12.09.2026: Ein Push VOR der Consent-Entscheidung
+   liegt NICHT folgenlos rum. GTM arbeitet den dataLayer beim Start von oben
+   nach unten ab und verwirft alles, was an seiner Position noch "denied" war.
+   Ereignisse, die beim Laden der Seite feuern, muessen deshalb durch
+   onConsentReady() (src/lib/consent.js). Ereignisse nach einer Nutzerhandlung
+   (Slider) brauchen das nicht - die kommen ohnehin spaeter. */
 function trackEvent(eventName, params = {}) {
   if (typeof window === "undefined") return;
   window.dataLayer = window.dataLayer || [];
@@ -816,11 +823,17 @@ export default function DeinErgebnis() {
       geklickt wurde. Genau das Funnel-Leck, das bisher niemand sehen konnte.
       Ref-Guard gegen den doppelten Effekt-Aufruf im StrictMode. */
   useEffect(() => {
-    if (status !== "ok" || !data || trackedRef.current) return;
-    trackedRef.current = true;
-    trackEvent("ergebnis_abgerufen", {
-      archetype: data.primaryKey,
-      is_reintyp: data.isReintyp ? "true" : "false",
+    if (status !== "ok" || !data) return;
+    // Der Guard sitzt INNEN, nicht aussen: Im StrictMode laeuft der Effekt
+    // zweimal (mit Cleanup dazwischen). Aussen gesetzt wuerde er den zweiten
+    // Durchlauf blockieren und das Ereignis in der Entwicklung nie feuern.
+    return onConsentReady(() => {
+      if (trackedRef.current) return;
+      trackedRef.current = true;
+      trackEvent("ergebnis_abgerufen", {
+        archetype: data.primaryKey,
+        is_reintyp: data.isReintyp ? "true" : "false",
+      });
     });
   }, [status, data]);
 
