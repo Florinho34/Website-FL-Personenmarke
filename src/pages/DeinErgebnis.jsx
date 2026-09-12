@@ -144,56 +144,72 @@ const TYPE_PROFILES = {
 // 10 Dimensionen: Name, Richtung (positive), Staerken- und Potenzialtext.
 // positive stammt 1:1 aus dem Test (getStrengthsAndPotentials), damit die
 // Balken-Richtung exakt zur Auswahl passt.
+/*  potenzial  = bestehender Text, greift bei strengthScore < 50
+    potenzialHoch = entschaerfte Variante ab strengthScore >= 50 (12.09.2026).
+    Grund: Die Auswahl der drei Potenziale ist RELATIV (Bottom 3 des eigenen
+    Profils), die Texte waren aber absolut formuliert. Bei starken Profilen las
+    jemand mit einem soliden 55er-Wert "du lebst stark an der Oberflaeche".
+    Die Staerke-Texte bleiben unveraendert - dort gibt es das Problem nicht. */
 const DIMENSIONS = {
   REF: {
     name: "Reflexionsfähigkeit", positive: true,
     staerke: "Du **hinterfragst dich selbst ehrlicher als die meisten**. Wo andere auf Autopilot durchs Leben gehen, nimmst du dir die Zeit, hinzuschauen und zu verstehen.",
     potenzial: "Du handelst oft, ohne vorher innezuhalten. Das gibt dir Tempo, aber es führt auch dazu, dass du Muster wiederholst, die dir nicht guttun. Mehr Reflexion würde dir helfen, **bessere Entscheidungen zu treffen**.",
+    potenzialHoch: "Du hinterfragst dich durchaus, nur nicht immer dort, wo es am meisten bringen würde. Vieles läuft bei dir nach Erfahrung, und Erfahrung ist meistens ein guter Ratgeber. Die Muster, die trotzdem bleiben, sind genau die, für die dein Autopilot keinen Alarm auslöst.",
   },
   SL: {
     name: "Selbstführung", positive: true,
     staerke: "Du triffst Entscheidungen **aus dir selbst heraus**, statt dich nach den Erwartungen anderer zu richten. Das ist seltener, als du denkst, und ein echtes Fundament für ein selbstbestimmtes Leben.",
     potenzial: "Du orientierst dich stark an den Erwartungen anderer oder an dem, was sich bewährt hat. Das gibt Sicherheit, aber es kann dazu führen, dass du ein Leben lebst, **das sich nicht wirklich wie deins anfühlt**.",
+    potenzialHoch: "Deine Entscheidungen triffst du weitgehend selbst, das ist hier nicht die Frage. Was manchmal untergeht: Bei den wirklich unbequemen Entscheidungen prüfst du wahrscheinlich seltener nach, ob du gerade deiner eigenen Linie folgst oder der, die am wenigsten Widerstand kostet.",
   },
   ML: {
     name: "Mentale Klarheit", positive: false,
     staerke: "Du schaffst es, deinen Kopf ruhig zu halten, wenn es darauf ankommt. Während andere in Gedankenspiralen feststecken, **bleibst du meist klar**. Das ist eine unterschätzte Stärke, die dir in schwierigen Momenten einen echten Vorteil gibt.",
     potenzial: "Dein Kopf arbeitet oft auf Hochtouren, auch wenn du es dir nicht anmerken lässt. Grübeln, Überdenken, Gedankenkreise. Deine mentale Last ist hoch, und **hier hast du klar Luft nach oben**. Mit weniger Last lebt es sich leichter, und du kannst deine mentale Energie gezielter einsetzen, statt sie im Kreis zu verbrennen.",
+    potenzialHoch: "Dein Kopf ist überwiegend ruhig, in Gedankenspiralen verlierst du dich nicht. Wahrscheinlich gibt es aber ein, zwei Themen, bei denen das nicht gilt. Und genau die laufen dann umso länger im Hintergrund mit, weil du es sonst nicht von dir kennst.",
   },
   OL: {
     name: "Innere Orientierung", positive: false,
     staerke: "Du weißt dich in dieser komplizierten Welt gut zurechtzufinden. Während andere orientierungslos durchs Leben treiben, hast du **eine Richtung und einen inneren Anker**. Das geht den wenigsten so, und es gibt dir eine Stabilität, die andere bei dir spüren und schätzen.",
     potenzial: "Du spürst, dass etwas fehlt, aber es fällt dir schwer zu benennen, was genau. **Die Richtung ist unklar**, und das führt dazu, dass du entweder gar nicht losgehst oder ständig die Spur wechselst.",
+    potenzialHoch: "Deine Richtung steht, du treibst nicht orientierungslos herum. Was dabei leicht untergeht: Ob die Richtung noch die aktuelle ist, prüfst du wahrscheinlich eher unregelmäßig nach. Wer weiß, wo er hinwill, hinterfragt das Ziel selten.",
   },
   ETH: {
     name: "Ethische Integrität", positive: true,
     staerke: "Du hast einen klaren inneren Kompass **und lebst auch danach**. Deine Werte bleiben keine Theorie. Sie zeigen sich darin, wie du dich verhältst und welche Entscheidungen du triffst.",
     potenzial: "Du passt dich häufig an, statt für das einzustehen, was dir wirklich wichtig ist. An Werten mangelt es dir nicht, wohl aber an der Konsequenz, **auch dann danach zu handeln, wenn es unbequem wird**. Ein Leben im Einklang mit deinen innersten Werten fühlt sich unglaublich echt an.",
+    potenzialHoch: "Deine Werte sind klar und du lebst auch danach, das ist nicht dein Problem. Was manchmal untergeht: Du prüfst wahrscheinlich zu unregelmäßig nach, ob die Werte, nach denen du handelst, noch deine aktuellen sind oder die von vor zehn Jahren.",
   },
   WS: {
     name: "Emotionale Balance", positive: false,
     staerke: "Du lässt dich von den großen Problemen der Welt nicht lähmen. Das heißt nicht, dass dir alles egal wäre. Du hast wahrscheinlich **einen gesünderen Umgang damit gefunden** als viele andere und kannst Informationen aufnehmen, ohne dich davon auffressen zu lassen.",
     potenzial: "Die Probleme der Welt gehen dir nahe, manchmal zu nahe. Dein Gerechtigkeitssinn ist echt, aber er kann dich auch lähmen. Bedenke: **Nur ein handlungsfähiges Du kann etwas verändern**. Hier liegt Potenzial, deine Energie dorthin zu lenken, wo du wirklich etwas bewegen kannst: bei dir selbst. Der Rest kommt danach.",
+    potenzialHoch: "Du lässt dich von den Problemen der Welt nicht auffressen und hast damit einen gesünderen Umgang gefunden als viele. Die dünne Stelle liegt woanders: Abgrenzung kann mit der Zeit unauffällig in Abstumpfung übergehen. Den Übergang merkt man bei sich selbst meistens zuletzt.",
   },
   NAT: {
     name: "Zugang zu Tiefe", positive: true,
     staerke: "Du hast einen **natürlichen Zugang zu den tieferen Ebenen des Lebens**. Ob durch Natur, Stille oder Reflexion: Du spürst, dass hinter der Oberfläche mehr ist, und du nimmst dir auch den Raum dafür.",
     potenzial: "Du lebst stark an der Oberfläche und kommst selten in Kontakt mit dem, was unter dem Alltag liegt. Das ist nicht schlimm, aber **es fehlt dir ein Ventil für die tieferen Fragen**, die irgendwann so oder so kommen werden.",
+    potenzialHoch: "Du hast einen Zugang zu dem, was unter der Oberfläche liegt. Du nimmst ihn nur zu unregelmäßig in Anspruch. Nämlich meistens dann, wenn es einfach fällt, weil es ohnehin ruhig ist. Interessant wird es an den Tagen, an denen du ihn bräuchtest und der Alltag keinen Platz dafür lässt.",
   },
   EX: {
     name: "Eigenverantwortung", positive: false,
     staerke: "Du suchst die **Verantwortung zuerst bei dir selbst**, bevor du mit dem Finger auf andere zeigst. Das ist eine reife Haltung, die dir ermöglicht, an den Dingen zu arbeiten, die tatsächlich in deiner Kontrolle liegen.",
     potenzial: "Du neigst dazu, die Ursachen für das, was nicht läuft, eher im Außen zu suchen als bei dir. Das ist menschlich, aber **es nimmt dir die Handlungsmacht**. Dein Potenzial liegt darin, den Blick öfter nach innen zu richten. Diese Fähigkeit zur Reflexion lässt sich lernen und kann der Turbo für deine Entwicklung sein.",
+    potenzialHoch: "Du suchst die Verantwortung zuerst bei dir, und das ist die reifere Haltung. Der feine Haken daran: Wer sich vieles zuschreibt, übernimmt manchmal auch das, was gar nicht in seiner Hand liegt. Auch das kostet Kraft, nur fällt es weniger auf.",
   },
   EF: {
     name: "Selbstbestimmung", positive: false,
     staerke: "Du lebst nach deinen eigenen Maßstäben statt nach den Erwartungen anderer. Wo viele sich anpassen und funktionieren, **gehst du deinen eigenen Weg**. Diese Eigenständigkeit ist selten und gibt dir eine Freiheit, die vielen fehlt.",
     potenzial: "Du richtest dich stark danach aus, was andere von dir erwarten oder was sich bewährt hat. Das gibt Sicherheit, aber es führt dazu, dass du dich eher anpasst, als dich wirklich zu entfalten. Vieles in deinem Leben **folgt fremden Maßstäben statt deinen eigenen**.",
+    potenzialHoch: "Du lebst weitgehend nach deinen eigenen Maßstäben. Was sich trotzdem einschleicht, sind ein paar Bereiche, in denen du funktionierst, weil es sich so eingespielt hat. Meistens die, in denen niemand nachfragt und es deshalb nie auffällt.",
   },
   HA: {
     name: "Handlungsfähigkeit", positive: true,
     staerke: "Du setzt um, was du dir vornimmst. Bei dir bleibt es nicht beim Reden und Planen, **du kommst ins Machen**. Das unterscheidet dich von vielen, die ewig in der Analyse-Phase stecken bleiben.",
     potenzial: "Du verstehst oft, was zu tun wäre, aber die Umsetzung fällt dir häufig schwer. **Der Graben zwischen Wissen und Handeln ist deine größte Baustelle**. Die Devise: weniger planen und grübeln, mehr trauen.",
+    potenzialHoch: "Du kommst ins Machen, daran liegt es bei dir nicht. Die dünnste Stelle ist eher die Auswahl: Was du dir vornimmst, ziehst du durch. Nur nimmst du dir wahrscheinlich nicht immer das vor, was am meisten verändern würde, sondern das, was sich grade gut zu erledigen anfühlt.",
   },
 };
 
@@ -387,9 +403,13 @@ function computeLuecke(values) {
   return { erkenntnis, umsetzung, luecke: erkenntnis - umsetzung };
 }
 
-/*  Reihenfolge ist bindend: Die beiden Sonderfaelle MUESSEN zuerst greifen.
-    Sonst liest jemand mit 28/28 ein "ausgeglichen" als Lob, obwohl bei ihm
-    schlicht beides niedrig ist. Das ist der einzige echte Fallstrick hier. */
+/*  Reihenfolge ist bindend: A - B - C - D - E - dann die fuenf Differenzstufen.
+    Die Differenzstufen haengen ALLEIN am Abstand, nicht an der Hoehe. Genau
+    daraus entstanden die falschen Saetze: Wer 52/86 hatte, las "Du bewegst dich
+    viel und hinterfragst wenig" (bei 52 sachlich falsch), und wer 40/42 hatte,
+    bekam das Lob "Das ist selten". Die fuenf Sonderfaelle fangen das ab, bevor
+    die Differenz ueberhaupt geprueft wird. Wortlaut der Differenzstufen
+    unveraendert - sie werden nur noch erreicht, wenn kein Sonderfall greift. */
 function lueckeText({ erkenntnis, umsetzung, luecke }) {
   if (erkenntnis < 35 && umsetzung < 35) {
     return "Beides ist bei dir noch nicht ausgeprägt. Das sieht auf den Balken nach Gleichgewicht aus, ist aber keins. Weder die Klarheit noch die Umsetzung trägt dich gerade. Das klingt hart, ist aber die ehrlichste Ausgangslage von allen: **Du hast dich noch nicht festgefahren**.";
@@ -397,6 +417,19 @@ function lueckeText({ erkenntnis, umsetzung, luecke }) {
   if (erkenntnis > 70 && umsetzung > 70) {
     return "Beides ist bei dir stark ausgeprägt, und das ist selten. Du siehst klar und du handelst danach. Genau deshalb sitzt dein blinder Fleck nicht zwischen diesen beiden Werten, sondern **an einer Stelle, die dir von außen niemand mehr spiegelt**.";
   }
+  // C - Umsetzung weit vorn, Erkenntnis im soliden Mittelfeld
+  if (umsetzung > 70 && erkenntnis >= 45 && erkenntnis <= 70) {
+    return "Deine Umsetzungskraft läuft deiner Klarheit davon. Nicht, weil du gar nicht hinschaust, du schaust hin. Nur selten lange genug, bevor du losgehst. Die Frage ist deshalb nicht, ob du in Bewegung kommst. Sie ist, ob die Richtung wirklich deine ist.";
+  }
+  // D - Erkenntnis weit vorn, Umsetzung im soliden Mittelfeld
+  if (erkenntnis > 70 && umsetzung >= 45 && umsetzung <= 70) {
+    return "Du siehst außergewöhnlich klar, und du setzt auch um. Nur nicht in dem Tempo, in dem du erkennst. Das ist kein Umsetzungsproblem im üblichen Sinn. Es heißt eher, dass dein Anspruch schneller wächst als dein Alltag, und dass du deshalb selten das Gefühl hast, angekommen zu sein.";
+  }
+  // E - beides im Mittelfeld und dicht beieinander
+  if (erkenntnis >= 35 && erkenntnis <= 50 && umsetzung >= 35 && umsetzung <= 50 && luecke >= -9 && luecke <= 9) {
+    return "Erkenntnis und Umsetzung liegen bei dir fast gleichauf, beide im Mittelfeld. Das ist kein Widerspruch, den du auflösen müsstest. Eher die Frage, ob du gerade an beiden Enden zu wenig ziehst. Luft nach oben hast du in beide Richtungen.";
+  }
+
   if (luecke >= 30) {
     return "Du siehst deutlich mehr, als du lebst. Zwischen dem, was dir klar ist, und dem, was davon in deinem Alltag ankommt, liegt ein breiter Streifen. Das ist keine Faulheit und kein Charakterfehler. Es ist der häufigste Befund überhaupt, und der unbequemste, **weil du ihn selbst am besten kennst**.";
   }
@@ -412,6 +445,11 @@ function lueckeText({ erkenntnis, umsetzung, luecke }) {
   return "Du bewegst dich viel und hinterfragst wenig. Deine Umsetzungskraft ist deutlich stärker ausgeprägt als dein Blick darauf, wofür du sie einsetzt. **Solange du in Bewegung bleibst, musst du diese Frage nicht stellen**.";
 }
 
+/*  Der Abschlusstext "Erkennen ist noch nicht Ändern" ist ausgeblendet, nicht
+    geloescht (12.09.2026). Zum Masterclass-Launch wird er wieder eingeschaltet
+    und laeuft dann als Vorlauf direkt vor dem Pitch. */
+const SHOW_ABSCHLUSSTEXT = false;
+
 const strengthScore = (key, val) => (DIMENSIONS[key].positive ? val : 100 - val);
 
 function formatDate(iso) {
@@ -420,15 +458,25 @@ function formatDate(iso) {
 }
 
 /* ─── RADAR (SVG, handgezeichnet, animiert, mit Wert-Tooltip) ──────────── */
+/*  WICHTIG (12.09.2026): Gezeichnet wird der strengthScore, nicht der rohe
+    Normwert. Bei den fuenf invers gerichteten Dimensionen (ML, OL, WS, EX, EF)
+    bedeutet ein hoher Rohwert eine SCHWAECHE - das Radar schlug dort nach
+    aussen aus, obwohl die Person genau dort am schwaechsten war, und die
+    Achse trug trotzdem den positiven Namen ("Mentale Klarheit"). Jemand konnte
+    also einen Ausschlag auf "Mentale Klarheit" sehen und dieselbe Dimension
+    direkt darunter unter den Potenzialen wiederfinden. Jetzt gilt auf allen
+    zehn Achsen: weiter aussen = staerker. Das Idealprofil und der Tooltip
+    werden identisch umgerechnet. Rohwerte und Token bleiben unberuehrt. */
 function Radar({ values, ideal }) {
   const c = 170, maxR = 118, n = CORE_SCALES.length;
+  const sv = (k, v) => strengthScore(k, Math.max(0, Math.min(100, v ?? 50)));
   const [active, setActive] = useState(null);
   const angle = (i) => (Math.PI * 2 * i) / n - Math.PI / 2;
   const point = (i, v) => {
     const r = (Math.max(0, Math.min(100, v)) / 100) * maxR;
     return [c + r * Math.cos(angle(i)), c + r * Math.sin(angle(i))];
   };
-  const poly = (obj) => CORE_SCALES.map((k, i) => point(i, obj[k]).join(",")).join(" ");
+  const poly = (obj) => CORE_SCALES.map((k, i) => point(i, sv(k, obj[k])).join(",")).join(" ");
   const rings = [0.25, 0.5, 0.75, 1];
 
   return (
@@ -447,7 +495,7 @@ function Radar({ values, ideal }) {
       <g className="erg-radar-userwrap">
         <polygon className="erg-radar-user" points={poly(values)} />
         {CORE_SCALES.map((k, i) => {
-          const [x, y] = point(i, values[k]);
+          const [x, y] = point(i, sv(k, values[k]));
           return (
             <g key={k} style={{ cursor: "pointer" }}
                onMouseEnter={() => setActive(i)}
@@ -473,11 +521,11 @@ function Radar({ values, ideal }) {
       {/* Wert-Tooltip bei Hover/Tap */}
       {active !== null && (() => {
         const k = CORE_SCALES[active];
-        const [px, py] = point(active, values[k]);
+        const [px, py] = point(active, sv(k, values[k]));
         return (
           <g className="erg-radar-tip" pointerEvents="none">
             <rect x={px - 17} y={py - 35} width="34" height="22" rx="6" />
-            <text x={px} y={py - 23.5} textAnchor="middle" dominantBaseline="middle">{values[k]}</text>
+            <text x={px} y={py - 23.5} textAnchor="middle" dominantBaseline="middle">{sv(k, values[k])}</text>
           </g>
         );
       })()}
@@ -536,6 +584,7 @@ const STYLES = `
 .erg-radar-legend span{display:inline-flex;align-items:center;gap:.4rem;}
 .erg-radar-legend i{width:16px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block;}
 .erg-intro-line{margin-top:calc(1.4rem + 28px);font-weight:600;color:var(--ink);font-size:1.02rem;}
+.erg-intro-sub{margin-top:0;margin-bottom:1rem;font-weight:500;font-size:.95rem;color:var(--soft);line-height:1.6;}
 
 /* Dimensions-Items */
 .erg-dim-group{margin-top:1.2rem;}
@@ -777,8 +826,10 @@ function RecognitionSlider({ archetype }) {
 function DimItem({ dimKey, kind, value }) {
   const [open, setOpen] = useState(false);
   const dim = DIMENSIONS[dimKey];
-  const fill = kind === "s" ? strengthScore(dimKey, value) : 100 - strengthScore(dimKey, value);
-  const text = kind === "s" ? dim.staerke : dim.potenzial;
+  const sc = strengthScore(dimKey, value);
+  const fill = kind === "s" ? sc : 100 - sc;
+  // Ab einem strengthScore von 50 greift die entschaerfte Potenzial-Variante.
+  const text = kind === "s" ? dim.staerke : (sc >= 50 ? dim.potenzialHoch : dim.potenzial);
   return (
     <div className={`erg-dim ${kind}${open ? " open" : ""}`}>
       <button className="erg-dim-head" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
@@ -904,6 +955,16 @@ export default function DeinErgebnis() {
   const ideal = TYPE_PROFILES[data.primaryKey];
   const secMeta = data.secondaryKey ? ARCHETYPES[data.secondaryKey] : null;
   const showMischtyp = !data.isReintyp && secMeta && MISCHTYP[`${data.primaryKey}+${data.secondaryKey}`];
+  /*  Zwei Sonderfaelle beim Staerken-/Potenzialblock (12.09.2026). Beide sind
+      selten: Die Auswahl ist relativ (Top 3 / Bottom 3 des eigenen Profils),
+      die Schwelle 50 ist absolut. Liegen alle drei Potenziale ueber 50, ist der
+      "schwaechste" Bereich objektiv solide - das muss dabeistehen. Liegen alle
+      drei Staerken unter 50, gilt umgekehrt dasselbe. */
+  const allPotentialsHigh = data.potentials.length === 3
+    && data.potentials.every((k) => strengthScore(k, data.values[k]) >= 50);
+  const allStrengthsLow = data.strengths.length === 3
+    && data.strengths.every((k) => strengthScore(k, data.values[k]) < 50);
+
   const dateStr = formatDate(data.date);
   const waHref = `https://wa.me/?text=${encodeURIComponent(SHARE_MSG + "\n\n" + TEST_URL)}`;
   const tgHref = `https://t.me/share/url?url=${encodeURIComponent(TEST_URL)}&text=${encodeURIComponent(SHARE_MSG)}`;
@@ -960,11 +1021,17 @@ export default function DeinErgebnis() {
 
             <div className="erg-dim-group staerken">
               <h3>Deine 3 größten Stärken</h3>
+              {allStrengthsLow && (
+                <p className="erg-intro-line erg-intro-sub">Diese drei stechen in deinem Profil heraus. Fairerweise dazu: Sie liegen noch nicht dort, wo sie dich wirklich tragen könnten.</p>
+              )}
               {data.strengths.map((k) => <DimItem key={k} dimKey={k} kind="s" value={data.values[k]} />)}
             </div>
 
             <div className="erg-dim-group potenziale">
               <h3>Deine 3 größten unausgeschöpften Potenziale</h3>
+              {allPotentialsHigh && (
+                <p className="erg-intro-line erg-intro-sub">Bei dir liegt selbst der schwächste Bereich noch im oberen Mittelfeld. Die folgenden drei sind kein Defizit, sondern deine dünnsten Stellen auf hohem Niveau.</p>
+              )}
               {data.potentials.map((k) => <DimItem key={k} dimKey={k} kind="p" value={data.values[k]} />)}
             </div>
           </div>
@@ -1013,27 +1080,8 @@ export default function DeinErgebnis() {
           <RecognitionSlider archetype={data.primaryKey} />
         </section>
 
-        {/* SCHLUSSBLOCK */}
-        <section className="erg-section erg-reveal erg-outro">
-          <div className="erg-eyebrow">Zum Schluss</div>
-          <h2>Erkennen ist noch nicht Ändern</h2>
-          <div className="erg-card">
-            <p className="erg-outro-lead">Du hast jetzt ein ziemlich vollständiges Bild von dir. Und genau da fängt das eigentliche Problem an: Erkennen fühlt sich schon an wie Verändern. Ist es aber nicht.</p>
-            <p>Woran das liegt und was der Schritt danach wirklich braucht, daran arbeite ich gerade. Du stehst auf der Liste und erfährst es zuerst.</p>
-          </div>
-        </section>
-
-        {/* AUSBLICK - weicht zum Masterclass-Launch dem echten Pitch (⑥ aus dem
-            Textdokument, 27 EUR). Das ist eingeplant, kein Rueckbau. */}
-        <section className="erg-section erg-reveal">
-          <div className="erg-card erg-cta">
-            <div className="erg-eyebrow">Ausblick</div>
-            <h2>Was als Nächstes kommt</h2>
-            <p>Ich baue gerade für jeden Archetyp eine eigene Masterclass. Kein weiterer Input zum Sammeln, sondern genau der Teil, den dieses Ergebnis bewusst offen lässt: der Weg von der Erkenntnis in ein Leben, das sich wirklich anders anfühlt.</p>
-          </div>
-        </section>
-
-        {/* PERSÖNLICHER ABSCHLUSS (das frühere PDF-Vorwort, ans Ende gerueckt) */}
+        {/* PERSÖNLICHER ABSCHLUSS (das frühere PDF-Vorwort) - steht seit dem
+            12.09.2026 VOR dem Ausblick: erst der Mensch, dann das Angebot. */}
         <section className="erg-section erg-reveal">
           <div className="erg-eyebrow">Der Mensch dahinter</div>
           <h2>Noch was Persönliches zum Schluss</h2>
@@ -1041,6 +1089,32 @@ export default function DeinErgebnis() {
             <img className="erg-portrait" src="/images/portrait-round.png" alt="Florian Lingner" onError={(e) => { e.currentTarget.style.display = "none"; }} />
             {VORWORT.map((t, i) => <p key={i}><RichText text={t} /></p>)}
             <div className="erg-signature">Florian</div>
+          </div>
+        </section>
+
+        {/* ABSCHLUSSTEXT "Erkennen ist noch nicht Ändern" - am 12.09.2026
+            AUSGEBLENDET, nicht geloescht. Er kommt zum Masterclass-Launch als
+            Vorlauf vor den 27-EUR-Pitch zurueck. Zum Reaktivieren genuegt es,
+            SHOW_ABSCHLUSSTEXT oben auf true zu setzen. */}
+        {SHOW_ABSCHLUSSTEXT && (
+          <section className="erg-section erg-reveal erg-outro">
+            <div className="erg-eyebrow">Zum Schluss</div>
+            <h2>Erkennen ist noch nicht Ändern</h2>
+            <div className="erg-card">
+              <p className="erg-outro-lead">Du hast jetzt ein ziemlich vollständiges Bild von dir. Und genau da fängt das eigentliche Problem an: Erkennen fühlt sich schon an wie Verändern. Ist es aber nicht.</p>
+              <p>Woran das liegt und was der Schritt danach wirklich braucht, daran arbeite ich gerade. Du stehst auf der Liste und erfährst es zuerst.</p>
+            </div>
+          </section>
+        )}
+
+        {/* AUSBLICK - steht hinter dem persoenlichen Abschluss und weicht zum
+            Masterclass-Launch an genau dieser Stelle dem echten Pitch
+            (⑥ aus dem Textdokument, 27 EUR). Das ist eingeplant, kein Rueckbau. */}
+        <section className="erg-section erg-reveal">
+          <div className="erg-card erg-cta">
+            <div className="erg-eyebrow">Ausblick</div>
+            <h2>Was als Nächstes kommt</h2>
+            <p>Ich baue gerade für jeden Archetyp eine eigene Masterclass. Mein Ziel für diese Masterclasses ist es, dir genau diesen letzten Sprung zu ermöglichen: die Lücke zwischen Wissen und Umsetzung endgültig schließen und somit dein Leben in allen Bereichen auf ein neues Level zu heben. Du stehst auf der Liste und erfährst es zuerst.</p>
           </div>
         </section>
 
