@@ -535,7 +535,7 @@ function Radar({ values, ideal }) {
 
 /* ─── STYLES (scoped unter .erg-root) ──────────────────────────────────── */
 const STYLES = `
-.erg-root{--creme:#F4F1EB;--sand:#D6CBBF;--warmgrau:#AFA79D;--ink:#1C1C1C;--soft:#595854;--orange:#FF4D00;--r-pill:100px;
+.erg-root{--creme:#F4F1EB;--sand:#D6CBBF;--warmgrau:#AFA79D;--ink:#1C1C1C;--soft:#595854;--orange:#FF4D00;--orange-hover:#e64500;--r-pill:100px;
   box-sizing:border-box;background:var(--creme);color:var(--ink);min-height:100vh;
   font-family:'Inter Tight',system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;}
 .erg-root *{box-sizing:border-box;}
@@ -563,6 +563,9 @@ const STYLES = `
 .erg-vorwort{background:linear-gradient(180deg,#fff, #fbf9f5);}
 .erg-portrait{width:144px;height:144px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 1.2rem;box-shadow:0 8px 22px -12px rgba(28,28,28,.4);}
 .erg-signature{font-family:'Caveat',cursive;font-size:1.7rem;color:var(--orange);line-height:1;margin-top:.4rem;}
+.erg-vorwort-link{margin:1.4rem 0 0;font-size:.95rem;}
+.erg-vorwort-link a{color:var(--orange);font-weight:600;text-decoration:underline;text-underline-offset:3px;}
+@media (hover:hover){.erg-vorwort-link a:hover{color:var(--orange-hover);}}
 
 /* Falle */
 .erg-falle{margin-top:16px;background:rgba(255,77,0,.06);border-radius:16px;padding:18px 22px;}
@@ -583,7 +586,9 @@ const STYLES = `
 .erg-radar-legend{display:flex;gap:1.4rem;margin-top:1rem;font-size:.78rem;color:var(--soft);flex-wrap:wrap;justify-content:center;}
 .erg-radar-legend span{display:inline-flex;align-items:center;gap:.4rem;}
 .erg-radar-legend i{width:16px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block;}
-.erg-intro-line{margin-top:calc(1.4rem + 28px);font-weight:600;color:var(--ink);font-size:1.02rem;}
+/* Der Zuschlag stand auf 28px und klebte auf dem Handy sichtbar an der
+   Radar-Legende. 14.09.2026 auf 52px erhoeht. */
+.erg-intro-line{margin-top:calc(1.4rem + 52px);font-weight:600;color:var(--ink);font-size:1.02rem;}
 .erg-intro-sub{margin-top:0;margin-bottom:1rem;font-weight:500;font-size:.95rem;color:var(--soft);line-height:1.6;}
 
 /* Dimensions-Items */
@@ -645,7 +650,16 @@ const STYLES = `
 .erg-dim-ic{flex:0 0 20px;}
 .erg-dim.s .erg-dim-ic{color:var(--orange);}
 .erg-dim.p .erg-dim-ic{color:var(--warmgrau);}
-.erg-dim-chev{margin-left:auto;color:var(--warmgrau);font-size:.8rem;transition:transform .3s ease;flex:0 0 auto;}
+/* Der Pfeil war mit 0.8rem so klein, dass man auf dem Handy nicht erkannt
+   hat, dass sich die Zeile ueberhaupt aufklappen laesst (14.09.2026).
+   Jetzt deutlich groesser, in Orange und in einem sichtbaren Kreis - die
+   Flaeche macht das Element als Bedienelement lesbar. */
+.erg-dim-chev{margin-left:auto;flex:0 0 auto;display:inline-flex;align-items:center;
+  justify-content:center;width:30px;height:30px;border-radius:50%;
+  border:1.5px solid rgba(255,77,0,.35);background:rgba(255,77,0,.08);
+  color:var(--orange);font-size:1.05rem;line-height:1;
+  transition:transform .3s ease,background .2s ease;}
+@media (hover:hover){.erg-dim-head:hover .erg-dim-chev{background:rgba(255,77,0,.16);}}
 .erg-dim.open .erg-dim-chev{transform:rotate(180deg);}
 .erg-dim-body{max-height:0;overflow:hidden;opacity:0;transition:max-height .4s ease,opacity .3s ease;}
 .erg-dim.open .erg-dim-body{max-height:680px;opacity:1;}
@@ -695,8 +709,13 @@ const STYLES = `
 .erg-slider{text-align:center;}
 .erg-slider h2{margin-bottom:.6rem;}
 .erg-slider .lead{max-width:42ch;margin:0 auto 1.6rem;}
-.erg-slider-scale{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;}
-.erg-slider-btn{width:60px;height:60px;border:1.5px solid var(--warmgrau);border-radius:18px;background:transparent;
+/* Stand auf flex-wrap:wrap mit fester Button-Breite - auf schmalen Geraeten
+   rutschte die 5 in die zweite Zeile (14.09.2026). Jetzt teilen sich die
+   fuenf Knoepfe die verfuegbare Breite und bleiben quadratisch, egal wie
+   schmal der Bildschirm ist. */
+.erg-slider-scale{display:flex;gap:clamp(.3rem,2.2vw,.7rem);justify-content:center;
+  flex-wrap:nowrap;width:100%;max-width:352px;margin:0 auto;}
+.erg-slider-btn{flex:1 1 0;min-width:0;max-width:60px;aspect-ratio:1/1;border:1.5px solid var(--warmgrau);border-radius:18px;background:transparent;
   font-family:inherit;font-size:1.2rem;font-weight:800;color:var(--ink);cursor:pointer;
   display:inline-flex;align-items:center;justify-content:center;transition:all .2s ease;}
 @media (hover:hover){.erg-slider-btn:hover:not(.sel){border-color:var(--orange);background:rgba(255,77,0,.07);}}
@@ -710,8 +729,7 @@ const STYLES = `
 .erg-outro-lead{font-weight:700;color:var(--ink) !important;}
 
 @media (max-width:420px){
-  .erg-slider-btn{width:52px;height:52px;font-size:1.05rem;}
-  .erg-slider-scale{gap:.5rem;}
+  .erg-slider-btn{max-width:52px;font-size:1.05rem;}
   .erg-slider-labels{max-width:300px;}
 }
 
@@ -1089,6 +1107,16 @@ export default function DeinErgebnis() {
             <img className="erg-portrait" src="/images/portrait-round.png" alt="Florian Lingner" onError={(e) => { e.currentTarget.style.display = "none"; }} />
             {VORWORT.map((t, i) => <p key={i}><RichText text={t} /></p>)}
             <div className="erg-signature">Florian</div>
+            {/*  Zweiter Ausgang zur Hauptseite. Bewusst ein Textlink, kein Button -
+                ein Button wuerde optisch mit dem Ausblick darunter konkurrieren.
+                target="_blank", damit das Ergebnis offen stehen bleibt: Wer hier
+                klickt, erreicht seine Auswertung sonst nur ueber die Mail wieder.
+                ACHTUNG: Dieser Link muss RAUS, sobald der 27-EUR-Pitch den Ausblick
+                ersetzt - dann ist er ein zweiter Ausstieg direkt vor dem Angebot.
+                Steht so auch im Rueckbau-Block der Wissensgrundlage. */}
+            <p className="erg-vorwort-link">
+              <a href="/philosophie" target="_blank" rel="noopener noreferrer">Mehr zu meiner Story und Philosophie</a>
+            </p>
           </div>
         </section>
 
